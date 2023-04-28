@@ -6,16 +6,17 @@ const userSchema = new mongoose.Schema({
         require: true,
         unique: true
     },
-    password: {
-        type: String,
-        require:true
-    }
 });
 
 const vendorSchema = new mongoose.Schema({
-    account: {
-        type: userSchema,
-        require: true
+    username: {
+        type: String,
+        require: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        require:true
     },
     picture: {
         data: Buffer,
@@ -34,9 +35,14 @@ const vendorSchema = new mongoose.Schema({
 });
 
 const customerSchema = new mongoose.Schema({
-    account: {
-        type: userSchema,
-        require: true
+    username: {
+        type: String,
+        require: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        require:true
     },
     picture: {
         data: Buffer,
@@ -53,9 +59,14 @@ const customerSchema = new mongoose.Schema({
 });
 
 const shipperSchema = new mongoose.Schema({
-    account: {
-        type: userSchema,
-        require: true
+    username: {
+        type: String,
+        require: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        require:true
     },
     picture: {
         data: Buffer,
