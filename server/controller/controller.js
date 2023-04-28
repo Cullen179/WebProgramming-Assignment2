@@ -47,10 +47,14 @@ const addShipper = new user.Shipper({
     hub: 'g',
 });
 
+let userAcc = new user.User({
+    username: 'shipper',
+})
+
 // addShipper.save((err, doc) => {
 //     (err) ? console.log(err) : console.log(doc);
 // });
 
-addShipper.save()
-    .then(() => console.log("create susccessfully"))
-    .catch((err) => console.log(err));
+// addShipper.save()
+//     .then(() => console.log("create susccessfully"))
+//     .catch((err) => console.log(err));
