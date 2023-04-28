@@ -58,8 +58,9 @@ const shipperSchema = new mongoose.Schema({
         require: true
     },
     picture: {
-        data: Buffer,
-        contentType: String
+        // data: Buffer,
+        // contentType: String
+        type: String,
     },
     hub: {
         type: String,
