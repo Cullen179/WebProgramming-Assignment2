@@ -1,60 +1,58 @@
-const user = require('../model/model');
-const shipper = user.Shipper;
+const mongoose = require('mongoose');
+// const Schema = mongoose.Schema;
+const model = require('../model/model');
 
-// exports.createShipper = (req, res) => {
-//     const addShipper = new user.Shipper({
-//         // account: {
-//         //     username: req.body.username,
-//         //     password: req.body.password,
-//         // },
-//         // name: req.body.name,
-//         // picture: req.body.picture,
-//         // hub: req.body.hub,
+function createShipper(username1, name1, hub1) {
+    const user = new model.User({
+        _id: new mongoose.Types.ObjectId(),
+        username: username1,
+        password: '123',
+        role: 'shipper'
+    })
 
-//         account: {
-//             username: a,
-//             password: b,
-//         },
-//         name: c,
-//         picture: d,
-//         hub: e,
-//     });
+    user.save()
+        .then(() => {
+            const shipper = new model.Shipper({
+                account: user._id,
+                name: name1,
+                picture: 'n',
+                hub: hub1,
+            });
+            console.log('create account success')
+            shipper.save()
+                .then(() => console.log('create shipper successfully'))
+                .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
 
-//     // addShipper.save((err, doc) => {
-//     //     (err) ? console.log(err) : console.log(doc);
-//     // });
+}
 
-//     addShipper.save()
-//         .then(() => console.log("create susccessfully"))
-//         .catch((err) => console.log(err));
-// }
+function createCustomer(username1, name1, hub1) {
+    const user = new model.User({
+        _id: new mongoose.Types.ObjectId(),
+        username: username1,
+        password: '123',
+        role: 'customer'
+    })
 
-const addShipper = new user.Shipper({
-    // account: {
-    //     username: req.body.username,
-    //     password: req.body.password,
-    // },
-    // name: req.body.name,
-    // picture: req.body.picture,
-    // hub: req.body.hub,
+    user.save()
+        .then(() => {
+            const customer = new model.Customer({
+                account: user._id,
+                picture: 'n',
+                name: name1,
+                address: 'vn',
+            });
+            console.log('create account success')
+            customer.save()
+                .then(() => console.log('create customer successfully'))
+                .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
 
-    account: {
-        username: '',
-        password: 'c',
-    },
-    name: 'm',
-    picture: 'n',
-    hub: 'g',
-});
+}
 
-let userAcc = new user.User({
-    username: 'shipper',
-})
+// createCustomer('customer_user2', 'Minh')
 
-// addShipper.save((err, doc) => {
-//     (err) ? console.log(err) : console.log(doc);
-// });
+// createShipper('shipper_user2', 'Linh', 'hub1');
 
-// addShipper.save()
-//     .then(() => console.log("create susccessfully"))
-//     .catch((err) => console.log(err));
