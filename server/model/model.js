@@ -6,16 +6,17 @@ const userSchema = new mongoose.Schema({
         require: true,
         unique: true
     },
-    password: {
-        type: String,
-        require:true
-    }
 });
 
 const vendorSchema = new mongoose.Schema({
-    account: {
-        type: userSchema,
-        require: true
+    username: {
+        type: String,
+        require: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        require:true
     },
     picture: {
         data: Buffer,
@@ -34,9 +35,14 @@ const vendorSchema = new mongoose.Schema({
 });
 
 const customerSchema = new mongoose.Schema({
-    account: {
-        type: userSchema,
-        require: true
+    username: {
+        type: String,
+        require: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        require:true
     },
     picture: {
         data: Buffer,
@@ -53,9 +59,14 @@ const customerSchema = new mongoose.Schema({
 });
 
 const shipperSchema = new mongoose.Schema({
-    account: {
-        type: userSchema,
-        require: true
+    username: {
+        type: String,
+        require: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        require:true
     },
     picture: {
         // data: Buffer,
@@ -67,9 +78,23 @@ const shipperSchema = new mongoose.Schema({
     }
 });
 
+const hubSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        require: true,
+        unique: true
+    },
+    address: {
+        type: String,
+        require: true,
+        unique: true
+    }
+})
+
 const User = mongoose.model('User', userSchema);
 const Shipper = mongoose.model('Shipper', shipperSchema);
 const Vendor = mongoose.model('Vendor', vendorSchema);
 const Customer = mongoose.model('Customer', customerSchema);
+const Hub = mongoose.model('Hub', hubSchema);
 
-module.exports = {User, Shipper, Vendor, Customer};
+module.exports = {User, Shipper, Vendor, Customer, Hub};

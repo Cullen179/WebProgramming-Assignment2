@@ -1,43 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<% hubs.forEach((hub) => { %>
+    <h5><%= hub.name %></h5>
+    <p><%= hub.address %></p>
+    <hr>
+<% }) %>
 
-<body>
-    <form action="/api/shipper" method="post">
-        <input type="text" name="username" placeholder="username">
-        <input type="text" name="password" placeholder="password">
-        <input type="text" name="name" placeholder="name">
-        <input type="text" name="picture" placeholder="picture">
-        <input type="text" name="hub" placeholder="hub">
-        <button type="submit">Submit</button>
-    </form>
-</body>
-
-<script>
-    // const axios = require('axios');
-    // import axios from 'axios';
-    // const button = document.querySelector('button');
-    // button.addEventListener('click', () => {
-    //     console.log("test");
-    //     axios.post('/api/shipper', {
-    //         account: {
-    //             username: 'a',
-    //             password: 'b',
-    //         },
-    //         name: 'c',
-    //         picture: 'd',
-    //         hub: 'e',
-    //     })
-    //         .then(res => {
-    //             console.log(res.data);
-    //         })
-    // })
-</script>
-
-</html>
