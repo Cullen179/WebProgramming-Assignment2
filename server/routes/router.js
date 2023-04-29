@@ -11,7 +11,9 @@ route.get('/customer', customerController.getCustomer);
 
 // General routes
 route.get('/', siteService.homeRoute);
-route.get('/login', siteService.login);
-route.get('/registration', siteService.registration);
+route.get('/login', siteService.showLogin);
+route.post('/login/loginintosystem', siteService.login);
+route.get('/registration', siteService.showRegistration);
+route.post('/registration/createaccount', siteService.createAccount);
 
 module.exports = route;

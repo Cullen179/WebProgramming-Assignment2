@@ -15,6 +15,10 @@ const hubs = [
     })
 ]
 
+/**
+ * SiteService acts like site controller, includes
+ * all function handling general routes
+ */
 class SiteService {
     // [GET] "/"
     homeRoute(req, res, next) {
@@ -22,13 +26,23 @@ class SiteService {
     }
 
     // [GET] "/login"
+    showLogin(req, res, next) {
+        res.send('login page');
+    }
+
+    // [POST] "/login"
     login(req, res, next) {
-        res.render('login');
+        res.send('logged in');
     }
 
     // [GET] "/registration"
-    registration(req, res, next) {
+    showRegistration(req, res, next) {
+        res.send('registration page');
+    }
 
+    // [POST] "/registration"
+    createAccount(req, res, next) {
+        res.send('create accoutn');
     }
 }
 
