@@ -15,8 +15,22 @@ const hubs = [
     })
 ]
 
-exports.homeRoute = (req, res) => {
-    res.render('index');
+class SiteService {
+    // [GET] "/"
+    homeRoute(req, res, next) {
+        res.render('index');
+    }
+
+    // [GET] "/login"
+    login(req, res, next) {
+        res.render('login');
+    }
+
+    // [GET] "/registration"
+    registration(req, res, next) {
+
+    }
 }
 
+module.exports = new SiteService();
 
