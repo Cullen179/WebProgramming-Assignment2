@@ -18,6 +18,14 @@ const userSchema = new Schema(
       require: true,
       enum: ['customer', 'vendor', 'shipper'],
     },
+    hash: {
+      type: String,
+      require: true,
+    },
+    salt: {
+      type: String,
+      require: true,
+    },
   },
   { timestamps: true }
 );
