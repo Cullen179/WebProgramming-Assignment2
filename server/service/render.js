@@ -22,12 +22,12 @@ const hubs = [
 class SiteService {
     // [GET] "/"
     homeRoute(req, res, next) {
-        res.render('index');
+        res.redirect('/login');
     }
 
     // [GET] "/login"
     showLogin(req, res, next) {
-        res.send('login page');
+        res.render('login');
     }
 
     // [POST] "/login"
