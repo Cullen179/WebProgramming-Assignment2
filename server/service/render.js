@@ -1,6 +1,5 @@
 const User = require('../model/UserModel');
 const Hub = require("../model/HubModel");
-const validatePassword = require('../../utils/passwordUtils').validatePassword;
 const passport = require('passport');
 
 const hubs = [
@@ -28,7 +27,7 @@ class SiteService {
         if (req.user.role === 'shipper') {
             res.render('shipper-home')
         }
-        
+
         if (req.user.role === 'customer') {
             res.render('customer-home')
         }

@@ -58,8 +58,6 @@ class VendorController {
       })
       .catch((err) => {
         // if err.code === 11000 => Handle duplicate username
-        console.log('error');
-        console.log(error.code);
         next(err);
       });
   }
