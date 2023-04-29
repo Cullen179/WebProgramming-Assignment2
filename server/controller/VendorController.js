@@ -36,9 +36,6 @@ class VendorController {
       .save()
       .then(() => {
         // Create vendor
-        console.log(req.body.username);
-        console.log(req.body.businessname);
-        console.log(req.body.businessaddress);
         const vendor = new Vendor({
           account: user._id,
           picture: 'vendor image link',
