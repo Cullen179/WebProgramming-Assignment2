@@ -9,6 +9,9 @@ const app = express();
 const route = require('./server/routes/router');
 const { json } = require("body-parser");
 
+// Parse request to request.body
+app.use(bodyparser.urlencoded({extended:true}));
+
 app.use(bodyparser.json());
 
 dotenv.config({path: 'config.env'});
@@ -25,8 +28,5 @@ app.set('view engine', 'ejs');
 
 // Render views
 app.use('/', route);
-
-// Parse request to request.body
-app.use(bodyparser.urlencoded({extended:true}));
 
 app.listen(3000, () => {console.log(`Server is running ${PORT}`)})

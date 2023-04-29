@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Cullen179/WebProgramming-Assignment2#readme",
   "dependencies": {
+    "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "dotenv": "^16.0.3",
