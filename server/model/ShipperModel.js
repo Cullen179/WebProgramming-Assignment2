@@ -12,9 +12,8 @@ const shipperSchema = new Schema(
       require: true,
     },
     picture: {
-      // data: Buffer,
-      // contentType: String
-      type: String,
+      data: Buffer,
+      contentType: String
     },
     hub: {
       type: String,
