@@ -26,7 +26,10 @@ route.use((req, res, next) => {
 })
 
 // Home route
-route.get('/', siteService.homeRoute);
+// route.get('/', siteService.homeRoute);
+route.get('/', (req, res) => {
+    res.render('test/test');
+});
 
 // Logout
 route.get('/logout', siteService.logout);
