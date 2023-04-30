@@ -5,9 +5,9 @@ const generatePassword = require('../../utils/passwordUtils').generatePassword;
 const siteService = require('../service/render');
 
 class VendorController {
-  // [GET] "/vendor/:id"
-  getVendor(req, res, next) {
-    // Handle logic get vendor by ID
+  // [GET] "/vendor/profile"
+  showProfile(req, res, next) {
+    res.render('vendor-profile');
   }
 
   // [GET] "/vendor/register"

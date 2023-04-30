@@ -5,9 +5,9 @@ const generatePassword = require('../../utils/passwordUtils').generatePassword;
 const siteService = require('../service/render');
 
 class CustomerController {
-  // [GET] "/customer/:id"
-  getCustomer(req, res, next) {
-    // Handle logic get customer by ID
+  // [GET] "/customer/profile"
+  showProfile(req, res, next) {
+    res.render('customer-profile');
   }
 
   // [GET] "/customer/register"

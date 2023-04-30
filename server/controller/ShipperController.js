@@ -5,9 +5,9 @@ const generatePassword = require('../../utils/passwordUtils').generatePassword;
 const siteService = require('../service/render');
 
 class ShipperController {
-  // [GET] "/shipper/:id"
-  getShipper(req, res, next) {
-    // Handle logic get shipper by ID
+  // [GET] "/shipper/profile"
+  showProfile(req, res, next) {
+    res.render('shipper-profile');
   }
 
   // [GET] "/shipper/register"

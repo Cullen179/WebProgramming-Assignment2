@@ -57,7 +57,7 @@ class SiteService {
                 return next(err);
             }
 
-            res.redirect('/');
+            res.redirect('/login');
         });
     }
 }
