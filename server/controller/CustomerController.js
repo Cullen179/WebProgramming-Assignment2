@@ -7,12 +7,12 @@ const siteService = require('../service/render');
 class CustomerController {
   // [GET] "/customer/profile"
   showProfile(req, res, next) {
-    res.render('customer-profile');
+    res.render('customer/customer-profile');
   }
 
   // [GET] "/customer/register"
   showRegistration(req, res, next) {
-    res.render('customer-register');
+    res.render('customer/customer-register');
   }
 
   // [POST] "/customer"

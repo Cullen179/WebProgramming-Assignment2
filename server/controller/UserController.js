@@ -8,7 +8,6 @@ class UserController {
 
   // [GET] "/user/register"
   showRegistration(req, res, next) {
-    res.render('user-register');
   }
 
   // [POST] "/user/register"

@@ -24,16 +24,16 @@ const hubs = [
 class SiteService {
     // [GET] "/"
     homeRoute(req, res, next) {
-        if (req.user.role === 'shipper') {
-            res.render('shipper-home')
-        }
-
         if (req.user.role === 'customer') {
-            res.render('customer-home')
+            res.render('customer/customer-home')
         }
 
         if (req.user.role === 'vendor') {
-            res.render('vendor-home')
+            res.render('vendor/vendor-home')
+        }
+
+        if (req.user.role === 'shipper') {
+            res.render('shipper/shipper-home');
         }
     }
 

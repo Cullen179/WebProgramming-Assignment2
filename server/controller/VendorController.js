@@ -7,12 +7,12 @@ const siteService = require('../service/render');
 class VendorController {
   // [GET] "/vendor/profile"
   showProfile(req, res, next) {
-    res.render('vendor-profile');
+    res.render('vendor/vendor-profile');
   }
 
   // [GET] "/vendor/register"
   showRegistration(req, res, next) {
-    res.render('vendor-register');
+    res.render('vendor/vendor-register');
   }
 
   // [POST] "/vendor/register"

@@ -7,12 +7,12 @@ const siteService = require('../service/render');
 class ShipperController {
   // [GET] "/shipper/profile"
   showProfile(req, res, next) {
-    res.render('shipper-profile');
+    res.render('shipper/shipper-profile');
   }
 
   // [GET] "/shipper/register"
   showRegistration(req, res, next) {
-    res.render('shipper-register');
+    res.render('shipper/shipper-register');
   }
 
   // [POST] "/shipper/register"
