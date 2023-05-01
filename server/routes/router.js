@@ -1,25 +1,55 @@
 const route = require('express').Router();
-const service = require('../service/render');
-const controller = require('../controller/controller');
-route.get('/', service.homeRoute);
+const customerRoute = require('./customer-router');
+const shipperRoute = require('./shipper-router');
+const vendorRoute = require('./vendor-router');
 
-// route.post('/api/shipper', controller.createShipper)
+const siteService = require('../service/render');
+const shipperController = require('../controller/ShipperController');
+const customerController = require('../controller/CustomerController');
+const vendorController = require('../controller/VendorController');
 
-<<<<<<< Updated upstream
-=======
-// General routes
+const attachAttributesToCurrentUserMiddelWare = require('../middleware/attachAttributesToCurrentUser');
+
+// Route can access before authentication
+route.get('/login', siteService.showLogin);
+route.post('/login', siteService.login);
+route.get('/customer/register', customerController.showRegistration);
+route.post('/customer/register', customerController.createAccount);
+route.get('/vendor/register', vendorController.showRegistration);
+route.post('/vendor/register', vendorController.createAccount);
+route.get('/shipper/register', shipperController.showRegistration);
+route.post('/shipper/register', shipperController.createAccount);
+
+/**
+ * ---------------- Authentication before access all other routes ----------------
+ * */
+route.use((req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect('/login');
+  }
+
+  next();
+});
+
+// Home route
+route.use(attachAttributesToCurrentUserMiddelWare);
 route.get('/', siteService.homeRoute);
 
-route.get('/login', siteService.showLogin);
-route.post('/login', require('../controller/LoginController').login);
-route.get('/shipper', siteService.showShipper)
+// Logout
+route.get('/logout', siteService.logout);
 
-route.post('/login/loginintosystem', siteService.login);
-route.get('/registration', siteService.showRegistration);
-route.post('/registration/createaccount', siteService.createAccount);
+// Customer routes
+route.use('/customer', customerRoute);
 
-// API
-route.get('/api/shipper', require('../controller/ShipperController').getShipper);
+// Shipper routes
+route.use('/vendor', vendorRoute);
 
->>>>>>> Stashed changes
+// Vendor routes
+route.use('/shipper', shipperRoute);
+
+// Handle 404 not found page
+route.use((req, res, next) => {
+  res.render('resource-not-found');
+});
+
 module.exports = route;

@@ -1,35 +1,62 @@
-// TODO: import shipper model, handle route logic
+const mongoose = require('mongoose');
+const User = require('../model/UserModel');
 const Shipper = require('../model/ShipperModel');
+const generatePassword = require('../../utils/passwordUtils').generatePassword;
+const siteService = require('../service/render');
 
 class ShipperController {
-  // [GET] "/shipper/:id"
-  getShipper(req, res, next) {
-    // Handle logic get shipper by ID
-    if(req?.query?.id) {
-      Shipper.findByID(req.query.id)
-        .then(data => {
-          if (data) {
-            res.send(data)
-          } else {
-            console.log("Can't not find user with id: "+ req.query.id)
-          }
-        })
-        .catch(
-          err => console.log(err)
-        )
-    } else {
-      Shipper.find()
-        .then(data => {
-          if (data) res.send(data)
-          else console.log("Can't not retrieve shipper information")
-        })
-    }
-    
+  // [GET] "/shipper/profile"
+  showProfile(req, res, next) {
+    res.render('shipper/shipper-profile');
   }
 
-  // [POST] "/shipper"
-  createShipper(req, res, next) {
-    // Handle logic create shipper
+  // [GET] "/shipper/register"
+  showRegistration(req, res, next) {
+    res.render('shipper/shipper-register');
+  }
+
+  // [POST] "/shipper/register"
+  createAccount(req, res, next) {
+    // Generate salt + hash
+    const username = req.body.username;
+    const password = req.body.password;
+    const { salt, hash } = generatePassword(password);
+
+    // Create user first
+    const user = new User({
+      _id: new mongoose.Types.ObjectId(),
+      username: username,
+      role: 'shipper',
+      hash: hash,
+      salt: salt,
+    });
+
+    // Save user
+    user
+      .save()
+      .then(() => {
+        // Create shipper
+        const shipper = new Shipper({
+          account: user._id,
+          name: 'shipper name',
+          picture: 'shipper image link',
+          hub: 'hub1',
+        });
+
+        // Save shipper
+        shipper
+          .save()
+          .then(() => {
+            siteService.login(req, res, next);
+          })
+          .catch((err) => {
+            next(err);
+          });
+      })
+      .catch((err) => {
+        // if err.code === 11000 => Handle duplicate username
+        next(err);
+      });
   }
 }
 

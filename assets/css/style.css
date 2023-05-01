@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none !important;
+    display: flex;
+    align-items: center;
+}
+
+label {
+    font-weight: bold;
+    color: #A4A4A4;
+}
+
+img {
+    object-fit: cover !important;
+    object-position: left !important;
+}
+
+input {
+    border: none !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid #A4A4A4 !important;
+}
+
+
+
+button {
+    padding: 0.5vw 5vw !important;
+    border-radius: 24px !important;
+    background-color: black;
+    color: white;
+    font-weight: bold !important;
+}
+
+.row {
+    max-width: 100% !important;
+}
+
+.register {
+    max-width: 100% !important;
+}
+
+.register a {
+    margin-left: 0.5vw;
+    padding: 0.7vw 1.3vw !important;
+    border-radius: 24px !important;
+    border: 1px solid #A4A4A4;
+}
+
+.register .icon {
+    margin-right: 6px;
+}
+
+input:focus {
+    outline: none !important;
+}
+
+.form-control {
+    padding-left: 0 !important;
+}
+
+.form-control:focus {
+    box-shadow: none !important;
+}
+
+.container-fluid {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+@media screen and (min-width: 1024px) {
+    .register>div {
+        font-size: 1.2vw;
+        min-width: 20%;
+    }
+    .register a {
+        font-size: 1vw;
+        margin-left: 20px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .register a {
+        font-size: 3vw;
+        margin-top: 20px;
+        padding: 2vw 2vw !important;
+    }
+}

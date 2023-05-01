@@ -1,5 +1,6 @@
-<<<<<<< Updated upstream
-const { Hub } = require("../model/model");
+const User = require('../model/UserModel');
+const Hub = require("../model/HubModel");
+const passport = require('passport');
 
 const hubs = [
     new Hub({
@@ -16,20 +17,24 @@ const hubs = [
     })
 ]
 
-exports.homeRoute = (req, res) => {
-    res.render('index');
-=======
 /**
  * SiteService acts like site controller, includes
  * all function handling general routes
  */
-
-const axios = require('axios');
-
 class SiteService {
     // [GET] "/"
     homeRoute(req, res, next) {
-        res.redirect('/login');
+        if (req.user.role === 'customer') {
+            res.render('customer/customer-home')
+        }
+
+        if (req.user.role === 'vendor') {
+            res.render('vendor/vendor-home', {vendor: req.vendor})
+        }
+
+        if (req.user.role === 'shipper') {
+            res.render('shipper/shipper-home');
+        }
     }
 
     // [GET] "/login"
@@ -37,32 +42,25 @@ class SiteService {
         res.render('login');
     }
 
-    showShipper(req, res) {
-        axios.get('http://localhost:3000//api/shipper', { params: { id: req.query.id } })
-            .then(data => {
-                console.log('axios get information');
-                res.render('shipper', { shipper: data })
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
     // [POST] "/login"
     login(req, res, next) {
-        res.send('logged in');
+        passport.authenticate('local', {
+            failureRedirect: '/login?error=1',
+            successRedirect: '/',
+        })(req, res, next);
     }
 
-    // [GET] "/registration"
-    showRegistration(req, res, next) {
-        res.send('registration page');
-    }
+    // [GET] "/logout"
+    logout(req, res, next) {
+        req.logout(function (err) { // Delete session.passport.user
+            if (err) {
+                return next(err);
+            }
 
-    // [POST] "/registration"
-    createAccount(req, res, next) {
-        res.send('create accoutn');
+            res.redirect('/login');
+        });
     }
->>>>>>> Stashed changes
 }
 
+module.exports = new SiteService();
 

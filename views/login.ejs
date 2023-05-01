@@ -4,15 +4,72 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/custom.scss">
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.css">
     <title>Document</title>
 </head>
 <body>
-    <form action="/login" method="post">
-        <label for="">username</label><br>
-        <input type="text" name="username"><br>
-        <label for="">Password</label><br>
-        <input type="password" name="password"><br>
-        <input type="submit">
-    </form>
+    <!-- Screen view -->
+    <main class="container-fluid vh-100 d-flex justify-content-center align-items-center">
+        <!-- Login body -->
+        <section class="row h-100 border">
+            <!-- Image -->
+            <div class="banner col-lg-6 p-0 mh-100">
+                <img src="/images/banner.jpg" class="w-100 h-100" alt="banner">
+            </div>
+            <!-- Image -->
+            <!-- Login information -->
+            <div class="login-info col-lg-6">
+                <div class="container h-100 mw-100 mh-100 p-lg-5 p-md-4 p-3 d-flex flex-column justify-content-center">
+                    <h1 class="login-title mb-md-5"><strong>Sign in</strong></h1>
+                    <!-- Form -->
+                    <form method="POST" action="/login">
+                        <div class="username mb-md-4 mt-3">
+                            <label for="username" class="form-label"><p>Username</p></label>
+                            <input type="text" class="form-control" name="username" id="username" value="" placeholder="Name...">
+                        </div>
+                        <div class="password mb-md-4 mt-3">
+                            <label for="password" class="form-label"><p>Password</p></label>
+                            <input type="password" class="form-control" name="password" id="password" value="" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                        </div>
+                        <div class="submit mt-md-5 mt-4 d-flex justify-content-start">
+                            <button type="submit">Sign in</button>
+                        </div>
+                        <div class="register mt-md-5 mt-4 mw-100 d-flex flex-md-row justify-content-lg-start align-items-md-center flex-column align-items-start">
+                            <div>
+                                Or register as
+                            </div>
+                            <div class="register-button d-flex justify-content-between">
+                                <a href="/shipper/register">
+                                    <span class="icon material-symbols-outlined">
+                                        person
+                                    </span>
+                                    Customer
+                                </a>
+                                <a href="/customer/register">
+                                    <span class="icon material-symbols-outlined">
+                                        store
+                                    </span>
+                                    Vendor
+                                </a>
+                                <a href="/vendor/register">
+                                    <span class="icon material-symbols-outlined">
+                                        local_shipping
+                                    </span>
+                                    Shipper
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Form -->
+                </div>
+            </div>
+            <!-- Login information -->
+        </section>
+        <!-- Login body -->
+    </main>
+    <!-- Screen view -->
 </body>
 </html>
