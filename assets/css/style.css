@@ -13,8 +13,6 @@ input {
     border: none !important;
     border-radius: 0 !important;
     border-bottom: 1px solid #A4A4A4 !important;
-    padding: none !important;
-    padding-bottom: 12px !important;
 }
 
 button {
@@ -42,4 +40,9 @@ button {
 
 input:focus {
     outline: none !important;
+}
+
+.form-control {
+    padding: none !important;
+    padding-bottom: 12px !important;
 }
