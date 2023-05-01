@@ -14,30 +14,27 @@ label {
 }
 
 img {
-    object-fit: cover !important;
-    object-position: left !important;
+    object-fit: cover;
+    object-position: left;
 }
 
-input {
+.login-input {
     border: none !important;
     border-radius: 0 !important;
     border-bottom: 1px solid #A4A4A4 !important;
+    padding-left: 0 !important;
 }
 
-button {
+.login-input:focus {
+    box-shadow: none !important;
+}
+
+.login-button {
     padding: 0.5vw 5vw !important;
     border-radius: 24px !important;
     background-color: black;
     color: white;
     font-weight: bold !important;
-}
-
-.row {
-    max-width: 100% !important;
-}
-
-.register {
-    max-width: 100% !important;
 }
 
 .register a {
@@ -51,25 +48,13 @@ button {
     margin-right: 6px;
 }
 
-input:focus {
-    outline: none !important;
-}
-
-.form-control {
-    padding-left: 0 !important;
-}
-
-.form-control:focus {
-    box-shadow: none !important;
-}
-
-.container-fluid {
+.screen-view {
     padding-left: 0px !important;
     padding-right: 0px !important;
 }
 
 @media screen and (min-width: 1024px) {
-    .register>div {
+    .register .other {
         font-size: 1.2vw;
         min-width: 20%;
     }
