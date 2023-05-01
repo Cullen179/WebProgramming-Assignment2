@@ -31,12 +31,12 @@ route.use((req, res, next) => {
   next();
 });
 
-// Logout
-route.get('/logout', siteService.logout);
-
 // Home route
 route.use(attachAttributesToCurrentUserMiddelWare);
 route.get('/', siteService.homeRoute);
+
+// Logout
+route.get('/logout', siteService.logout);
 
 // Customer routes
 route.use('/customer', customerRoute);

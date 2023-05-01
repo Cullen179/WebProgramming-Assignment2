@@ -29,7 +29,7 @@ class SiteService {
         }
 
         if (req.user.role === 'vendor') {
-            res.render('vendor/vendor-home')
+            res.render('vendor/vendor-home', {vendor: req.vendor})
         }
 
         if (req.user.role === 'shipper') {
