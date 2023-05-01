@@ -9,13 +9,14 @@ label {
     color: #A4A4A4;
 }
 
-input {
+input[type='text'], input[type='password'], input[type='textarea'] {
     border: none !important;
     border-radius: 0 !important;
     border-bottom: 1px solid #A4A4A4 !important;
     padding: none !important;
-    padding-bottom: 12px !important;
 }
+
+
 
 button {
     padding: 0.5vw 5vw !important;
@@ -42,4 +43,8 @@ button {
 
 input:focus {
     outline: none !important;
+}
+
+h1 {
+    color: red;
 }
