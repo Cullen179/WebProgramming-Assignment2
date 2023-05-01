@@ -6,7 +6,11 @@ class UserController {
     // Handle logic get user by ID
   }
 
-  // [POST] "/user"
+  // [GET] "/user/register"
+  showRegistration(req, res, next) {
+  }
+
+  // [POST] "/user/register"
   creatUser(req, res, next) {
     // Handle logic create user
   }

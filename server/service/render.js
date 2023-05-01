@@ -1,4 +1,6 @@
-const { Hub } = require("../model/model");
+const User = require('../model/UserModel');
+const Hub = require("../model/HubModel");
+const passport = require('passport');
 
 const hubs = [
     new Hub({
@@ -22,27 +24,41 @@ const hubs = [
 class SiteService {
     // [GET] "/"
     homeRoute(req, res, next) {
-        res.render('index');
+        if (req.user.role === 'customer') {
+            res.render('customer/customer-home')
+        }
+
+        if (req.user.role === 'vendor') {
+            res.render('vendor/vendor-home')
+        }
+
+        if (req.user.role === 'shipper') {
+            res.render('shipper/shipper-home');
+        }
     }
 
     // [GET] "/login"
     showLogin(req, res, next) {
-        res.send('login page');
+        res.render('login');
     }
 
     // [POST] "/login"
     login(req, res, next) {
-        res.send('logged in');
+        passport.authenticate('local', {
+            failureRedirect: '/login?error=1',
+            successRedirect: '/',
+        })(req, res, next);
     }
 
-    // [GET] "/registration"
-    showRegistration(req, res, next) {
-        res.send('registration page');
-    }
+    // [GET] "/logout"
+    logout(req, res, next) {
+        req.logout(function (err) { // Delete session.passport.user
+            if (err) {
+                return next(err);
+            }
 
-    // [POST] "/registration"
-    createAccount(req, res, next) {
-        res.send('create accoutn');
+            res.redirect('/login');
+        });
     }
 }
 

@@ -8,9 +8,8 @@ const customerSchema = new Schema(
       ref: 'User',
     },
     picture: {
-      // data: Buffer,
-      // contentType: String
-      type: String,
+      data: Buffer,
+      contentType: String
     },
     name: {
       type: String,

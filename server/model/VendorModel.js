@@ -8,7 +8,7 @@ const vendorSchema = new Schema(
       ref: 'User',
     },
     picture: {
-      data: Buffer,
+      // data: Buffer,
       contentType: String,
     },
     businessName: {
