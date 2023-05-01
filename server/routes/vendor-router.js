@@ -15,5 +15,9 @@ route.use((req, res, next) => {
 
 // Shipper routes after authentication
 route.get('/profile', vendorController.showProfile);
+route.get('/addnewproduct', vendorController.showAddNewProduct);
+route.post('/addnewproduct', vendorController.addNewProduct);
+route.get('/profile/edit', vendorController.showEditProfile);
+route.post('/profile/edit', vendorController.editProfile);
 
 module.exports = route;
