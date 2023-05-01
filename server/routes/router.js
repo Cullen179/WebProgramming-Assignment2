@@ -26,6 +26,7 @@ route.post('/shipper/register', shipperController.createAccount);
 route.use((req, res, next) => {
   if (!req.isAuthenticated()) {
     res.redirect('/login');
+    return;
   }
 
   next();
