@@ -7,7 +7,7 @@ const siteService = require('../service/render');
 class VendorController {
   // [GET] "/vendor/profile"
   showProfile(req, res, next) {
-    res.render('vendor/vendor-profile', {vendor: req.vendor});
+    res.render('vendor/vendor-profile', { vendor: req.vendor });
   }
 
   // [GET] "/vendor/register"
@@ -57,6 +57,11 @@ class VendorController {
         // if err.code === 11000 => Handle duplicate username
         next(err);
       });
+  }
+
+  // [GET] "/vendor/addnewproduct"
+  showAddNewProduct(req, res, next) {
+    res.render('vendor/vendor-add-new-product');
   }
 }
 

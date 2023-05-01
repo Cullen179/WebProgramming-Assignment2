@@ -125,7 +125,7 @@ function isNumber(c) {
   return '0' <= c && c <= '9';
 }
 
-module.exports = {
+export {
   validator,
   isValidUserName,
   isValidPassword,
