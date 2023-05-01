@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const slug = require('mongoose-slug-updater');
 
 const productSchema = new Schema(
   {
@@ -17,13 +18,14 @@ const productSchema = new Schema(
       maxLength: [20, "Product's name must less than or equal 20 characters"],
       require: true,
     },
+    slug: { type: String, slug: 'name', unique: true },
     quantity: {
       type: Number,
       min: [0, "Product's quantity must greater than zero"],
       required: true,
       validate: {
         validator: Number.isInteger,
-        message: 'Product\'s quantity must be an integer',
+        message: "Product's quantity must be an integer",
       },
     },
     price: {
@@ -44,6 +46,10 @@ const productSchema = new Schema(
   },
   { timestamps: true }
 );
+
+
+// Plugins
+mongoose.plugin(slug);
 
 const Product = mongoose.model('Product', productSchema);
 
