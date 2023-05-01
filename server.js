@@ -21,6 +21,8 @@ const { json } = require('body-parser');
 app.use('/css', express.static(path.resolve(__dirname, "assets/css")));
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
 app.use('/images', express.static(path.resolve(__dirname, "assets/images")));
+app.use('/bootstrap', express.static(path.resolve(__dirname, "node_modules/bootstrap")));
+
 
 app.use(bodyparser.json());
 // Parse request to request.body
@@ -68,6 +70,7 @@ app.use(passport.session());
 app.use((req, res, next) => {
   console.log(req.session);
   console.log(req.user);
+  console.log(req.shipper);
   next();
 });
 
