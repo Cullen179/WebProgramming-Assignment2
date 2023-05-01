@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 a {
     text-decoration: none !important;
     display: flex;
@@ -7,6 +11,11 @@ a {
 label {
     font-weight: bold;
     color: #A4A4A4;
+}
+
+img {
+    object-fit: cover !important;
+    object-position: left !important;
 }
 
 input {
@@ -33,9 +42,13 @@ button {
 
 .register a {
     margin-left: 0.5vw;
-    padding: 0.5vw 0.5vw !important;
+    padding: 0.7vw 1.3vw !important;
     border-radius: 24px !important;
     border: 1px solid #A4A4A4;
+}
+
+.register .icon {
+    margin-right: 6px;
 }
 
 input:focus {
@@ -43,6 +56,35 @@ input:focus {
 }
 
 .form-control {
-    padding: none !important;
-    padding-bottom: 12px !important;
+    padding-left: 0 !important;
 }
+
+.form-control:focus {
+    box-shadow: none !important;
+}
+
+.container-fluid {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+@media screen and (min-width: 1024px) {
+    .register>div {
+        font-size: 1.2vw;
+        min-width: 20%;
+    }
+    .register a {
+        font-size: 1vw;
+        margin-left: 20px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .register a {
+        font-size: 3vw;
+        margin-top: 20px;
+        padding: 2vw 2vw !important;
+    }
+}
+    
+    
