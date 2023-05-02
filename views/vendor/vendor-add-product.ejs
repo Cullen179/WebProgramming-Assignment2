@@ -1,0 +1,29 @@
+<h1>Create new product</h1>
+<form action="/product/add" method="POST" enctype="multipart/form-data">
+  <label for="productname">name</label>
+  <input type="text" name="productname" id="productname" value="product name test 1">
+  <br>
+  <br>
+
+  <label for="productprice" required>price</label>
+  <input type="text" name="productprice" id="productprice" value="12312">
+  <br>
+  <br>
+
+  <label for="productquantity">quantity</label>
+  <input type="number" name="productquantity" id="productquantity" value="23">
+  <br>
+  <br>
+
+  <label for="productdescription">description</label>
+  <input type="text" name="productdescription" id="productdescription" value="product name test 12341321">
+  <br>
+  <br>
+
+  <label for="productpicture">picture</label>
+  <input type="file" id="productpicture" name="productpicture">
+  <br>
+  <br>
+
+  <button type="submit">Add new</button>
+</form>

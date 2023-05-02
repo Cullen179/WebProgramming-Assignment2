@@ -1,7 +1,41 @@
 <h1>Home vendor</h1>
 <br />
+
+<% for (let product of products)  {%>
+    <p> 
+        OwnershipId: <b><%=product.ownership%></b>
+        <br/>
+        <br/>
+
+        Name: <b><%=product.name%></b>
+        <br/>
+        <br/>
+
+        Price: <%=product.price%>
+        <br/>
+        <br/>
+
+        Quantity: <%=product.quantity%>
+        <br/>
+        <br/>
+
+        Description: <%=product.description%>
+        <br/>
+        <br/>
+
+        Picture: <img src="<%=product.imgSrc%>" alt="Product picture">
+        <br/>
+        <br/>
+
+        <a href="/product/<%=product._id%>/edit">Edit</a>
+    </p>
+    <hr>
+<% } %>
+
+
+
 <a href="/logout">Logout</a>
 <br />
 <a href="/vendor/profile">Profile</a>
 <br />
-<a href="/vendor/addnewproduct">Add new product</a>
+<a href="/product/add">Add new product</a>

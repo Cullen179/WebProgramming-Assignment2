@@ -1,0 +1,55 @@
+<h1>Update product information</h1>
+<form method="POST" enctype="multipart/form-data">
+  <label for="productname">name</label>
+  <input
+    type="text"
+    name="productname"
+    id="productname"
+    value="<%=product.name%>"
+  />
+  <br />
+  <br />
+
+  <label for="productprice">price</label>
+  <input
+    type="text"
+    name="productprice"
+    id="productprice"
+    value="<%=product.price%>"
+  />
+  <br />
+  <br />
+
+  <label for="productquantity">quantity</label>
+  <input
+    type="number"
+    name="productquantity"
+    id="productquantity"
+    value="<%=product.quantity%>"
+  />
+  <br />
+  <br />
+
+  <label for="productdescription">description</label>
+  <input
+    type="text"
+    name="productdescription"
+    id="productdescription"
+    value="<%=product.description%>"
+  />
+  <br />
+  <br />
+
+  <label for="productpicture">Current picture</label>
+  <img src="<%=product.imgSrc%>" alt="Product picture" />
+  <br />
+  <br />
+
+  <label for="productpicture">Change picture</label>
+  <input type="file" id="productpicture" name="productpicture" />
+  <br />
+  <br />
+
+  <button type="submit" formaction="/product/<%=product.id%>?_method=DELETE">DELETE</button>
+  <button type="submit" formaction="/product/<%=product.id%>/edit?_method=PUT">Update</button>
+</form>
