@@ -35,8 +35,8 @@ class VendorController {
         const vendor = new Vendor({
           account: user._id,
           picture: 'vendor image link',
-          businessName: req.body.businessname,
-          businessAddress: req.body.businessaddress,
+          businessName: req.body.businessName,
+          businessAddress: req.body.businessAddress,
         });
 
         // Save vendor
