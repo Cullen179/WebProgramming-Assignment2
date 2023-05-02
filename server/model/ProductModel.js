@@ -11,10 +11,7 @@ const productSchema = new Schema(
     },
     name: {
       type: String,
-      minLength: [
-        10,
-        "Product's name must greater than or equal 10 characters",
-      ],
+      minLength: [10, "Product's name must greater than or equal 10 characters"],
       maxLength: [20, "Product's name must less than or equal 20 characters"],
       require: true,
     },

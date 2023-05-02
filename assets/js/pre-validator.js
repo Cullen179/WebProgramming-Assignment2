@@ -30,14 +30,13 @@ function validator(options) {
 
   // Bussiness name validator
   if (options?.businessAdress) {
-    if (!isValidBusinessAddress(options.businessAdress))
-      return ERRORS.businessAddress;
+    if (!isValidBusinessAddress(options.businessAdress)) return ERRORS.businessAddress;
   }
 
   return 'valid';
 }
 
-function isValidUserName(username) {
+export function isValidUserName(username) {
   // 8 - 15 characters
   if (!(8 <= username.length && username.length <= 15)) return false;
 
@@ -125,10 +124,4 @@ function isNumber(c) {
   return '0' <= c && c <= '9';
 }
 
-export {
-  validator,
-  isValidUserName,
-  isValidPassword,
-  isValidBusinessName,
-  isValidBusinessAddress,
-};
+export { validator, isValidUserName, isValidPassword, isValidBusinessName, isValidBusinessAddress };
