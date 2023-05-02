@@ -20,13 +20,6 @@ img {
   object-position: left;
 }
 
-// Globally-used classes
-
-.screen-view {
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-}
-
 // Login and Register Page
 
 .login-input {
@@ -38,6 +31,8 @@ img {
 
 .login-input:focus {
   box-shadow: none !important;
+  outline: none !important;
+  border-color: none !important;
 }
 
 .login-button {
@@ -77,3 +72,5 @@ img {
     padding: 2vw 2vw !important;
   }
 }
+
+// Vendor Page 
