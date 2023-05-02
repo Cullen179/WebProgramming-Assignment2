@@ -1,19 +1,64 @@
-<h1>Login Page</h1>
-<form method="POST" action="/login">
-  Enter Username:
-  <br />
-  <input type="text" name="username" />
-  <br />
-  Enter Password:
-  <br />
-  <input type="password" name="password" />
-  <br />
-  <br />
-  <input type="submit" value="Submit" />
-  <br />
-  <a href="/shipper/register">Register as shipper</a>
-  <br />
-  <a href="/customer/register">Register as customer</a>
-  <br />
-  <a href="/vendor/register">Register as vendor</a>
-</form>
+<%- include ("./partials/head.ejs") %>
+<body>
+    <!-- Screen view -->
+    <main class="screen-view container-fluid vh-100 d-flex justify-content-center align-items-center">
+        <!-- Login body -->
+        <section class="row mw-100 h-100">
+            <!-- Image -->
+            <div class="banner col-lg-6 p-0 mh-100">
+                <img src="./images/login-banner.jpg" class="w-100 h-100" alt="banner">
+            </div>
+            <!-- Image -->
+            <!-- Login information -->
+            <div class="login-info col-lg-6">
+                <div class="container h-100 mw-100 mh-100 p-lg-5 p-md-4 p-3 d-flex flex-column justify-content-center">
+                    <h1 class="login-title mb-md-5"><strong>Sign in</strong></h1>
+                    <!-- Form -->
+                    <form method="POST" action="/login">
+                        <div class="username mb-md-4 mt-3">
+                            <label for="username" class="form-label"><p>Username</p></label>
+                            <input type="text" class="login-input form-control" name="username" id="username" value="" placeholder="Name...">
+                        </div>
+                        <div class="password mb-md-4 mt-3">
+                            <label for="password" class="form-label"><p>Password</p></label>
+                            <input type="password" class="login-input form-control" name="password" id="password" value="" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                        </div>
+                        <div class="submit mt-md-5 mt-4 d-flex justify-content-start">
+                            <button type="submit" class="login-button">Sign in</button>
+                        </div>
+                        <div class="register mt-md-5 mt-4 mw-100 d-flex flex-md-row justify-content-lg-start align-items-md-center flex-column align-items-start">
+                            <div class="other">
+                                Or register as
+                            </div>
+                            <div class="register-button d-flex justify-content-between">
+                                <a href="/shipper/register">
+                                    <span class="icon material-symbols-outlined">
+                                        person
+                                    </span>
+                                    Customer
+                                </a>
+                                <a href="/customer/register">
+                                    <span class="icon material-symbols-outlined">
+                                        store
+                                    </span>
+                                    Vendor
+                                </a>
+                                <a href="/vendor/register">
+                                    <span class="icon material-symbols-outlined">
+                                        local_shipping
+                                    </span>
+                                    Shipper
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Form -->
+                </div>
+            </div>
+            <!-- Login information -->
+        </section>
+        <!-- Login body -->
+    </main>
+    <!-- Screen view -->
+</body>
+</html>

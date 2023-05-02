@@ -37,7 +37,7 @@ function validator(options) {
   return 'valid';
 }
 
-function isValidUserName(username) {
+export function isValidUserName(username) {
   // 8 - 15 characters
   if (!(8 <= username.length && username.length <= 15)) return false;
 
