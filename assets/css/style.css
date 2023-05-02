@@ -18,20 +18,10 @@ img {
     object-position: left !important;
 }
 
-input {
+input[type='text'], input[type='password'], input[type='textarea'] {
     border: none !important;
     border-radius: 0 !important;
     border-bottom: 1px solid #A4A4A4 !important;
-}
-
-
-
-button {
-    padding: 0.5vw 5vw !important;
-    border-radius: 24px !important;
-    background-color: black;
-    color: white;
-    font-weight: bold !important;
 }
 
 .row {
