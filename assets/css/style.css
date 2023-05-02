@@ -1,3 +1,5 @@
+// override default html tags
+
 * {
     box-sizing: border-box;
 }
@@ -18,6 +20,15 @@ img {
     object-position: left;
 }
 
+// Globally-used classes
+
+.screen-view {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+// Login and Register Page
+
 .login-input {
     border: none !important;
     border-radius: 0 !important;
@@ -28,8 +39,6 @@ img {
 .login-input:focus {
     box-shadow: none !important;
 }
-
-
 
 .login-button {
     padding: 0.5vw 5vw !important;
@@ -48,11 +57,6 @@ img {
 
 .register .icon {
     margin-right: 6px;
-}
-
-.screen-view {
-    padding-left: 0px !important;
-    padding-right: 0px !important;
 }
 
 @media screen and (min-width: 1024px) {
