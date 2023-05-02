@@ -22,11 +22,12 @@ img {
 
 /* Universal */
 
-.page-background {
-  background-color: #EFF0F4;
-}
 .indent {
-  margin: 0 10vw;
+  padding: 0 8vw;
+}
+
+body {
+  background-color: #EFF0F4;
 }
 
 /* Login and Register Page */
@@ -85,5 +86,5 @@ img {
 /* Vendor Page  */
 
 .add-product-form {
-  min-width: 50%;
+  min-width: 80%;
 }

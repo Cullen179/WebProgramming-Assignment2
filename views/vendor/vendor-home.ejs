@@ -2,16 +2,16 @@
 <%- include ("../partials/header.ejs") %>
 <body>
     <!-- Main content -->
-    <main class="page-background indent container-fluid w-100 vh-100 pb-5 d-flex flex-md-row flex-column align-items-md-start justify-content-md-around pt-5">
+    <main class="row w-100 m-0 indent d-flex flex-md-row flex-column align-items-md-start justify-content-md-between mt-5">
         <!-- Mini vertical nav -->
-        <section class="vertical-nav nav mb-md-0 mb-3 flex-column bg-white d-flex flex-column justify-content-center">
-            <a class="nav-link text-black border px-lg-5 px-md-4 p-3 d-flex justify-content-center" href="#">
+        <section class="vertical-nav col-lg-2 col-md-12 nav mb-lg-0 mb-5 flex-column bg-white d-flex flex-column justify-content-center shadow">
+            <a class="nav-link text-black py-3 mw-100 d-flex justify-content-start" href="#">
                 <span class="material-symbols-outlined">
                     home
                 </span>
                 <div class="ms-3"><strong>Dashboard</strong></div>
             </a>
-            <a class="nav-link text-black border px-lg-5 px-md-4 p-3 d-flex justify-content-center" href="#">
+            <a class="nav-link text-black py-3 mw-100 d-flex justify-content-start" href="#">
                 <span class="material-symbols-outlined">
                     format_list_bulleted
                 </span>
@@ -20,7 +20,7 @@
         </section>
         <!-- Mini vertical nav -->
         <!-- Add product form -->
-        <section class="add-product-form bg-white p-lg-4 p-md-4 p-3 d-flex flex-column justify-content-center">
+        <section class="add-product-form col-lg-9 col-md-12 bg-white p-lg-4 p-md-4 p-3 d-flex flex-column justify-content-center shadow">
             <h1><strong>Add new product</strong></h1>
             <form action="/vendor/addnewproduct" method="POST">
                 <div class="product-image mb-md-4 mt-3">
