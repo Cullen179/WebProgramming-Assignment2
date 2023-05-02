@@ -124,3 +124,11 @@ function isLetter(c) {
 function isNumber(c) {
   return '0' <= c && c <= '9';
 }
+
+export {
+  validator,
+  isValidUserName,
+  isValidPassword,
+  isValidBusinessName,
+  isValidBusinessAddress,
+};

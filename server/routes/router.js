@@ -8,7 +8,7 @@ const shipperController = require('../controller/ShipperController');
 const customerController = require('../controller/CustomerController');
 const vendorController = require('../controller/VendorController');
 
-const attachAttributesToCurrentUserMiddelWare = require('../middleware/attachAttributesToCurrentUser');
+const attachAttributesToCurrentUserMiddleWare = require('../middleware/attachAttributesToCurrentUser');
 
 // Route can access before authentication
 route.get('/login', siteService.showLogin);
@@ -26,13 +26,14 @@ route.post('/shipper/register', shipperController.createAccount);
 route.use((req, res, next) => {
   if (!req.isAuthenticated()) {
     res.redirect('/login');
+    return;
   }
 
   next();
 });
 
 // Home route
-route.use(attachAttributesToCurrentUserMiddelWare);
+route.use(attachAttributesToCurrentUserMiddleWare);
 route.get('/', siteService.homeRoute);
 
 // Logout
