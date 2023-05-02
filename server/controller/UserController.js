@@ -7,8 +7,7 @@ class UserController {
   }
 
   // [GET] "/user/register"
-  showRegistration(req, res, next) {
-  }
+  showRegistration(req, res, next) {}
 
   // [POST] "/user/register"
   creatUser(req, res, next) {

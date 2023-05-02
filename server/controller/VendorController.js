@@ -79,9 +79,9 @@ class VendorController {
         if (!vendor) {
           return;
         }
-        
+
         // Update vendor in database
-        vendor.businessName =   businessName;
+        vendor.businessName = businessName;
         vendor.businessAddress = businessAddress;
         // vendor.picture = picture;
 

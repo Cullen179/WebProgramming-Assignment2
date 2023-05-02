@@ -53,7 +53,7 @@ function attachAttributesToCurrentUserMiddelWare(req, res, next) {
         req.shipper.name = shipper.name;
         req.shipper.picture = shipper.picture;
         req.shipper.hub = shipper.hub;
-        
+
         next();
       })
       .catch((err) => next(err));

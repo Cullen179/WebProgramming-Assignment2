@@ -9,7 +9,7 @@ const customerSchema = new Schema(
     },
     picture: {
       data: Buffer,
-      contentType: String
+      contentType: String,
     },
     name: {
       type: String,
