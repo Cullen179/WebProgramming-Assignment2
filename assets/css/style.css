@@ -1,4 +1,4 @@
-// override default html tags
+/* override default html tags */
 
 * {
   box-sizing: border-box;
@@ -20,22 +20,31 @@ img {
   object-position: left;
 }
 
-// Login and Register Page
+/* Universal */
 
-.login-input {
+.page-background {
+  background-color: #EFF0F4;
+}
+.indent {
+  margin: 0 10vw;
+}
+
+/* Login and Register Page */
+
+.custom-form-input {
   border: none !important;
   border-radius: 0 !important;
   border-bottom: 1px solid #a4a4a4 !important;
   padding-left: 0 !important;
 }
 
-.login-input:focus {
+.custom-form-input:focus {
   box-shadow: none !important;
   outline: none !important;
   border-color: none !important;
 }
 
-.login-button {
+.custom-form-button {
   padding: 0.5vw 5vw !important;
   border-radius: 24px !important;
   background-color: black;
@@ -73,4 +82,8 @@ img {
   }
 }
 
-// Vendor Page 
+/* Vendor Page  */
+
+.add-product-form {
+  min-width: 50%;
+}
