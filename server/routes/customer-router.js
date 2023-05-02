@@ -8,6 +8,7 @@ const customerController = require('../controller/CustomerController');
 route.use((req, res, next) => {
   if (req.user.role !== 'customer') {
     res.render('resource-access-unauthorized');
+    return;
   } else {
     next();
   }

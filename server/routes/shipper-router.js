@@ -8,6 +8,7 @@ const shipperController = require('../controller/ShipperController');
 route.use((req, res, next) => {
   if (req.user.role !== 'shipper') {
     res.render('resource-access-unauthorized');
+    return;
   } else {
     next();
   }

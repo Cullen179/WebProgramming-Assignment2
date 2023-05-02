@@ -21,22 +21,29 @@ const productSchema = new Schema(
     slug: { type: String, slug: 'name', unique: true },
     quantity: {
       type: Number,
-      min: [0, "Product's quantity must greater than zero"],
+      min: [0, "Product's quantity must be a non negative an integer"],
       required: true,
       validate: {
-        validator: Number.isInteger,
-        message: "Product's quantity must be an integer",
+        validator: (value) => {
+          return Number.isInteger(value);
+        },
+        message: "Product's quantity must be a non negative an integer",
       },
     },
     price: {
       type: Number,
-      min: [0.0000001, "Product's price must be a positive number"],
+      min: [0.0001, "Product's price must be a positive number"],
       require: true,
+      validate: {
+        validator: (value) => {
+          return isNumber(value);
+        },
+        message: "Product's price must be a positive number",
+      },
     },
     picture: {
-      // data: Buffer,
-      // contentType: String,
-      // require: true,
+      data: Buffer,
+      contentType: String,
     },
     description: {
       type: String,
@@ -47,6 +54,9 @@ const productSchema = new Schema(
   { timestamps: true }
 );
 
+function isNumber(value) {
+  return typeof value === 'number' && isFinite(value);
+}
 
 // Plugins
 mongoose.plugin(slug);

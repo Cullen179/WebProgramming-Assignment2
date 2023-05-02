@@ -4,6 +4,10 @@ const Vendor = require('../model/VendorModel');
 const Product = require('../model/ProductModel');
 const generatePassword = require('../../utils/passwordUtils').generatePassword;
 const siteService = require('../service/render');
+const {
+  getImgSrc,
+  getPictureObject,
+} = require('../../utils/imgTransformation');
 
 class VendorController {
   // [GET] "/vendor/register"
@@ -62,72 +66,45 @@ class VendorController {
 
   // [GET] "/vendor/profile/edit"
   showEditProfile(req, res, next) {
-    res.render('vendor/vendor-profile-edit');
-  }
-
-  // [POST] "vendor/profile/edit"
-  editProfile(req, res, next) {
     const curVendor = req.vendor;
-    const businessName = req.businessname;
-    const businessAddress = req.businessaddress;
-    // const picture = '';
 
     Vendor.findOne({ _id: curVendor._id })
       .then((vendor) => {
-        // Can not find the vendor inside database
-        // Nearly not happen
-        if (!vendor) {
-          return;
+        const imgSrc = getImgSrc(vendor.picture);
+        if (imgSrc) {
+          vendor.imgSrc = imgSrc;
         }
-        
-        // Update vendor in database
-        vendor.businessName =   businessName;
-        vendor.businessAddress = businessAddress;
-        // vendor.picture = picture;
 
-        vendor
-          .save()
-          .then(() => {
-            // After save done go back to home
-            res.redirect('/');
-          })
-          .catch((err) => next(err));
+        res.render('vendor/vendor-edit-profile', { vendor: vendor });
       })
-      .catch((err) => next(err));
+      .catch((err) => {
+        next(err);
+      });
   }
 
-  // [GET] "/vendor/addnewproduct"
-  showAddNewProduct(req, res, next) {
-    res.render('vendor/vendor-add-new-product');
-  }
-
-  // [POST] "/vendor/addnewproduct"
-  addNewProduct(req, res, next) {
+  // [PUT] "vendor/profile/edit"
+  editProfile(req, res, next) {
     const curVendor = req.vendor;
-    const productName = req.body.productname;
-    const productPrice = req.body.productprice;
-    const productDescription = req.body.productdescription;
-    const productQuantity = req.body.productquantity;
-    // const productImage = req.body.productimage;
+    const pictureObject = getPictureObject(req, res, next);
 
-    // Create and save product
-    const product = new Product({
-      _id: new mongoose.Types.ObjectId(),
-      ownership: curVendor._id,
-      name: productName,
-      price: productPrice,
-      quantity: productQuantity,
-      description: productDescription,
-      // image: "",
-    });
+    const vendorData = {
+      businessName: req.body.businessname,
+      businessAddress: req.body.businessaddress,
+    };
+    if (pictureObject) {
+      vendorData.picture = pictureObject;
+    }
 
-    product
-      .save()
+    Vendor.updateOne({ _id: curVendor._id }, vendorData)
       .then(() => {
-        // After save go back home
-        res.redirect('/');
+        res.redirect('/vendor/profile');
       })
       .catch((err) => next(err));
+  }
+
+  // [DELETE] "vendor/profile"
+  deleteAccount(req, res, next) {
+    // TODO: logout then Delete vendor + user account
   }
 }
 

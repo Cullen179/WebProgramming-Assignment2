@@ -1,5 +1,8 @@
 const route = require('express').Router();
 const vendorController = require('../controller/VendorController');
+const {
+  handleFileUploadMiddleware,
+} = require('../middleware/handleFileUpload');
 
 /**
  * Authenticate role
@@ -8,6 +11,7 @@ const vendorController = require('../controller/VendorController');
 route.use((req, res, next) => {
   if (req.user.role !== 'vendor') {
     res.render('resource-access-unauthorized');
+    return;
   } else {
     next();
   }
@@ -15,9 +19,12 @@ route.use((req, res, next) => {
 
 // Shipper routes after authentication
 route.get('/profile', vendorController.showProfile);
-route.get('/addnewproduct', vendorController.showAddNewProduct);
-route.post('/addnewproduct', vendorController.addNewProduct);
 route.get('/profile/edit', vendorController.showEditProfile);
-route.post('/profile/edit', vendorController.editProfile);
+route.put(
+  '/profile/edit',
+  handleFileUploadMiddleware.single('picture'),
+  vendorController.editProfile
+);
+route.delete('/profile', vendorController.deleteAccount);
 
 module.exports = route;
