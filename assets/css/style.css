@@ -30,6 +30,16 @@ body {
   background-color: #EFF0F4;
 }
 
+/* Adding to bootstrap */
+
+.nav-link {
+  transition: 0.5s;
+}
+
+.nav-link:hover {
+  opacity: 0.5;
+}
+
 /* Login and Register Page */
 
 .custom-form-input {
@@ -51,6 +61,11 @@ body {
   background-color: black;
   color: white;
   font-weight: bold !important;
+  transition: 0.5s;
+}
+
+.custom-form-button:hover {
+  opacity: 0.5;
 }
 
 .register a {
@@ -58,10 +73,16 @@ body {
   padding: 0.7vw 1.3vw !important;
   border-radius: 24px !important;
   border: 1px solid #a4a4a4;
+  transition: 0.5s;
 }
 
 .register .icon {
   margin-right: 6px;
+}
+
+.register a:hover {
+  background-color: blue;
+  color: white;
 }
 
 @media screen and (min-width: 1024px) {

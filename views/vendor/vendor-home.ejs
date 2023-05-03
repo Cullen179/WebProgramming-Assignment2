@@ -9,18 +9,18 @@
                 <span class="material-symbols-outlined">
                     home
                 </span>
-                <div class="ms-3"><strong>Dashboard</strong></div>
+                <div class="ms-2"><strong>Dashboard</strong></div>
             </a>
             <a class="nav-link text-black py-3 mw-100 d-flex justify-content-start" href="#">
                 <span class="material-symbols-outlined">
                     format_list_bulleted
                 </span>
-                <div class="ms-3"><strong>Products</strong></div>
+                <div class="ms-2"><strong>Products</strong></div>
             </a>
         </section>
         <!-- Mini vertical nav -->
         <!-- Add product form -->
-        <section class="add-product-form col-lg-9 col-md-12 bg-white p-lg-4 p-md-4 p-3 d-flex flex-column justify-content-center shadow">
+        <section class="add-product-form col-lg-9 col-md-12 bg-white p-lg-4 p-md-4 p-3 d-flex flex-column justify-content-center rounded-4 shadow">
             <h1><strong>Add new product</strong></h1>
             <form action="/vendor/addnewproduct" method="POST">
                 <div class="product-image mb-md-4 mt-3">
@@ -49,5 +49,6 @@
         <!-- Add product form -->
     </main>
     <!-- Main content -->
+    <%- include ('../partials/footer.ejs') %>
 </body>
 </html>
