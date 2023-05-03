@@ -1,4 +1,4 @@
-// override default html tags
+/* override default html tags */
 
 * {
   box-sizing: border-box;
@@ -20,32 +20,52 @@ img {
   object-position: left;
 }
 
-// Globally-used classes
+/* Universal */
 
-.screen-view {
-  padding-left: 0px !important;
-  padding-right: 0px !important;
+.indent {
+  padding: 0 8vw;
 }
 
-// Login and Register Page
+body {
+  background-color: #eff0f4;
+}
 
-.login-input {
+/* Adding to bootstrap */
+
+.nav-link {
+  transition: 0.5s;
+}
+
+.nav-link:hover {
+  opacity: 0.5;
+}
+
+/* Login and Register Page */
+
+.custom-form-input {
   border: none !important;
   border-radius: 0 !important;
   border-bottom: 1px solid #a4a4a4 !important;
   padding-left: 0 !important;
 }
 
-.login-input:focus {
+.custom-form-input:focus {
   box-shadow: none !important;
+  outline: none !important;
+  border-color: none !important;
 }
 
-.login-button {
+.custom-form-button {
   padding: 0.5vw 5vw !important;
   border-radius: 24px !important;
   background-color: black;
   color: white;
   font-weight: bold !important;
+  transition: 0.5s;
+}
+
+.custom-form-button:hover {
+  opacity: 0.5;
 }
 
 .register a {
@@ -53,10 +73,16 @@ img {
   padding: 0.7vw 1.3vw !important;
   border-radius: 24px !important;
   border: 1px solid #a4a4a4;
+  transition: 0.5s;
 }
 
 .register .icon {
   margin-right: 6px;
+}
+
+.register a:hover {
+  background-color: blue;
+  color: white;
 }
 
 @media screen and (min-width: 1024px) {
@@ -76,4 +102,10 @@ img {
     margin-top: 20px;
     padding: 2vw 2vw !important;
   }
+}
+
+/* Vendor Page  */
+
+.add-product-form {
+  min-width: 80%;
 }
