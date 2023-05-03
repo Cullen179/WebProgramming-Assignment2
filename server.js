@@ -10,6 +10,8 @@ const passport = require('passport');
 const crypto = require('crypto');
 const MongoStore = require('connect-mongo');
 
+var methodOverride = require('method-override');
+
 const app = express();
 const route = require('./server/routes/router');
 const { json } = require('body-parser');
@@ -39,6 +41,9 @@ const connection = connectDB();
 // Set up views
 app.set('view engine', 'ejs');
 
+// Method override
+app.use(methodOverride('_method'));
+
 /**
  * -------------- SESSION SETUP ----------------
  */
@@ -67,8 +72,8 @@ app.use(passport.session());
 
 // Authentication debugger
 app.use((req, res, next) => {
-  console.log(req.session);
-  console.log(req.user);
+  // console.log(req.session);
+  // console.log(req.user);
   next();
 });
 

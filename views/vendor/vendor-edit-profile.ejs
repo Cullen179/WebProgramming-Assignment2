@@ -1,0 +1,23 @@
+<form action="/vendor/profile/edit?_method=PUT" method="POST" enctype="multipart/form-data">
+  <label for="businessname">Business name</label>
+  <input type="text" name="businessname" id="businessname" value="<%= vendor.businessName%>"/>
+  <br />
+  <br />
+
+  <label for="businessaddress">Business address</label>
+  <input type="text" name="businessaddress" id="businessaddress" value="<%= vendor.businessAddress%>"/>
+  <br />
+  <br />
+
+  <label for="picture">Current picture</label>
+  <img src="<%=vendor.imgSrc%>" alt="Vendor picture" id="picture"/>
+  <br />
+  <br />
+
+  <label for="changepicture">Change picture</label>
+  <input type="file" id="changepicture" name="picture" />
+  <br />
+  <br />
+
+  <button type="submit">Update profile</button>
+</form>

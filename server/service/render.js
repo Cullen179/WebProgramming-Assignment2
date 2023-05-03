@@ -1,6 +1,8 @@
 const User = require('../model/UserModel');
+const Product = require('../model/ProductModel');
 const Hub = require('../model/HubModel');
 const passport = require('passport');
+const { getImgSrc } = require('../../utils/imgTransformation');
 
 const hubs = [
   new Hub({
@@ -29,7 +31,22 @@ class SiteService {
     }
 
     if (req.user.role === 'vendor') {
-      res.render('vendor/vendor-home', { vendor: req.vendor });
+      Product.find({ ownership: req.vendor._id })
+        .then((products) => {
+          // Attach imgSrc property to each product
+          // => View get product.imgSrc to put into image tag
+          products.forEach((product) => {
+            const imgSrc = getImgSrc(product.picture);
+            if (imgSrc) {
+              product.imgSrc = imgSrc;
+            }
+          });
+
+          res.render('vendor/vendor-home', { products: products });
+        })
+        .catch((err) => {
+          next(err);
+        });
     }
 
     if (req.user.role === 'shipper') {

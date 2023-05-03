@@ -2,6 +2,7 @@ const route = require('express').Router();
 const customerRoute = require('./customer-router');
 const shipperRoute = require('./shipper-router');
 const vendorRoute = require('./vendor-router');
+const productRoute = require('./product-router');
 
 const siteService = require('../service/render');
 const shipperController = require('../controller/ShipperController');
@@ -47,6 +48,9 @@ route.use('/vendor', vendorRoute);
 
 // Vendor routes
 route.use('/shipper', shipperRoute);
+
+// Product routes
+route.use('/product', productRoute);
 
 // Handle 404 not found page
 route.use((req, res, next) => {
