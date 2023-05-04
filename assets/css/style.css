@@ -151,3 +151,13 @@ body {
   border-radius: 50%;
 }
 
+.price {
+  bottom: -20px;
+  right: 15px;
+}
+
+.product-name {
+  height: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
