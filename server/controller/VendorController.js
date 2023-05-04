@@ -98,7 +98,7 @@ class VendorController {
 
   // [GET] "/vendor/addnewproduct"
   showAddNewProduct(req, res, next) {
-    res.render('vendor/vendor-add-new-product');
+    res.render('vendor/add-product');
   }
 
   // [POST] "/vendor/addnewproduct"
