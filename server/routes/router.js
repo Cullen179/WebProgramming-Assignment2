@@ -10,6 +10,7 @@ const customerController = require('../controller/CustomerController');
 const vendorController = require('../controller/VendorController');
 
 const attachAttributesToCurrentUserMiddleWare = require('../middleware/attachAttributesToCurrentUser');
+const HubController = require('../controller/HubController');
 
 // Route can access before authentication
 route.get('/login', siteService.showLogin);
@@ -20,6 +21,10 @@ route.get('/vendor/register', vendorController.showRegistration);
 route.post('/vendor/register', vendorController.createAccount);
 route.get('/shipper/register', shipperController.showRegistration);
 route.post('/shipper/register', shipperController.createAccount);
+
+route.get('/hub/hub-listing', HubController.getHubListing);
+route.post('/hub/hub-listing', HubController.creatHub);
+
 
 /**
  * ---------------- Authentication before access all other routes ----------------

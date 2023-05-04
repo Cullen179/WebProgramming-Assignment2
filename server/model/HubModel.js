@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const hubSchema = new Schema(
   {
+    _id: mongoose.Schema.Types.ObjectId,
     name: {
       type: String,
       require: true,
