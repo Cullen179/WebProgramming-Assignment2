@@ -126,6 +126,10 @@ body {
   transition: visibility 0s linear 300ms, opacity 300ms;
 }
 
+.product-container a {
+  color: black;
+}
+
 .product-container:hover .product-price {
   visibility: visible;
   opacity: 1;
@@ -147,6 +151,3 @@ body {
   border-radius: 50%;
 }
 
-.product-container a {
-  color: black;
-}
