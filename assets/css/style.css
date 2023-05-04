@@ -117,13 +117,23 @@ body {
 /* Vendor Home Page */
 
 .product-image {
-  background-color: #F1F1F1;
+  background-color: #f3f1f1;
 }
 
 .product-price {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s linear 300ms, opacity 300ms;
+}
+
+.product-price i {
+  top: 15px;
+  right: 15px; 
+}
+
+
+.product-container {
+  border: 2px solid #F1F1F1;
 }
 
 .product-container a {
@@ -145,8 +155,8 @@ body {
 }
 
 .product-price i:hover {
-  background-color: black;
-  color: white;
+  background-color: black !important;
+  color: white !important;
   padding: 12px;
   border-radius: 50%;
 }
@@ -157,7 +167,14 @@ body {
 }
 
 .product-name {
-  height: 70px;
+  height: 75px;
+  line-height: 35px;
   overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.product-image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
 }
