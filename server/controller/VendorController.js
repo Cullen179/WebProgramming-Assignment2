@@ -82,8 +82,13 @@ class VendorController {
       });
   }
 
-  // [PUT] "vendor/profile/edit"
-  editProfile(req, res, next) {
+  // [GET] "/vendor/addnewproduct"
+  showAddNewProduct(req, res, next) {
+    res.render('vendor/add-product');
+  }
+
+  // [POST] "/vendor/addnewproduct"
+  addNewProduct(req, res, next) {
     const curVendor = req.vendor;
     const pictureObject = getPictureObject(req, res, next);
 
