@@ -34,6 +34,10 @@ body {
   font-weight: bold;
 }
 
+.navigation-button {
+  font-size: 18px;
+}
+
 /* Adding to bootstrap */
 
 .nav-link {
