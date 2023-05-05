@@ -124,7 +124,7 @@ body {
   background-color: #f3f1f1;
 }
 
-.product-price {
+ .product-container .product-price {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s linear 300ms, opacity 300ms;
@@ -170,7 +170,7 @@ body {
   right: 15px;
 }
 
-.product-name {
+.product-container .product-name {
   height: 75px;
   line-height: 35px;
   overflow: hidden;
