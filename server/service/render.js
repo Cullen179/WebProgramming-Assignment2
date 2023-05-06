@@ -4,20 +4,20 @@ const Hub = require('../model/HubModel');
 const passport = require('passport');
 const { getImgSrc } = require('../../utils/imgTransformation');
 
-const hubs = [
-  new Hub({
-    name: 'Hub 1',
-    address: '123 street, ward 1, HCM city VN',
-  }),
-  new Hub({
-    name: 'Hub 2',
-    address: '234 street, ward 2, HCM city VN',
-  }),
-  new Hub({
-    name: 'Hub 1',
-    address: '345 street, ward 3, HCM city VN',
-  }),
-];
+// const hubs = [
+//   new Hub({
+//     name: 'Hub 1',
+//     address: '123 street, ward 1, HCM city VN',
+//   }),
+//   new Hub({
+//     name: 'Hub 2',
+//     address: '234 street, ward 2, HCM city VN',
+//   }),
+//   new Hub({
+//     name: 'Hub 1',
+//     address: '345 street, ward 3, HCM city VN',
+//   }),
+// ];
 
 /**
  * SiteService acts like site controller, includes

@@ -8,9 +8,9 @@ const siteService = require('../service/render');
 const shipperController = require('../controller/ShipperController');
 const customerController = require('../controller/CustomerController');
 const vendorController = require('../controller/VendorController');
+const HubController = require('../controller/HubController');
 
 const attachAttributesToCurrentUserMiddleWare = require('../middleware/attachAttributesToCurrentUser');
-const HubController = require('../controller/HubController');
 
 // Route can access before authentication
 route.get('/login', siteService.showLogin);
@@ -22,6 +22,7 @@ route.post('/vendor/register', vendorController.createAccount);
 route.get('/shipper/register', shipperController.showRegistration);
 route.post('/shipper/register', shipperController.createAccount);
 
+route.get('/hub/:_id', HubController.getHub);
 route.get('/hub/hub-listing', HubController.getHubListing);
 route.post('/hub/hub-listing', HubController.creatHub);
 

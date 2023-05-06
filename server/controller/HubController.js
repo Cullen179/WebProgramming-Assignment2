@@ -3,12 +3,12 @@ const Hub = require('../model/HubModel');
 const mongoose = require("mongoose");
 
 class HubController {
-
-  
-
   // [GET] "/hub/:id"
   getHub(req, res, next) {
     // Handle logic get hub by ID
+    Hub.findById({ _id: req.params._id }).then((hub) => {
+      res.render('hub/hub', {hub})
+    })
   }
 
   getHubListing(req, res, next) {
@@ -31,29 +31,9 @@ class HubController {
 
     hub.save().then(function(val) {
       console.log('New hub: [' + val.name + ' | ' + val.address + '] added.');
-      next();
     })
     .catch(function(err) {
-      if (err.name === 'MongoServerError' && err.code === 11000) {
-        // dupe = Hub.findOne({ name: name }, function(err, val) {
-        //   if (err) {
-        //     return console.log('Error: dupe found on server but cannot retrieve.');
-        //   }
-        //   return val;
-        // })
-        Hub.findOne({name: name}).then((val) => {
-          if (err) {
-            console.log('Error: dupe found on server but cannot retrieve.');
-            next(err);
-          }
-          console.log('Duplicate found: [' + val.name + ' | ' + val.address + '] with id: [' + val._id + '].');
-          // next();
-        })
-        .catch((err) => {
-          console.log(err);
-          next(err);
-        });
-      }
+      console.log('Error code: ' + err.code + '.');
       next(err);
     });
   }

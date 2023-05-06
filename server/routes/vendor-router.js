@@ -22,11 +22,11 @@ route.get('/profile', vendorController.showProfile);
 route.get('/add-product', vendorController.showAddNewProduct);
 route.post('/add-product', vendorController.addNewProduct);
 route.get('/profile/edit', vendorController.showEditProfile);
-route.put(
-  '/profile/edit',
-  handleFileUploadMiddleware.single('picture'),
-  vendorController.editProfile
-);
+// route.put(
+//   '/profile/edit',
+//   handleFileUploadMiddleware.single('picture'),
+//   vendorController.editProfile
+// );
 route.delete('/profile', vendorController.deleteAccount);
 
 module.exports = route;
