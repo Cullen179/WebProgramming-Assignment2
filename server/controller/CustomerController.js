@@ -31,6 +31,7 @@ class CustomerController {
       salt: salt,
     });
 
+    console.log(user)
     // Save user
     user
       .save()
@@ -39,7 +40,7 @@ class CustomerController {
         const customer = new Customer({
           account: user._id,
           picture: 'customer image link',
-          name: 'customer name',
+          name: 'test name',
           address: 'vn',
         });
 
@@ -48,9 +49,11 @@ class CustomerController {
           .save()
           .then(() => {
             siteService.login(req, res, next);
+            console.log("create success")
           })
           .catch((err) => {
-            next(err);
+            // next(err);
+            console.log(err)
           });
       })
       .catch((err) => {

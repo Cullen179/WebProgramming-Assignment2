@@ -21,26 +21,26 @@
   <body>
     <main class="min-vh-100 d-flex justify-content-center align-items-center">
       <section class="border shadow p-5">
-        <form action="">
+        <form action="/customer/register" method="post">
           <div class="username">
             <label for="" class="form-label">Username</label>
-            <input type="text" class="form-control" placeholder="Name" />
+            <input type="text" class="form-control" placeholder="Name" id="username" name="username"/>
           </div>
           <div class="password">
             <label for="" class="form-label">Password</label>
-            <input type="password" class="form-control" placeholder="Password" />
+            <input type="password" class="form-control" placeholder="Password" name="password"/>
           </div>
           <div class="profile-picture">
             <label for="" class="form-label">Profile Picture</label>
             <input type="file" class="form-control" placeholder="Name" />
           </div>
-          <div class="hub">
-            <label for="" class="form-label">Distributed Hub</label>
-            <select name="hub" id="" class="form-select">
-              <option value="Hub 1">Hub 1</option>
-              <option value="Hub 2">Hub 2</option>
-              <option value="Hub 3">Hub 3</option>
-            </select>
+          <div class="name">
+            <label for="" class="form-label">Name</label>
+            <input type="text" class="form-control" placeholder="Name" />
+          </div>
+          <div class="address">
+            <label for="" class="form-label">Address</label>
+            <input type="text" class="form-control" placeholder="Address" />
           </div>
           <div class="form-btn">
             <button class="btn btn-secondary">Cancel</button>
@@ -49,5 +49,11 @@
         </form>
       </section>
     </main>
+    <!-- <script>
+    const username =  document.querySelector('.username').value;
+    if (username == 'test') console.log('test')
+    else console.log('no')
+</script> -->
+    <script src="../../assets/js/password_validator.js"></script>
   </body>
 </html>

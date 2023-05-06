@@ -12,7 +12,15 @@ const {
 class VendorController {
   // [GET] "/vendor/register"
   showRegistration(req, res, next) {
-    res.render('vendor/vendor-register');
+    let users = null;
+    User.find()
+      .then(data => {
+        users = data;
+        console.log(users);
+        res.render('vendor/vendor-register', {users: users});
+      })
+      .catch();
+    
   }
 
   // [POST] "/vendor/register"
@@ -39,8 +47,8 @@ class VendorController {
         const vendor = new Vendor({
           account: user._id,
           picture: 'vendor image link',
-          businessName: req.body.businessname,
-          businessAddress: req.body.businessaddress,
+          businessName: req.body.businessName,
+          businessAddress: req.body.businessAddress,
         });
 
         // Save vendor

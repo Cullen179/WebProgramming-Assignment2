@@ -36,19 +36,29 @@ function validator(options) {
   return 'valid';
 }
 
-export function isValidUserName(username) {
+function isValidUserName(username) {
+  let error = '';
+
+  // if (!usernameError) {
+  //     error += `Username ${username} has already been used`;
+  // }
+
   // 8 - 15 characters
-  if (!(8 <= username.length && username.length <= 15)) return false;
+  if (!(8 <= username.length && username.length <= 15)) error += 'Username must be between 8 and 15 characters.';
 
   // Only letters and digits
-  if (!isOnlyLettersAndDigits(username)) return false;
+  if (!isOnlyLettersAndDigits(username)) error += (error ? ' ' : '') + 'Username must only contain letters and digits.';
 
-  return true;
+  // Check if username is duplicate
+  if (isDuplicateUsername(JSON.parse(userData), username)) error += (error ? ' ' : '') + 'Username has already been used.'
+
+  return error;
 }
 
 function isValidPassword(password) {
+  let error = '';
   // 8 - 20 characters
-  if (!(8 <= password.length && password.length <= 20)) return false;
+  if (!(8 <= password.length && password.length <= 20)) error += 'Password must has length between 8 and 20 characters.';
 
   // Contains at least one upper case letter, at least one lower case letter,
   // at least one digit, at least one special letter in the set !@#$%^&*,
@@ -57,6 +67,7 @@ function isValidPassword(password) {
   let isAtLeastOneLowerCase = false;
   let isAtLeastOneDigit = false;
   let isAtLeastOneSpecialCharacter = false;
+  let letterError = [];
 
   for (const c of password) {
     if (isUpperCaseLetter(c)) isAtLeastOneUpperCase = true;
@@ -65,34 +76,33 @@ function isValidPassword(password) {
     if (isSpecialCharacter(c)) isAtLeastOneSpecialCharacter = true;
   }
 
-  if (
-    !(
-      isAtLeastOneUpperCase &&
-      isAtLeastOneLowerCase &&
-      isAtLeastOneDigit &&
-      isAtLeastOneSpecialCharacter
-    )
-  ) {
-    return false;
+  if (!isAtLeastOneUpperCase) letterError.push('at least one upper case letter');
+  if (!isAtLeastOneLowerCase) letterError.push('at least one lower case letter');
+  if (!isAtLeastOneDigit) letterError.push('at least one digit');
+  if (!isAtLeastOneSpecialCharacter) letterError.push('at least one special character');
+
+  if (letterError.length > 0) {
+    error = (error ? ' ' : '') + 'Password must contain ' + letterError.join(', ') + '.';
   }
 
-  return true;
+  return error;
 }
 
 function isValidBusinessName(businessName) {
+  let error = '';
   // At least 5 characters
   if (!(businessName.length >= 5)) {
-    return false;
+    error += 'Business name must be at least 5 characters.';
   }
 
-  return true;
+  return error;
 }
 
 function isValidBusinessAddress(businessAddress) {
   // At least 5 characters
-  if (!(businessAddress.length >= 5)) return false;
+  if (!(businessAddress.length >= 5)) error += "Business address must be at least 5 characters.";
 
-  return true;
+  return error;
 }
 
 function isOnlyLettersAndDigits(string) {
@@ -124,4 +134,16 @@ function isNumber(c) {
   return '0' <= c && c <= '9';
 }
 
-export { validator, isValidUserName, isValidPassword, isValidBusinessName, isValidBusinessAddress };
+function isDuplicateUsername(users, username) {
+  let isDuplicate = false;
+  users.forEach(user => {
+    console.log(user.username);
+    if (user.username == username) {
+      console.log('true');
+      isDuplicate = true;
+    }
+  });
+  return isDuplicate;
+}
+
+export { isValidUserName, isValidPassword, isValidBusinessName, isValidBusinessAddress };
