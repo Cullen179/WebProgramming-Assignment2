@@ -8,7 +8,15 @@ const siteService = require('../service/render');
 class VendorController {
   // [GET] "/vendor/register"
   showRegistration(req, res, next) {
-    res.render('vendor/vendor-register');
+    let users = null;
+    User.find()
+      .then(data => {
+        users = data;
+        console.log(users);
+        res.render('vendor/vendor-register', {users: users});
+      })
+      .catch();
+    
   }
 
   // [POST] "/vendor/register"

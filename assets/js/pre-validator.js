@@ -38,11 +38,19 @@ function validator(options) {
 
 function isValidUserName(username) {
   let error = '';
+
+  // if (!usernameError) {
+  //     error += `Username ${username} has already been used`;
+  // }
+
   // 8 - 15 characters
-  if (!(8 <= username.length && username.length <= 15)) error+= 'Username must be between 8 and 15 characters.';
+  if (!(8 <= username.length && username.length <= 15)) error += 'Username must be between 8 and 15 characters.';
 
   // Only letters and digits
-  if (!isOnlyLettersAndDigits(username)) error = error ? '' : '\n' + 'Username must only contain letters and digits.';
+  if (!isOnlyLettersAndDigits(username)) error += (error ? ' ' : '') + 'Username must only contain letters and digits.';
+
+  // Check if username is duplicate
+  if (isDuplicateUsername(JSON.parse(userData), username)) error += (error ? ' ' : '') + 'Username has already been used.'
 
   return error;
 }
@@ -73,7 +81,10 @@ function isValidPassword(password) {
   if (!isAtLeastOneDigit) letterError.push('at least one digit');
   if (!isAtLeastOneSpecialCharacter) letterError.push('at least one special character');
 
-  error = error ? '' : '\n' + 'Password must contain ' + letterError.join(', ') + '.';
+  if (letterError.length > 0) {
+    error = (error ? ' ' : '') + 'Password must contain ' + letterError.join(', ') + '.';
+  }
+
   return error;
 }
 
@@ -123,4 +134,16 @@ function isNumber(c) {
   return '0' <= c && c <= '9';
 }
 
-export {isValidUserName, isValidPassword, isValidBusinessName, isValidBusinessAddress };
+function isDuplicateUsername(users, username) {
+  let isDuplicate = false;
+  users.forEach(user => {
+    console.log(user.username);
+    if (user.username == username) {
+      console.log('true');
+      isDuplicate = true;
+    }
+  });
+  return isDuplicate;
+}
+
+export { isValidUserName, isValidPassword, isValidBusinessName, isValidBusinessAddress };

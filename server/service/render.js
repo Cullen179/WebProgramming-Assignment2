@@ -39,6 +39,7 @@ class SiteService {
 
   // [GET] "/login"
   showLogin(req, res, next) {
+    User.findOne()
     res.render('login');
   }
 
