@@ -44,13 +44,16 @@ function isValidUserName(username) {
   // }
 
   // 8 - 15 characters
-  if (!(8 <= username.length && username.length <= 15)) error += 'Username must be between 8 and 15 characters.';
+  if (!(8 <= username.length && username.length <= 15))
+    error += 'Username must be between 8 and 15 characters.';
 
   // Only letters and digits
-  if (!isOnlyLettersAndDigits(username)) error += (error ? ' ' : '') + 'Username must only contain letters and digits.';
+  if (!isOnlyLettersAndDigits(username))
+    error += (error ? ' ' : '') + 'Username must only contain letters and digits.';
 
   // Check if username is duplicate
-  if (isDuplicateUsername(JSON.parse(userData), username)) error += (error ? ' ' : '') + 'Username has already been used.'
+  if (isDuplicateUsername(JSON.parse(userData), username))
+    error += (error ? ' ' : '') + 'Username has already been used.';
 
   return error;
 }
@@ -58,7 +61,8 @@ function isValidUserName(username) {
 function isValidPassword(password) {
   let error = '';
   // 8 - 20 characters
-  if (!(8 <= password.length && password.length <= 20)) error += 'Password must has length between 8 and 20 characters.';
+  if (!(8 <= password.length && password.length <= 20))
+    error += 'Password must has length between 8 and 20 characters.';
 
   // Contains at least one upper case letter, at least one lower case letter,
   // at least one digit, at least one special letter in the set !@#$%^&*,
@@ -100,7 +104,7 @@ function isValidBusinessName(businessName) {
 
 function isValidBusinessAddress(businessAddress) {
   // At least 5 characters
-  if (!(businessAddress.length >= 5)) error += "Business address must be at least 5 characters.";
+  if (!(businessAddress.length >= 5)) error += 'Business address must be at least 5 characters.';
 
   return error;
 }
@@ -136,7 +140,7 @@ function isNumber(c) {
 
 function isDuplicateUsername(users, username) {
   let isDuplicate = false;
-  users.forEach(user => {
+  users.forEach((user) => {
     console.log(user.username);
     if (user.username == username) {
       console.log('true');

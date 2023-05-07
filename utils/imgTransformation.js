@@ -7,8 +7,7 @@ const fs = require('fs');
  * @returns imgSrc (string), which can be passed directly to <img src="imgSrc"/>
  */
 function getImgSrc(pictureObject) {
-  if (!pictureObject || !pictureObject.data || !pictureObject.contentType)
-    return undefined;
+  if (!pictureObject || !pictureObject.data || !pictureObject.contentType) return undefined;
 
   const imgBase64 = new Buffer(pictureObject.data).toString('base64');
   let imgSrc = `data:${pictureObject.contentType};base64,` + imgBase64;

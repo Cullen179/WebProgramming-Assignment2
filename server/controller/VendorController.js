@@ -4,23 +4,19 @@ const Vendor = require('../model/VendorModel');
 const Product = require('../model/ProductModel');
 const generatePassword = require('../../utils/passwordUtils').generatePassword;
 const siteService = require('../service/render');
-const {
-  getImgSrc,
-  getPictureObject,
-} = require('../../utils/imgTransformation');
+const { getImgSrc, getPictureObject } = require('../../utils/imgTransformation');
 
 class VendorController {
   // [GET] "/vendor/register"
   showRegistration(req, res, next) {
     let users = null;
     User.find()
-      .then(data => {
+      .then((data) => {
         users = data;
         console.log(users);
-        res.render('vendor/vendor-register', {users: users});
+        res.render('vendor/vendor-register', { users: users });
       })
       .catch();
-    
   }
 
   // [POST] "/vendor/register"

@@ -1,5 +1,118 @@
-<h1>Customer home</h1>
-<br />
-<a href="/logout">Logout</a>
-<br />
-<a href="/customer/profile">Profile</a>
+<%- include ("../partials/head.ejs") %> 
+<%- include ("../partials/customer-header.ejs") %>
+
+<body>
+  <!-- Main content -->
+  <main class="body-container my-5">
+    <h1 class="text-center bold">All Products</h1>
+    <div class="customer-products-body d-flex flex-column">
+      <form class="customer-filter-form-container">
+        <p>Filter by Price</p>
+        <div class="customer-filter-inputs-container">
+            <input type="number" class="form-control" placeholder="Min"></input>
+            <input type="number" class="form-control" placeholder="Max"></input>
+            <button class="btn btn-primary" style="padding: 6px;" type="submit">
+                <span class="material-symbols-outlined d-block text-white">
+                    arrow_forward
+                </span>
+              </button>
+        </div>
+      </form>
+      <div class="row w-100 mb-5 mx-0 p-0 d-flex justify-content-md-between justify-content-center">
+        <div class="product-container col-lg-3 col-md-5 col-12 p-0 my-5 bg-white rounded-4">
+            <div class="product-image rounded mb-4 position-relative">
+                <a href="#"><img src="/images/product.png" alt="radish" class="py-5"></a>
+                <div class="position-absolute badge price rounded-3 bg-black text-white bold fs-5 border border-5 border-white pe-3">$ 1.50</div>
+                <a href="" class="product-price"><i class="bi bi-cart-fill position-absolute d-flex align-items-center p-3 fs-4"></i></a>
+            </div>
+            <div class="product-info pb-2 px-4">
+                <div class="product-name card-title fs-4 bold">
+                    <a href="">Radish roduct-quantity mb-3 d-flex justify-content-between align-items-center</a>
+                </div>
+                <div class="product-quantity mb-3 d-flex justify-content-between align-items-center">
+                    <div class="fs-6 text-muted">Quantity: 1</div>
+                </div>
+            </div>
+        </div>
+        <div class="product-container col-lg-3 col-md-5 col-12 p-0 mx-lg-3 my-5 bg-white rounded-4">
+            <div class="product-image rounded mb-4 position-relative">
+                <a href="#"><img src="/images/product.png" alt="radish" class="py-5"></a>
+                <div class="position-absolute badge price rounded-3 bg-black text-white bold fs-5 border border-5 border-white pe-3">$ 1.50</div>
+                <a href="" class="product-price"><i class="bi bi-cart-fill position-absolute d-flex align-items-center p-3 fs-4"></i></a>
+            </div>
+            <div class="product-info pb-2 px-4">
+                <div class="product-name card-title fs-4 bold">
+                    <a href="">Radish roduct-quantity mb-3 d-flex justify-content-between align-items-center</a>
+                </div>
+                <div class="product-quantity mb-3 d-flex justify-content-between align-items-center">
+                    <div class="fs-6 text-muted">Quantity: 1</div>
+                </div>
+            </div>
+        </div>
+        <div class="product-container col-lg-3 col-md-5 col-12 p-0 my-5 bg-white rounded-4">
+            <div class="product-image rounded mb-4 position-relative">
+                <a href="#"><img src="/images/product.png" alt="radish" class="py-5"></a>
+                <div class="position-absolute badge price rounded-3 bg-black text-white bold fs-5 border border-5 border-white pe-3">$ 1.50</div>
+                <a href="" class="product-price"><i class="bi bi-cart-fill position-absolute d-flex align-items-center p-3 fs-4"></i></a>
+            </div>
+            <div class="product-info pb-2 px-4">
+                <div class="product-name card-title fs-4 bold">
+                    <a href="">Radish roduct-quantity mb-3 d-flex justify-content-between align-items-center</a>
+                </div>
+                <div class="product-quantity mb-3 d-flex justify-content-between align-items-center">
+                    <div class="fs-6 text-muted">Quantity: 1</div>
+                </div>
+            </div>
+        </div>
+        <div class="product-container col-lg-3 col-md-5 col-12 p-0 my-5 bg-white rounded-4">
+            <div class="product-image rounded mb-4 position-relative">
+                <a href="#"><img src="/images/product.png" alt="radish" class="py-5"></a>
+                <div class="position-absolute badge price rounded-3 bg-black text-white bold fs-5 border border-5 border-white pe-3">$ 1.50</div>
+                <a href="" class="product-price"><i class="bi bi-cart-fill position-absolute d-flex align-items-center p-3 fs-4"></i></a>
+            </div>
+            <div class="product-info pb-2 px-4">
+                <div class="product-name card-title fs-4 bold">
+                    <a href="">Radish roduct-quantity mb-3 d-flex justify-content-between align-items-center</a>
+                </div>
+                <div class="product-quantity mb-3 d-flex justify-content-between align-items-center">
+                    <div class="fs-6 text-muted">Quantity: 1</div>
+                </div>
+            </div>
+        </div>
+        <div class="product-container col-lg-3 col-md-5 col-12 p-0 mx-lg-3 my-5 bg-white rounded-4">
+            <div class="product-image rounded mb-4 position-relative">
+                <a href="#"><img src="/images/product.png" alt="radish" class="py-5"></a>
+                <div class="position-absolute badge price rounded-3 bg-black text-white bold fs-5 border border-5 border-white pe-3">$ 1.50</div>
+                <a href="" class="product-price"><i class="bi bi-cart-fill position-absolute d-flex align-items-center p-3 fs-4"></i></a>
+            </div>
+            <div class="product-info pb-2 px-4">
+                <div class="product-name card-title fs-4 bold">
+                    <a href="">Radish roduct-quantity mb-3 d-flex justify-content-between align-items-center</a>
+                </div>
+                <div class="product-quantity mb-3 d-flex justify-content-between align-items-center">
+                    <div class="fs-6 text-muted">Quantity: 1</div>
+                </div>
+            </div>
+        </div>
+        <div class="product-container col-lg-3 col-md-5 col-12 p-0 my-5 bg-white rounded-4">
+            <div class="product-image rounded mb-4 position-relative">
+                <a href="#"><img src="/images/product.png" alt="radish" class="py-5"></a>
+                <div class="position-absolute badge price rounded-3 bg-black text-white bold fs-5 border border-5 border-white pe-3">$ 1.50</div>
+                <a href="" class="product-price"><i class="bi bi-cart-fill position-absolute d-flex align-items-center p-3 fs-4"></i></a>
+            </div>
+            <div class="product-info pb-2 px-4">
+                <div class="product-name card-title fs-4 bold">
+                    <a href="">Radish roduct-quantity mb-3 d-flex justify-content-between align-items-center</a>
+                </div>
+                <div class="product-quantity mb-3 d-flex justify-content-between align-items-center">
+                    <div class="fs-6 text-muted">Quantity: 1</div>
+                </div>
+            </div>
+        </div>        
+    </div>   
+    </div>
+  </main>
+  <!-- Main content -->
+  <%- include ('../partials/footer.ejs') %>
+</body>
+</html>
