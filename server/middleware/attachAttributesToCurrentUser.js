@@ -35,9 +35,9 @@ function attachAttributesToCurrentUserMiddelWare(req, res, next) {
       .then((vendor) => {
         req.vendor = {};
         req.vendor._id = vendor._id;
+        req.vendor.picture = vendor.picture;
         req.vendor.businessName = vendor.businessName;
         req.vendor.businessAddress = vendor.businessAddress;
-
         next();
       })
       .catch((err) => {
