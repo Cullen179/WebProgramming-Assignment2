@@ -79,7 +79,7 @@ body {
 
 @media screen and (max-width: 1023px) {
   .indent {
-    padding: 0px 20px;
+    padding: 0px 80px;
   }
 }
 
@@ -183,6 +183,7 @@ body {
 }
 
 .product-price i {
+  padding: 12px;
   top: 15px;
   right: 15px; 
 }
@@ -213,7 +214,6 @@ body {
 .product-price i:hover {
   background-color: black !important;
   color: white !important;
-  padding: 12px;
   border-radius: 50%;
 }
 
@@ -233,6 +233,32 @@ body {
   width: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+@media screen and (min-width: 1024px) {
+  .product-container {
+    width: 26%;
+  }
+
+  .product-display {
+    gap: 11%;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .product-container {
+    width: 40%;
+  }
+
+  .product-display {
+    gap: 20%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .product-container {
+    width: 80%;
+  }
 }
 
 /* Shipper Home page */
