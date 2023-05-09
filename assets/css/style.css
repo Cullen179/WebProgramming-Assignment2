@@ -26,6 +26,19 @@ img {
   padding: 0 12vw;
 }
 
+.header, .footer {
+  background-color: rgb(20, 27, 79);
+}
+
+.logo-name {
+  margin-left: -6px;
+}
+
+h1 {
+  color: #141B4F !important;
+  font-weight: bold;
+}
+
 input[type='text'],
 input[type='password'],
 input[type='textarea'] {
@@ -60,6 +73,22 @@ body {
   font-size: 18px;
 }
 
+.header .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+@media screen and (max-width: 1023px) {
+  .indent {
+    padding: 0px 80px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .indent {
+    padding: 0px 10px;
+  }
+}
+
 /* Adding to bootstrap */
 
 .nav-link {
@@ -67,7 +96,7 @@ body {
 }
 
 .nav-link:hover {
-  opacity: 0.5;
+  opacity: 0.8;
 }
 
 /* Login and Register Page */
@@ -154,6 +183,7 @@ body {
 }
 
 .product-price i {
+  padding: 12px;
   top: 15px;
   right: 15px; 
 }
@@ -184,7 +214,6 @@ body {
 .product-price i:hover {
   background-color: black !important;
   color: white !important;
-  padding: 12px;
   border-radius: 50%;
 }
 
@@ -205,3 +234,137 @@ body {
   object-fit: cover;
   object-position: center;
 }
+
+@media screen and (min-width: 1024px) {
+  .product-container {
+    width: 26%;
+  }
+
+  .product-display {
+    gap: 11%;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .product-container {
+    width: 40%;
+  }
+
+  .product-display {
+    gap: 20%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .product-container {
+    width: 80%;
+  }
+}
+
+/* Shipper Home page */
+
+.vendor-name img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.destination {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.customer-name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.order-header .nav-link {
+  font-weight: bold;
+}
+
+.order-container .category {
+  font-weight: bold;
+}
+
+.product .ID {
+  color: lightskyblue;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.status select {
+  border-radius: 25px;
+}
+
+.status .active::after {
+  content: "Active";
+  background-color: #0E6EFD;
+  color: white;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 25px;
+  font-size: 14px;
+}
+
+.status .delivered::after {
+  content: "Delivered";
+  background-color: #178754;
+  color: white;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 25px;
+  font-size: 14px;
+}
+
+.status .canceled::after {
+  content: "Canceled";
+  background-color: #6D757D;
+  color: white;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 25px;
+  font-size: 14px;
+}
+
+@media screen and (min-width: 1024px) {
+  .category {
+    font-size: 16px;
+  }
+  
+  .product {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .product {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .category {
+    display: none !important;
+  }
+
+  .product {
+    font-size: 14px;
+  }
+
+  .product .items {
+    border: 1px solid black;
+  }
+
+  .product>* {
+    padding: 0;
+  }
+}
+
+
