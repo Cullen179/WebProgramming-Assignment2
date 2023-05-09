@@ -40,6 +40,10 @@ class ShipperController {
       .catch(err => console.log(err));
   }
 
+  showOrder(req, res, next) {
+    res.render('shipper/shipper-view-order');
+  };
+
   // [POST] "/shipper/register"
   createAccount(req, res, next) {
     // Generate salt + hash

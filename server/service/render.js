@@ -12,7 +12,18 @@ class SiteService {
   // [GET] "/"
   homeRoute(req, res, next) {
     if (req.user.role === 'customer') {
-      res.render('customer/customer-home');
+      Product.find()
+        .then(products => {
+          products.forEach(product => {
+            if (product.picture) {
+              product.imgSrc = getImgSrc(product.picture);
+            }
+          })
+          res.render('customer/customer-home', { products: products });
+      })
+      .catch(err => {
+        next(err);
+      });
     }
 
     if (req.user.role === 'vendor') {

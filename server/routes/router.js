@@ -27,6 +27,7 @@ route.post('/vendor/register', handleFileUploadMiddleware.single('picture'), ven
 
 route.get('/shipper/register', shipperController.showRegistration);
 route.post('/shipper/register', handleFileUploadMiddleware.single('picture'), shipperController.createAccount);
+route.get('/shipper/order/:id', shipperController.showOrder);
 
 route.get('/hub/:_id', HubController.getHub);
 route.get('/hub/hub-listing', HubController.getHubListing);

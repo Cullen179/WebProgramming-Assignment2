@@ -3,3 +3,20 @@
 <a href="/logout">Logout</a>
 <br />
 <a href="/customer/profile">Profile</a>
+
+<% products.forEach(product => { %>
+    <div>
+        <h3><%= product.name %></h3>
+        <p><%= product.description %></p>
+        <p><%= product.price %></p>
+        <p><%= product.quantity %></p>
+        <p><%= product.category %></p>
+        <p><%= product.vendor %></p>
+        <p><%= product.shipper %></p>
+        <p><%= product.image %></p>
+        <p><%= product.status %></p>
+        <p><%= product.created_at %></p>
+        <p><%= product.updated_at %></p>
+    </div>
+<% }) %>
+
