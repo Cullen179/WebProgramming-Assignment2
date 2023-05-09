@@ -26,6 +26,19 @@ img {
   padding: 0 12vw;
 }
 
+.header, .footer {
+  background-color: rgb(20, 27, 79);
+}
+
+.logo-name {
+  margin-left: -6px;
+}
+
+h1 {
+  color: #141B4F !important;
+  font-weight: bold;
+}
+
 input[type='text'],
 input[type='password'],
 input[type='textarea'] {
@@ -58,6 +71,22 @@ body {
 
 .navigation-button {
   font-size: 18px;
+}
+
+.header .nav-element .nav-link:hover {
+  background-color: #a4a4a4;
+}
+
+@media screen and (max-width: 1023px) {
+  .indent {
+    padding: 0px 20px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .indent {
+    padding: 0px 10px;
+  }
 }
 
 /* Adding to bootstrap */
@@ -205,3 +234,111 @@ body {
   object-fit: cover;
   object-position: center;
 }
+
+/* Shipper Home page */
+
+.vendor-name img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.destination {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.customer-name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.order-header .nav-link {
+  font-weight: bold;
+}
+
+.order-container .category {
+  font-weight: bold;
+}
+
+.product .ID {
+  color: lightskyblue;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.status select {
+  border-radius: 25px;
+}
+
+.status .active::after {
+  content: "Active";
+  background-color: #0E6EFD;
+  color: white;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 25px;
+  font-size: 14px;
+}
+
+.status .delivered::after {
+  content: "Delivered";
+  background-color: #178754;
+  color: white;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 25px;
+  font-size: 14px;
+}
+
+.status .canceled::after {
+  content: "Canceled";
+  background-color: #6D757D;
+  color: white;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 25px;
+  font-size: 14px;
+}
+
+@media screen and (min-width: 1024px) {
+  .category {
+    font-size: 16px;
+  }
+  
+  .product {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .product {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .category {
+    display: none !important;
+  }
+
+  .product {
+    font-size: 14px;
+  }
+
+  .product .items {
+    border: 1px solid black;
+  }
+
+  .product>* {
+    padding: 0;
+  }
+}
+
+
