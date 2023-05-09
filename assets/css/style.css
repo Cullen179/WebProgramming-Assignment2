@@ -73,8 +73,8 @@ body {
   font-size: 18px;
 }
 
-.header .nav-element .nav-link:hover {
-  background-color: #a4a4a4;
+.header .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 @media screen and (max-width: 1023px) {
@@ -96,7 +96,7 @@ body {
 }
 
 .nav-link:hover {
-  opacity: 0.5;
+  opacity: 0.8;
 }
 
 /* Login and Register Page */
