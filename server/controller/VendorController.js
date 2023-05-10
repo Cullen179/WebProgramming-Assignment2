@@ -14,23 +14,22 @@ class VendorController {
 
     let getData = async () => {
       await User.find()
-        .then(data => {
-            users = data;
-          }
-        ).catch(err => console.log(err));
-        
+        .then((data) => {
+          users = data;
+        })
+        .catch((err) => console.log(err));
+
       await Vendor.find()
-          .then(data => {
-            vendors = data;
-          }
-          ).catch(err => console.log(err));
+        .then((data) => {
+          vendors = data;
+        })
+        .catch((err) => console.log(err));
     };
     getData()
       .then(() => {
         res.render('vendor/vendor-register', { users, vendors });
       })
-      .catch(err => console.log(err));
-
+      .catch((err) => console.log(err));
   }
 
   // [POST] "/vendor/register"
@@ -63,8 +62,6 @@ class VendorController {
           businessName: req.body.businessName,
           businessAddress: req.body.businessAddress,
         });
-        console.log(vendor);
-        console.log(pictureObject);
 
         // Save vendor
         vendor
@@ -112,29 +109,48 @@ class VendorController {
       });
   }
 
-  // [GET] "/vendor/addnewproduct"
-  showAddNewProduct(req, res, next) {
-    res.render('vendor/add-product');
-  }
-
-  // [POST] "/vendor/addnewproduct"
-  addNewProduct(req, res, next) {
+  // [PUT] "/vendor/profile/edit"
+  editProfile(req, res, next) {
     const curVendor = req.vendor;
     const pictureObject = getPictureObject(req, res, next);
 
-    const vendorData = {
-      businessName: req.body.businessname,
-      businessAddress: req.body.businessaddress,
-    };
-    if (pictureObject) {
-      vendorData.picture = pictureObject;
+    // If the user not update vendor name => No need to check for existing vendor name
+    // Update immediately
+    if (req.body.businessname === curVendor.businessName) {
+      updateVendorDetail(req, res, next);
+      return;
     }
 
-    Vendor.updateOne({ _id: curVendor._id }, vendorData)
-      .then(() => {
-        res.redirect('/vendor/profile');
+    // Check duplicate business name first
+    Vendor.findOne({ businessName: req.body.businessname })
+      .then((vendor) => {
+        // If exists vendor with the updated bussiness name => Reject updating
+        if (vendor) {
+          res.redirect('/vendor/profile/edit?duplicated=true');
+          return;
+        }
+
+        // Else => Updating
+        updateVendorDetail();
       })
       .catch((err) => next(err));
+
+    // Update function after passing validations
+    function updateVendorDetail() {
+      const vendorData = {
+        businessName: req.body.businessname,
+        businessAddress: req.body.businessaddress,
+      };
+      if (pictureObject) {
+        vendorData.picture = pictureObject;
+      }
+
+      Vendor.updateOne({ _id: curVendor._id }, vendorData)
+        .then(() => {
+          res.redirect('/vendor/profile');
+        })
+        .catch((err) => next(err));
+    }
   }
 
   // [DELETE] "vendor/profile"

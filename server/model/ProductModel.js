@@ -18,13 +18,13 @@ const productSchema = new Schema(
     slug: { type: String, slug: 'name', unique: true },
     quantity: {
       type: Number,
-      min: [0, "Product's quantity must be a non negative an integer"],
+      min: [0, "Product's quantity must be a non negative integer"],
       required: true,
       validate: {
         validator: (value) => {
           return Number.isInteger(value);
         },
-        message: "Product's quantity must be a non negative an integer",
+        message: "Product's quantity must be a non negative integer",
       },
     },
     price: {
@@ -44,7 +44,8 @@ const productSchema = new Schema(
     },
     description: {
       type: String,
-      maxLength: [500, "Product's description must at most 500 characters"],
+      minLength: [1, "Product's description must be at least 1 characters"],
+      maxLength: [500, "Product's description must be at least at most 500 characters"],
       require: true,
     },
   },

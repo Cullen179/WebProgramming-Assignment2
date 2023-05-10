@@ -14,21 +14,22 @@ class SiteService {
     if (req.user.role === 'customer') {
       let customer = null;
       User.find()
-        .then(users => {
-          users.forEach(user => {
+        .then((users) => {
+          users.forEach((user) => {
             if (user.picture) {
               user.imgSrc = getImgSrc(user.picture);
             }
-          })
-          res.render('customer/customer-home', { users: users, customer: req.user});
-      })
-      .catch(err => {
-        next(err);
-      });
+          });
+          res.render('customer/customer-home', { users: users, customer: req.user });
+        })
+        .catch((err) => {
+          next(err);
+        });
     }
 
     if (req.user.role === 'vendor') {
-      Product.find()
+      const curVendor = req.vendor;
+      Product.find({ ownership: curVendor._id })
         .then((products) => {
           // Attach imgSrc property to each product
           // => View get product.imgSrc to put into image tag
@@ -61,9 +62,8 @@ class SiteService {
 
   // [GET] "/login"
   showLogin(req, res, next) {
-    res.render('login', {loginError: req.flash('error')});
+    res.render('login', { loginError: req.flash('error') });
   }
-
 
   // [GET] "/logout"
   logout(req, res, next) {

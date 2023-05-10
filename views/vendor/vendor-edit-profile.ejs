@@ -1,23 +1,188 @@
-<form action="/vendor/profile/edit?_method=PUT" method="POST" enctype="multipart/form-data">
-  <label for="businessname">Business name</label>
-  <input type="text" name="businessname" id="businessname" value="<%= vendor.businessName%>"/>
-  <br />
-  <br />
+<%- include ("../partials/head.ejs") %>
+<%- include ("../partials/header.ejs") %>
+<body>
+  <!-- Main content -->
+  <main>
+    <div class="container">
+      
+        <h1 style="text-align: center; margin-bottom: 32px;">Update my profile</h1>
 
-  <label for="businessaddress">Business address</label>
-  <input type="text" name="businessaddress" id="businessaddress" value="<%= vendor.businessAddress%>"/>
-  <br />
-  <br />
+        <div class="row">
+          <div class="col-sm-12 col-md-3 col-lg-2">
+            <div class="wrapper">
+              <div class="ratio-div">
+                <img src="<%= vendor.imgSrc %>" alt="<%= vendor.businessName%> avatar"/>
+              </div>
+            </div>
+            
+          </div>
+          <div class="col-sm-12 col-md-9 col-lg-10">
+            <div class="duplicated-error d-none">*Duplicated business name found, can not update!</div>
 
-  <label for="picture">Current picture</label>
-  <img src="<%=vendor.imgSrc%>" alt="Vendor picture" id="picture"/>
-  <br />
-  <br />
+            <form action="/vendor/profile/edit?_method=PUT" method="POST" enctype="multipart/form-data">
+              <div class="vendor-business-name">
+                <label for="businessname">Business name</label>
+                <input type="text" name="businessname" id="businessname" value="<%= vendor.businessName%>"/>
+                <div class="field-error d-none">*Business name can not be empty</div>
+              </div>
+              <div class="vendor-business-address">
+                <label for="businessaddress">Business address</label>
+                <input type="text" name="businessaddress" id="businessaddress" value="<%= vendor.businessAddress%>"/>
+                <div class="field-error d-none">*Business address can not be empty</div>
+              </div>
 
-  <label for="changepicture">Change picture</label>
-  <input type="file" id="changepicture" name="picture" />
-  <br />
-  <br />
+              <div class="vendor-picture">
+                <label for="changepicture">Change picture</label>
+                <input type="file" id="changepicture" name="picture" />
+              </div>  
+              
+              <br>
+            </form>
+            <button class="submit-btn">Update profile</button>
+          </div>
+        </div>
+    </div>
+    
 
-  <button type="submit">Update profile</button>
-</form>
+    
+  </main>
+
+  <script>
+    const submitBtn = document.querySelector('.submit-btn');
+    const form = document.querySelector('form');
+
+    const inputs = document.querySelectorAll('input');
+    const nameInput = document.querySelector('#businessname');
+    const addressInput = document.querySelector('#businessaddress');
+
+    const nameError = document.querySelector('.vendor-business-name .field-error');
+    const addressError = document.querySelector('.vendor-business-address .field-error');
+
+    submitBtn.addEventListener('click', () => {
+      const name = nameInput.value.trim();
+      const address = addressInput.value.trim();
+
+      let isValid = true;
+      if (name.length === 0) {
+        nameError.classList.remove('d-none');
+        isValid = false;
+      } else {
+        nameError.classList.add('d-none');
+      }
+
+      if (address.length === 0) {
+        addressError.classList.remove('d-none');
+        isValid = false;
+      } else {
+        addressError.classList.add('d-none');
+      }
+
+      if (isValid) {
+        form.submit();
+      }
+    })
+
+    // Handle input on change
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            const inputId = input.id;
+            const error = document.querySelector(`#${inputId} + .field-error`);
+
+            if (error) {
+              error.classList.add('d-none');
+            }
+        })
+    })
+
+    // Duplicated show/hide
+    const duplicatedError = document.querySelector('.duplicated-error');
+    if (window.location.search.includes('duplicated=true')) {
+      duplicatedError.classList.remove('d-none');
+    }
+  </script>
+
+  <style>
+    main {
+      padding: 48px 0;
+    }
+
+    .wrapper {
+      max-width: 180px;
+      margin-inline: auto;
+      margin-bottom: 32px;
+    }
+
+    .ratio-div {
+      position: relative;
+      padding-top: 100%;
+    }
+
+    .ratio-div img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+    .duplicated-error {
+      padding: 6px 12px;
+      border: 1px solid rgba(219, 48, 48, 0.603);
+      color: rgba(219, 48, 48, 0.603);
+      font-size: 14px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .vendor-name {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .vendor-name label {
+      color: rgba(0, 0, 0, 0.15);
+    }
+
+    .vendor-business-name {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .vendor-business-address {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .submit-btn {
+      outline: none;
+      border: none;
+      font-size: 18px;
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .submit-btn:hover {
+      opacity: 0.6;
+    }
+
+    input {
+      min-width: 300px;
+      margin-left: 8px;
+    }
+
+    input[readonly] {
+      color: rgba(0, 0, 0, 0.15);
+      border-color: rgba(0, 0, 0, 0.15)!important;
+    }
+
+    .field-error {
+        color: red;
+        font-size: 12px;
+        margin-top: 6px;
+    }
+  </style>
+  <!-- Footer -->
+  <%- include ('../partials/footer.ejs') %>
+</body>
+</html>
