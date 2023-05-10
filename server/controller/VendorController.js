@@ -10,13 +10,27 @@ class VendorController {
   // [GET] "/vendor/register"
   showRegistration(req, res, next) {
     let users = null;
-    User.find()
-      .then((data) => {
-        users = data;
-        console.log(users);
-        res.render('vendor/vendor-register', { users: users });
+    let vendors = null;
+
+    let getData = async () => {
+      await User.find()
+        .then(data => {
+            users = data;
+          }
+        ).catch(err => console.log(err));
+        
+      await Vendor.find()
+          .then(data => {
+            vendors = data;
+          }
+          ).catch(err => console.log(err));
+    };
+    getData()
+      .then(() => {
+        res.render('vendor/vendor-register', { users, vendors });
       })
-      .catch();
+      .catch(err => console.log(err));
+
   }
 
   // [POST] "/vendor/register"
@@ -24,7 +38,10 @@ class VendorController {
     // Generate salt + hash
     const username = req.body.username;
     const password = req.body.password;
+    const businessName = req.body.businessName;
+    const businessAddress = req.body.businessAddress;
     const { salt, hash } = generatePassword(password);
+    const pictureObject = getPictureObject(req, res, next);
 
     // Create user first
     const user = new User({
@@ -42,10 +59,12 @@ class VendorController {
         // Create vendor
         const vendor = new Vendor({
           account: user._id,
-          picture: 'vendor image link',
+          picture: pictureObject,
           businessName: req.body.businessName,
           businessAddress: req.body.businessAddress,
         });
+        console.log(vendor);
+        console.log(pictureObject);
 
         // Save vendor
         vendor
@@ -65,7 +84,14 @@ class VendorController {
 
   // [GET] "/vendor/profile"
   showProfile(req, res, next) {
-    res.render('vendor/vendor-profile', { vendor: req.vendor });
+    // Attach imgSrc property to vendor
+    // => View get product.imgSrc to put into image tag
+    const vendor = req.vendor;
+    const imgSrc = getImgSrc(vendor.picture);
+    if (imgSrc) {
+      vendor.imgSrc = imgSrc;
+    }
+    res.render('vendor/vendor-profile', { vendor: vendor });
   }
 
   // [GET] "/vendor/profile/edit"

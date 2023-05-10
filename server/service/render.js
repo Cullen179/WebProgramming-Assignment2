@@ -4,21 +4,6 @@ const Hub = require('../model/HubModel');
 const passport = require('passport');
 const { getImgSrc } = require('../../utils/imgTransformation');
 
-// const hubs = [
-//   new Hub({
-//     name: 'Hub 1',
-//     address: '123 street, ward 1, HCM city VN',
-//   }),
-//   new Hub({
-//     name: 'Hub 2',
-//     address: '234 street, ward 2, HCM city VN',
-//   }),
-//   new Hub({
-//     name: 'Hub 1',
-//     address: '345 street, ward 3, HCM city VN',
-//   }),
-// ];
-
 /**
  * SiteService acts like site controller, includes
  * all function handling general routes
@@ -27,7 +12,18 @@ class SiteService {
   // [GET] "/"
   homeRoute(req, res, next) {
     if (req.user.role === 'customer') {
-      res.render('customer/customer-home');
+      Product.find()
+        .then(products => {
+          products.forEach(product => {
+            if (product.picture) {
+              product.imgSrc = getImgSrc(product.picture);
+            }
+          })
+          res.render('customer/customer-home', { products: products });
+      })
+      .catch(err => {
+        next(err);
+      });
     }
 
     if (req.user.role === 'vendor') {
@@ -53,20 +49,20 @@ class SiteService {
       res.render('shipper/shipper-home');
     }
   }
-
-  // [GET] "/login"
-  showLogin(req, res, next) {
-    User.findOne();
-    res.render('login');
-  }
-
   // [POST] "/login"
   login(req, res, next) {
     passport.authenticate('local', {
       failureRedirect: '/login?error=1',
+      failureFlash: 'Your username or password is incorrect. Please try again!',
       successRedirect: '/',
     })(req, res, next);
   }
+
+  // [GET] "/login"
+  showLogin(req, res, next) {
+    res.render('login', {loginError: req.flash('error')});
+  }
+
 
   // [GET] "/logout"
   logout(req, res, next) {

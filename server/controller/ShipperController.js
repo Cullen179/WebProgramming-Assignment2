@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
 const User = require('../model/UserModel');
 const Shipper = require('../model/ShipperModel');
+const Hub = require('../model/HubModel');
 const generatePassword = require('../../utils/passwordUtils').generatePassword;
 const siteService = require('../service/render');
+const {
+  getImgSrc,
+  getPictureObject,
+} = require('../../utils/imgTransformation');
 
 class ShipperController {
   // [GET] "/shipper/profile"
@@ -12,8 +17,32 @@ class ShipperController {
 
   // [GET] "/shipper/register"
   showRegistration(req, res, next) {
-    res.render('shipper/shipper-register');
+    let users = null;
+    let hubs = null;
+
+    let getData = async () => {
+      await User.find()
+        .then(data => {
+            users = data;
+          }
+        ).catch(err => console.log(err));
+        
+      await Hub.find()
+          .then(data => {
+            hubs = data;
+          }
+          ).catch(err => console.log(err));
+    };
+    getData()
+      .then(() => {
+        res.render('shipper/shipper-register', { users, hubs });
+      })
+      .catch(err => console.log(err));
   }
+
+  showOrder(req, res, next) {
+    res.render('shipper/shipper-view-order');
+  };
 
   // [POST] "/shipper/register"
   createAccount(req, res, next) {
@@ -21,6 +50,8 @@ class ShipperController {
     const username = req.body.username;
     const password = req.body.password;
     const { salt, hash } = generatePassword(password);
+    const picture = getPictureObject(req, res, next);
+    const hub = req.body.hub;
 
     // Create user first
     const user = new User({
@@ -30,6 +61,7 @@ class ShipperController {
       hash: hash,
       salt: salt,
     });
+    console.log(user);
 
     // Save user
     user
@@ -38,11 +70,10 @@ class ShipperController {
         // Create shipper
         const shipper = new Shipper({
           account: user._id,
-          name: 'shipper name',
-          picture: 'shipper image link',
-          hub: 'hub1',
+          picture: picture,
+          hub: hub,
         });
-
+        console.log(shipper)
         // Save shipper
         shipper
           .save()

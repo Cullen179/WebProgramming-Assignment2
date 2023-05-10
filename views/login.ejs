@@ -12,7 +12,15 @@
             <!-- Login information -->
             <div class="login-info bg-white col-lg-6">
                 <div class="container h-100 mw-100 mh-100 p-lg-5 p-md-4 p-3 d-flex flex-column justify-content-center">
-                    <h1 class="login-title mb-md-5"><strong>Sign in</strong></h1>
+                    <h1 class="login-title mb-4 mt-md-0 mt-sm-4"><strong>Sign in</strong></h1>
+
+                    <% if (loginError != '') {%>
+                        
+                        <div class="alert alert-danger">
+                            <%= loginError%>
+                        </div>
+                    
+                    <% } %>
                     <!-- Form -->
                     <form method="POST" action="/login">
                         <div class="username mb-md-4 mt-3">
@@ -31,19 +39,19 @@
                                 Or register as
                             </div>
                             <div class="register-button d-flex justify-content-between">
-                                <a href="/shipper/register">
+                                <a href="/customer/register">
                                     <span class="icon material-symbols-outlined">
                                         person
                                     </span>
                                     Customer
                                 </a>
-                                <a href="views/vendor/vendor-register.html">
+                                <a href="/vendor/register">
                                     <span class="icon material-symbols-outlined">
                                         store
                                     </span>
                                     Vendor
                                 </a>
-                                <a href="/vendor/register">
+                                <a href="/shipper/register">
                                     <span class="icon material-symbols-outlined">
                                         local_shipping
                                     </span>

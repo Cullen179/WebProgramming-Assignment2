@@ -1,53 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="/css/custom.scss">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <title></title>
-</head>
+<%- include ("../partials/head.ejs") %>
 <body>
-<main class="min-vh-100 p-5 col- d-flex justify-content-center align-items-center">
-  <section class="border shadow d-flex flex-md-row flex-column w-75 rounded overflow-hidden">
-    <div class="banner col-md-6">
-      <img src='../../assets/images/banner.jpg' class="w-100 h-100" alt="banner">
-    </div>
-    <form action="" class="col-md-6 px-5">
-      <div class="form-title text-center py-4">
-        <h2>Shipper Registration</h2>
+  <main class="min-vh-100 w-100 p-5 d-flex justify-content-center align-items-center">
+    <section class="border shadow d-flex flex-md-row col-md-10 flex-column rounded overflow-hidden">
+      <div class="banner col-md-6">
+        <img src='/images/login-banner.jpg' class="w-100 h-100" alt="banner">
       </div>
-      <div class="username mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input type="text" class="form-control" placeholder="Name" name="username" id="username">
-      </div>
-      <div class="password mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" placeholder="Password" id="password" name="password">
-      </div>
-      <div class="profile-picture mb-3">
-        <label for="picture" class="form-label">Profile Picture</label>
-        <input type="file" class="form-control" name="picture" id="picture">
-      </div>
-      <div class="hub mb-3">
-        <label for="ub" class="form-label">Distributed Hub</label>
-        <select name="hub" id="hub" class="form-select">
-          <option value="Hub 1">Hub 1</option>
-          <option value="Hub 2">Hub 2</option>
-          <option value="Hub 3">Hub 3</option>
-        </select>
-      </div>
-      <div class="form-btn mb-5 float-end">
-        <button class="btn btn-secondary">Cancel</button>
-        <button class="btn btn-primary">Register</button>
-        <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
-
-      </div>
-    </form>
-  </section>
-</main>
+      <form action="/shipper/register" method="post" enctype="multipart/form-data" class="col-md-6 px-5">
+        <div class="form-title text-center py-4">
+          <h2>Shipper Registration</h2>
+        </div>
+        <div class="username mb-4">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" placeholder="Name" name="username" id="username">
+        </div>
+        <div class="password mb-4">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+        </div>
+        <div class="profile-picture mb-4">
+          <label for="picture" class="form-label">Profile Picture</label>
+          <input type="file" class="form-control" name="picture" id="picture">
+        </div>
+        <div class="hub mb-4">
+          <label for="hub" class="form-label">Distributed Hub</label>
+          <select class="form-control" name="hub" id="hub">
+            <% hubs.forEach(hub => {%>
+            <option value="<%= hub.name %>"><%= hub.name %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="form-btn mb-4 float-end">
+          <button class="btn btn-secondary" type='button' id="back-to-login">Back to Login</button>
+          <button class="btn btn-primary" id="submit" type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Please fill in the form correctly">Register</button>
+        </div>
+      </form>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  <script>
+    var userData = '<%- JSON.stringify(users)%>';
+  </script>
+  <script type="module" src="/js/field-validator.js"></script>
 </body>
 </html>

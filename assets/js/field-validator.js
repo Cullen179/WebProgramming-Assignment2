@@ -1,9 +1,4 @@
-import {
-  isValidUserName,
-  isValidPassword,
-  isValidBusinessName,
-  isValidBusinessAddress,
-} from '/js/pre-validator.js';
+import { isValidUserName, isValidPassword, isValidBusinessName, isValidBusinessAddress, isValidName, isValidAddress } from '/js/pre-validator.js';
 
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
 const popoverList = [...popoverTriggerList].map(
@@ -14,18 +9,20 @@ const username = document.querySelector('#username');
 const password = document.querySelector('#password');
 const businessName = document.querySelector('#businessName');
 const businessAddress = document.querySelector('#businessAddress');
+const name = document.querySelector('#name');
+const address = document.querySelector('#address');
 const submit = document.querySelector('#submit');
+const back = document.querySelector('#back-to-login');
 
 username.addEventListener('change', () => getError(username, isValidUserName));
 password.addEventListener('change', () => {
   getError(password, isValidPassword);
 });
-if (businessName)
-  businessName.addEventListener('change', () => getError(businessName, isValidBusinessName));
-if (businessAddress)
-  businessAddress.addEventListener('change', () =>
-    getError(businessAddress, isValidBusinessAddress)
-  );
+
+if (name) name.addEventListener('change', () => getError(name, isValidName));
+if (address) address.addEventListener('change', () => getError(address, isValidAddress));
+if (businessName) businessName.addEventListener('change', () => getError(businessName, isValidBusinessName));
+if (businessAddress) businessAddress.addEventListener('change', () => getError(businessAddress, isValidBusinessAddress));
 
 submit.addEventListener('click', (e) => {
   if (!document.querySelector('.invalid-feedback')) {
@@ -38,6 +35,11 @@ submit.addEventListener('click', (e) => {
     submit.setAttribute('type', 'button');
   }
 });
+
+back.addEventListener('click', () => {
+  window.location.href = '/login';
+});
+
 
 function getError(input, validator) {
   resetError(input);

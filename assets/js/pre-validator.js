@@ -37,32 +37,24 @@ function validator(options) {
 }
 
 function isValidUserName(username) {
-  let error = '';
-
-  // if (!usernameError) {
-  //     error += `Username ${username} has already been used`;
-  // }
-
+  let errors = [];
   // 8 - 15 characters
-  if (!(8 <= username.length && username.length <= 15))
-    error += 'Username must be between 8 and 15 characters.';
+  if (!(8 <= username.length && username.length <= 15)) errors.push('must be between 8 and 15 characters');
 
   // Only letters and digits
-  if (!isOnlyLettersAndDigits(username))
-    error += (error ? ' ' : '') + 'Username must only contain letters and digits.';
+  if (!isOnlyLettersAndDigits(username)) errors.push('must only contain letters and digits');
 
   // Check if username is duplicate
-  if (isDuplicateUsername(JSON.parse(userData), username))
-    error += (error ? ' ' : '') + 'Username has already been used.';
+  if (checkDuplicate(JSON.parse(userData), 'username',username)) errors.push('has already been used');
 
-  return error;
+  if (errors.length == 0) return ''
+  else return "Username " + errors.join(', ') + '.';
 }
 
 function isValidPassword(password) {
   let error = '';
   // 8 - 20 characters
-  if (!(8 <= password.length && password.length <= 20))
-    error += 'Password must has length between 8 and 20 characters.';
+  if (!(8 <= password.length && password.length <= 20)) error += 'Password must has length between 8 and 20 characters';
 
   // Contains at least one upper case letter, at least one lower case letter,
   // at least one digit, at least one special letter in the set !@#$%^&*,
@@ -86,7 +78,7 @@ function isValidPassword(password) {
   if (!isAtLeastOneSpecialCharacter) letterError.push('at least one special character');
 
   if (letterError.length > 0) {
-    error = (error ? ' ' : '') + 'Password must contain ' + letterError.join(', ') + '.';
+    error += (error ? ', ' : 'Password') + ' must contain ' + letterError.join(', ') + '.';
   }
 
   return error;
@@ -96,15 +88,46 @@ function isValidBusinessName(businessName) {
   let error = '';
   // At least 5 characters
   if (!(businessName.length >= 5)) {
-    error += 'Business name must be at least 5 characters.';
+    error += 'Business name must be at least 5 characters';
+  }
+
+  // Check duplicate business name
+  if (checkDuplicate(JSON.parse(vendorData), 'businessName',businessName)) {
+    error += (error ? ', ' : error = 'Business name ') + 'has already been used.';
   }
 
   return error;
 }
 
 function isValidBusinessAddress(businessAddress) {
+  let error = '';
   // At least 5 characters
   if (!(businessAddress.length >= 5)) error += 'Business address must be at least 5 characters.';
+
+  // Check duplicate business name
+  if (checkDuplicate(JSON.parse(vendorData), 'businessAddress', businessAddress)) {
+    error += (error ? ', ' : error = 'Business Address ') + 'has already been used.';
+  }
+  return error;
+}
+
+function isValidName(name) {
+  let error = '';
+  // At least 5 characters
+  if (!(name.length >= 5)) {
+    error += 'Name must be at least 5 characters';
+  };
+
+  return error;
+}
+
+function isValidAddress(address) {
+  let error = '';
+
+  // At least 5 characters
+  if (!(address.length >= 5)) {
+    error += 'Address must be at least 5 characters';
+  };
 
   return error;
 }
@@ -138,16 +161,15 @@ function isNumber(c) {
   return '0' <= c && c <= '9';
 }
 
-function isDuplicateUsername(users, username) {
+function checkDuplicate(data, attribute, value) {
   let isDuplicate = false;
-  users.forEach((user) => {
-    console.log(user.username);
-    if (user.username == username) {
-      console.log('true');
+  data.forEach(object => {
+    console.log(object[attribute])
+    if (object[attribute] == value) {
       isDuplicate = true;
     }
   });
   return isDuplicate;
 }
 
-export { isValidUserName, isValidPassword, isValidBusinessName, isValidBusinessAddress };
+export { isValidUserName, isValidPassword, isValidBusinessName, isValidBusinessAddress, isValidName, isValidAddress };
