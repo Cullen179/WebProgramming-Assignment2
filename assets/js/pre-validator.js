@@ -102,7 +102,7 @@ function isValidBusinessName(businessName) {
 function isValidBusinessAddress(businessAddress) {
   let error = '';
   // At least 5 characters
-  if (!(businessAddress.length >= 5)) error += "Business address must be at least 5 characters.";
+  if (!(businessAddress.length >= 5)) error += 'Business address must be at least 5 characters.';
 
   // Check duplicate business name
   if (checkDuplicate(JSON.parse(vendorData), 'businessAddress', businessAddress)) {

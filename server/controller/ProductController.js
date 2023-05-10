@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 const Vendor = require('../model/VendorModel');
 const Product = require('../model/ProductModel');
-const {
-  getImgSrc,
-  getPictureObject,
-} = require('../../utils/imgTransformation');
+const { getImgSrc, getPictureObject } = require('../../utils/imgTransformation');
 
 class ProductController {
   constructor() {

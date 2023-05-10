@@ -1,7 +1,9 @@
 import { isValidUserName, isValidPassword, isValidBusinessName, isValidBusinessAddress, isValidName, isValidAddress } from '/js/pre-validator.js';
 
-const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+const popoverList = [...popoverTriggerList].map(
+  (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+);
 
 const username = document.querySelector('#username');
 const password = document.querySelector('#password');
@@ -13,8 +15,7 @@ const submit = document.querySelector('#submit');
 const back = document.querySelector('#back-to-login');
 
 username.addEventListener('change', () => getError(username, isValidUserName));
-password.addEventListener('change', () => 
-{
+password.addEventListener('change', () => {
   getError(password, isValidPassword);
 });
 
@@ -62,6 +63,6 @@ function resetError(input) {
 }
 
 function checkFormValid() {
-    const invalidFeedback = document.querySelector('.invalid-feedback');
-    if (!invalidFeedback) return true;
+  const invalidFeedback = document.querySelector('.invalid-feedback');
+  if (!invalidFeedback) return true;
 }

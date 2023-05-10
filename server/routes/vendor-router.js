@@ -1,8 +1,6 @@
 const route = require('express').Router();
 const vendorController = require('../controller/VendorController');
-const {
-  handleFileUploadMiddleware,
-} = require('../middleware/handleFileUpload');
+const { handleFileUploadMiddleware } = require('../middleware/handleFileUpload');
 
 /**
  * Authenticate role
