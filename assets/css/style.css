@@ -338,6 +338,45 @@ input:focus {
   }
 }
 
+/* Product Detail page */
+
+.product-detail-container {
+  display: flex;
+  gap: 50px;
+}
+
+.product-detail-img-container {
+  flex: 1;
+}
+
+.product-detail-img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+  border: 2px solid var(--light-gray);
+  border-radius: 8px;
+}
+
+.product-detail-info {
+  flex: 1;
+}
+
+.product-detail-price {
+  margin: 25px 0;
+}
+
+.product-detail-qty-and-add {
+  margin: 20px 0 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+} 
+
+.product-detail-qty {
+  width: 65px;
+}
+
 /* Shipper Home page */
 
 .vendor-name img {

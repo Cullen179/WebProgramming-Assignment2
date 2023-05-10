@@ -1,0 +1,45 @@
+<%- include ("../partials/head.ejs") %> <%- include ("../partials/customer-header.ejs") %>
+
+<body>
+  <!-- Main content -->
+  <main class="body-container my-5">
+    <!-- Product Info -->
+    <div class="product-detail-container">
+      <div class="product-detail-img-container">
+        <img src="/images/product.png" alt="product" class="product-detail-img" />
+      </div>
+
+      <div class="product-detail-info">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Product</li>
+          </ol>
+        </nav>
+        <h1 class="product-detail-name">Tempor dolores dolore et duo</h1>
+        <h4 class="product-detail-price">$150</h4>
+        <div class="product-detail-qty-and-add">
+          <input
+            class="form-control product-detail-qty"
+            type="number"
+            min="0"
+            value="0"
+            aria-describedby="productQty"
+          />
+          <button class="product-detail-add-btn btn btn-success">Add To Cart</button>
+        </div>
+        <h5 style="margin-bottom: 10px">Product Description</h5>
+        <p class="product-detail-description">
+          Dolores accusam diam sanctus ut gubergren et. Ut et sit consetetur eos labore ipsum et
+          dolor gubergren. No vero lorem gubergren et sed clita magna. Dolores accusam diam sanctus
+          ut gubergren et. Ut et sit consetetur eos labore ipsum et dolor gubergren. No vero lorem
+          gubergren et sed clita magna.
+        </p>
+      </div>
+    </div>
+
+    <!-- Product Description -->
+  </main>
+  <%- include ('../partials/footer.ejs') %>
+</body>
+</html>
