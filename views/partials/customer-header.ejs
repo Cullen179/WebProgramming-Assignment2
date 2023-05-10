@@ -12,12 +12,20 @@
             placeholder="Search"
             aria-label="Search"
           />
-          <button class="btn btn-primary" style="padding: 6px;" type="submit">
-            <span class="material-symbols-outlined d-block text-white">
-              search
-            </span>
+          <button class="btn btn-primary" style="padding: 6px" type="submit">
+            <span class="material-symbols-outlined d-block text-white"> search </span>
           </button>
         </form>
+        <a href="#" class="nav-link">
+          <span
+            class="material-symbols-outlined d-block text-primary navbar-profile-icon"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"
+          >
+            shopping_cart
+          </span>
+        </a>
         <a href="#" class="nav-link">
           <span class="material-symbols-outlined d-block text-primary navbar-profile-icon">
             account_circle
@@ -27,3 +35,53 @@
     </div>
   </nav>
 </header>
+
+<div
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  id="offcanvasRight"
+  aria-labelledby="offcanvasRightLabel"
+>
+  <div class="offcanvas-header cart-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Shopping Cart</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body cart-body">
+    <!-- Cart Items -->
+    <div class="cart-items">
+      <div class="cart-item">
+        <img class="cart-item-img" src="/images/product.png" alt="radish" />
+        <div class="cart-item-detail">
+          <h6 class="cart-item-name">Eirmod justo accusam justo justo</h6>
+          <div class="cart-item-price-and-qty">
+            <span class="cart-item-qty">1</span>
+            <span>x</span>
+            <span class="cart-item-price">$1.50</span>
+          </div>
+        </div>
+        <div class="cart-delete material-symbols-outlined">delete</div>
+      </div>
+      <div class="cart-item">
+        <img class="cart-item-img" src="/images/product.png" alt="radish" />
+        <div class="cart-item-detail">
+          <h6 class="cart-item-name">Product</h6>
+          <div class="cart-item-price-and-qty">
+            <span class="cart-item-qty">1</span>
+            <span>x</span>
+            <span class="cart-item-price">$1.50</span>
+          </div>
+        </div>
+        <div class="cart-delete material-symbols-outlined">delete</div>
+      </div>
+    </div>
+
+    <!-- Cart Bottom -->
+    <div class="cart-bottom">
+      <div class="cart-total">
+        <h5>Total:</h5>
+        <span class="cart-total-price">$3.00</span>
+      </div>
+      <button class="order-button btn btn-primary btn-lg">Order</button>
+    </div>
+  </div>
+</div>
