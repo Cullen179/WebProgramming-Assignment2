@@ -1,8 +1,6 @@
 const route = require('express').Router();
 const productController = require('../controller/ProductController');
-const {
-  handleFileUploadMiddleware,
-} = require('../middleware/handleFileUpload');
+const { handleFileUploadMiddleware } = require('../middleware/handleFileUpload');
 
 // Product routes
 route.get('/add', productController.showAddNewProduct);

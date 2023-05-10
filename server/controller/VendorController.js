@@ -4,10 +4,7 @@ const Vendor = require('../model/VendorModel');
 const Product = require('../model/ProductModel');
 const generatePassword = require('../../utils/passwordUtils').generatePassword;
 const siteService = require('../service/render');
-const {
-  getImgSrc,
-  getPictureObject,
-} = require('../../utils/imgTransformation');
+const { getImgSrc, getPictureObject } = require('../../utils/imgTransformation');
 
 class VendorController {
   // [GET] "/vendor/register"

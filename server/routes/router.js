@@ -32,7 +32,6 @@ route.get('/hub/:_id', HubController.getHub);
 route.get('/hub/hub-listing', HubController.getHubListing);
 route.post('/hub/hub-listing', HubController.creatHub);
 
-
 /**
  * ---------------- Authentication before access all other routes ----------------
  * */
