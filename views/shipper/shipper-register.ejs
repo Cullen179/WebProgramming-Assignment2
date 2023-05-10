@@ -11,11 +11,11 @@
         </div>
         <div class="username mb-4">
           <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control" placeholder="Name" name="username" id="username">
+          <input type="text" class="form-control" placeholder="Name" name="username" id="username" required>
         </div>
         <div class="password mb-4">
           <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+          <input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
         </div>
         <div class="profile-picture mb-4">
           <label for="picture" class="form-label">Profile Picture</label>
@@ -23,7 +23,7 @@
         </div>
         <div class="hub mb-4">
           <label for="hub" class="form-label">Distributed Hub</label>
-          <select class="form-control" name="hub" id="hub">
+          <select class="form-control" name="hub" id="hub" required>
             <% hubs.forEach(hub => {%>
             <option value="<%= hub.name %>"><%= hub.name %></option>
             <% }) %>

@@ -25,8 +25,8 @@ if (businessAddress) businessAddress.addEventListener('change', () => getError(b
 
 submit.addEventListener('click', (e) => {
   if (!document.querySelector('.invalid-feedback')) {
-    console.log('true');
     console.log(document.querySelector('.invalid-feedback'));
+    submit.setAttribute('data-bs-content', '');
     submit.setAttribute('type', 'submit');
   } else {
     console.log('false');

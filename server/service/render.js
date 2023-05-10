@@ -12,14 +12,15 @@ class SiteService {
   // [GET] "/"
   homeRoute(req, res, next) {
     if (req.user.role === 'customer') {
-      Product.find()
-        .then(products => {
-          products.forEach(product => {
-            if (product.picture) {
-              product.imgSrc = getImgSrc(product.picture);
+      let customer = null;
+      User.find()
+        .then(users => {
+          users.forEach(user => {
+            if (user.picture) {
+              user.imgSrc = getImgSrc(user.picture);
             }
           })
-          res.render('customer/customer-home', { products: products });
+          res.render('customer/customer-home', { users: users, customer: req.user});
       })
       .catch(err => {
         next(err);

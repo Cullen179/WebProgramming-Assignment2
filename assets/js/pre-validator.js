@@ -92,7 +92,7 @@ function isValidBusinessName(businessName) {
   }
 
   // Check duplicate business name
-  if (checkDuplicate(JSON.parse(vendorData), 'businessName',businessName)) {
+  if (checkDuplicate(JSON.parse(vendorData), 'businessName', businessName)) {
     error += (error ? ', ' : error = 'Business name ') + 'has already been used.';
   }
 
