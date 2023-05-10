@@ -1,37 +1,3 @@
-<h1>Customer home</h1>
-<br />
-<style>
-    main {
-        display: flex;
-        justify-content: space-between;
-    }
-</style>
-<a href="/logout">Logout</a>
-<br />
-<a href="/customer/profile">Profile</a>
-
-<main>
-    <div>
-        <% users.forEach(user=> { %>
-            <div>
-                <h3>
-                    <%= user.username %>
-                </h3>
-                
-                <button onclick="addToCart('<%= JSON.stringify(user) %>')">Click me</button>
-                <button onclick="removeFromCart('<%= JSON.stringify(user) %>')">Remove</button>
-            </div>
-        <% }) %>
-    </div>
-    <div id="cart">
-        
-    </div>
-</main>
-    <script>
-        var products = '<%- JSON.stringify(users) %>'
-        var customer = '<%- JSON.stringify(customer) %>'
-    </script>
-    <script src="/js/add-to-cart.js"></script>
 <%- include ("../partials/head.ejs") %> 
 <%- include ("../partials/customer-header.ejs") %>
 
