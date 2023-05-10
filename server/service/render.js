@@ -28,7 +28,7 @@ class SiteService {
     }
 
     if (req.user.role === 'vendor') {
-      Product.find({ ownership: req.vendor._id })
+      Product.find()
         .then((products) => {
           // Attach imgSrc property to each product
           // => View get product.imgSrc to put into image tag
