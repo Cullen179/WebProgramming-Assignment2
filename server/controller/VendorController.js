@@ -12,7 +12,28 @@ const {
 class VendorController {
   // [GET] "/vendor/register"
   showRegistration(req, res, next) {
-    res.render('vendor/vendor-register');
+    let users = null;
+    let vendors = null;
+
+    let getData = async () => {
+      await User.find()
+        .then(data => {
+            users = data;
+          }
+        ).catch(err => console.log(err));
+        
+      await Vendor.find()
+          .then(data => {
+            vendors = data;
+          }
+          ).catch(err => console.log(err));
+    };
+    getData()
+      .then(() => {
+        res.render('vendor/vendor-register', { users, vendors });
+      })
+      .catch(err => console.log(err));
+
   }
 
   // [POST] "/vendor/register"
@@ -20,7 +41,10 @@ class VendorController {
     // Generate salt + hash
     const username = req.body.username;
     const password = req.body.password;
+    const businessName = req.body.businessName;
+    const businessAddress = req.body.businessAddress;
     const { salt, hash } = generatePassword(password);
+    const pictureObject = getPictureObject(req, res, next);
 
     // Create user first
     const user = new User({
@@ -38,10 +62,12 @@ class VendorController {
         // Create vendor
         const vendor = new Vendor({
           account: user._id,
-          picture: 'vendor image link',
-          businessName: req.body.businessname,
-          businessAddress: req.body.businessaddress,
+          picture: pictureObject,
+          businessName: req.body.businessName,
+          businessAddress: req.body.businessAddress,
         });
+        console.log(vendor);
+        console.log(pictureObject);
 
         // Save vendor
         vendor
@@ -61,7 +87,14 @@ class VendorController {
 
   // [GET] "/vendor/profile"
   showProfile(req, res, next) {
-    res.render('vendor/vendor-profile', { vendor: req.vendor });
+    // Attach imgSrc property to vendor
+    // => View get product.imgSrc to put into image tag
+    const vendor = req.vendor;
+    const imgSrc = getImgSrc(vendor.picture);
+    if (imgSrc) {
+      vendor.imgSrc = imgSrc;
+    }
+    res.render('vendor/vendor-profile', { vendor: vendor });
   }
 
   // [GET] "/vendor/profile/edit"
@@ -82,8 +115,13 @@ class VendorController {
       });
   }
 
-  // [PUT] "vendor/profile/edit"
-  editProfile(req, res, next) {
+  // [GET] "/vendor/addnewproduct"
+  showAddNewProduct(req, res, next) {
+    res.render('vendor/add-product');
+  }
+
+  // [POST] "/vendor/addnewproduct"
+  addNewProduct(req, res, next) {
     const curVendor = req.vendor;
     const pictureObject = getPictureObject(req, res, next);
 

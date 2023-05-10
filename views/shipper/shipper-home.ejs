@@ -1,5 +1,491 @@
-<h1>Home shipper</h1>
-<br />
-<a href="/logout">Logout</a>
-<br />
-<a href="/shipper/profile">Profile</a>
+<%- include ("../partials/head.ejs") %>
+<%- include ("../partials/header.ejs") %>
+<body>
+    <!-- Main content -->
+    <main class= "indent">
+        <div class="order-container container px-0 mt-5 pb-3 mb-5 bg-white shadow rounded rounded-4 border border-1">
+            <div class="order-header d-flex justify-content-between">
+                <div class="title">
+                    <h3 class="py-3 mx-4">Orders</h3>
+                </div>
+                <ul class="nav nav-tabs d-flex align-items-end px-3" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="active-tab" data-bs-toggle="tab" data-bs-target="#active-tab-pane" type="button" role="tab" aria-controls="active-tab-pane" aria-selected="true">Active</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="inactive-tab" data-bs-toggle="tab" data-bs-target="#inactive-tab-pane" type="button" role="tab" aria-controls="inactive-tab-pane" aria-selected="false">Inactive</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="category row mx-4 py-3 border-top d-flex justify-content-md-between">
+                <div class="col-1">
+                    Order ID
+                </div>
+                <div class="col-1">
+                    Date
+                </div>
+                <div class="col-2">
+                    Customer
+                </div>
+                <div class="col-2">
+                    Destination
+                </div>
+                <div class="col-1 d-flex justify-content-center">
+                    Hub 
+                </div>
+                <div class="col-1 d-flex justify-content-center">
+                    Items 
+                </div>
+                <div class="col-lg-1 col-md-2 d-flex justify-content-center">
+                    Status            
+                </div>
+            </div>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="active-tab-pane" role="tabpanel" aria-labelledby="active-tab">
+                    <div class="product-list">
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="active"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="active"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="active"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="active"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="active"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="active"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="active"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="active"></span>
+                            </div>
+                        </div><div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="active"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+                <div class="tab-pane fade" id="inactive-tab-pane" role="tabpanel" aria-labelledby="inactive-tab">
+                    <div class="product-list">
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="delivered"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="canceled"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="delivered"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="canceled"></span>
+                            </div>
+                        </div><div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="delivered"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="canceled"></span>
+                            </div>
+                        </div><div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="delivered"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="canceled"></span>
+                            </div>
+                        </div><div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="delivered"></span>
+                            </div>
+                        </div>
+                        <div class="product row w-100 mx-0 px-4 py-3 border-top d-flex justify-content-md-between">
+                            <div class="ID col-md-1 col-12">
+                                #6709
+                            </div>
+                            <div class="date col-md-1 col-12">
+                                5/8/2023
+                            </div>
+                            <div class="customer-name col-md-2 col-12">
+                                Hoang Nguyen Nhat Minh
+                            </div>
+                            <div class="destination col-md-2 my-md-0 my-4 col-6">
+                                10 street 3 Cityland Garden Hills ward 5 Go Vap district Ho Chi Minh City
+                            </div>
+                            <div class="vendor-name col-md-1 my-md-0 my-4 col-6 d-flex justify-content-md-center justify-content-end">
+                                <img src="/images/Amazon-logo.jpg" alt="Amazon-logo">
+                            </div>
+                            <div class="items col-md-1 col-2 d-flex justify-content-md-center justify-content-center align-items-center">
+                                3
+                            </div>
+                            <div class="status col-lg-1 col-md-2 col-10 d-flex align-items-center justify-content-md-center justify-content-end">
+                                <span class="canceled"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Main content -->
+    <%- include ('../partials/footer.ejs') %>
+</body>
+</html>

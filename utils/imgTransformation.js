@@ -37,7 +37,6 @@ function getPictureObject(req, res, next) {
       data: new Buffer(encode_image, 'base64'),
     };
   }
-
   return finalImg;
 }
 

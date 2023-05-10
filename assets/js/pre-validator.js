@@ -36,19 +36,25 @@ function validator(options) {
   return 'valid';
 }
 
-export function isValidUserName(username) {
+function isValidUserName(username) {
+  let errors = [];
   // 8 - 15 characters
-  if (!(8 <= username.length && username.length <= 15)) return false;
+  if (!(8 <= username.length && username.length <= 15)) errors.push('must be between 8 and 15 characters');
 
   // Only letters and digits
-  if (!isOnlyLettersAndDigits(username)) return false;
+  if (!isOnlyLettersAndDigits(username)) errors.push('must only contain letters and digits');
 
-  return true;
+  // Check if username is duplicate
+  if (checkDuplicate(JSON.parse(userData), 'username',username)) errors.push('has already been used');
+
+  if (errors.length == 0) return ''
+  else return "Username " + errors.join(', ') + '.';
 }
 
 function isValidPassword(password) {
+  let error = '';
   // 8 - 20 characters
-  if (!(8 <= password.length && password.length <= 20)) return false;
+  if (!(8 <= password.length && password.length <= 20)) error += 'Password must has length between 8 and 20 characters';
 
   // Contains at least one upper case letter, at least one lower case letter,
   // at least one digit, at least one special letter in the set !@#$%^&*,
@@ -57,6 +63,7 @@ function isValidPassword(password) {
   let isAtLeastOneLowerCase = false;
   let isAtLeastOneDigit = false;
   let isAtLeastOneSpecialCharacter = false;
+  let letterError = [];
 
   for (const c of password) {
     if (isUpperCaseLetter(c)) isAtLeastOneUpperCase = true;
@@ -65,34 +72,64 @@ function isValidPassword(password) {
     if (isSpecialCharacter(c)) isAtLeastOneSpecialCharacter = true;
   }
 
-  if (
-    !(
-      isAtLeastOneUpperCase &&
-      isAtLeastOneLowerCase &&
-      isAtLeastOneDigit &&
-      isAtLeastOneSpecialCharacter
-    )
-  ) {
-    return false;
+  if (!isAtLeastOneUpperCase) letterError.push('at least one upper case letter');
+  if (!isAtLeastOneLowerCase) letterError.push('at least one lower case letter');
+  if (!isAtLeastOneDigit) letterError.push('at least one digit');
+  if (!isAtLeastOneSpecialCharacter) letterError.push('at least one special character');
+
+  if (letterError.length > 0) {
+    error += (error ? ', ' : 'Password') + ' must contain ' + letterError.join(', ') + '.';
   }
 
-  return true;
+  return error;
 }
 
 function isValidBusinessName(businessName) {
+  let error = '';
   // At least 5 characters
   if (!(businessName.length >= 5)) {
-    return false;
+    error += 'Business name must be at least 5 characters';
   }
 
-  return true;
+  // Check duplicate business name
+  if (checkDuplicate(JSON.parse(vendorData), 'businessName', businessName)) {
+    error += (error ? ', ' : error = 'Business name ') + 'has already been used.';
+  }
+
+  return error;
 }
 
 function isValidBusinessAddress(businessAddress) {
+  let error = '';
   // At least 5 characters
-  if (!(businessAddress.length >= 5)) return false;
+  if (!(businessAddress.length >= 5)) error += "Business address must be at least 5 characters.";
 
-  return true;
+  // Check duplicate business name
+  if (checkDuplicate(JSON.parse(vendorData), 'businessAddress', businessAddress)) {
+    error += (error ? ', ' : error = 'Business Address ') + 'has already been used.';
+  }
+  return error;
+}
+
+function isValidName(name) {
+  let error = '';
+  // At least 5 characters
+  if (!(name.length >= 5)) {
+    error += 'Name must be at least 5 characters';
+  };
+
+  return error;
+}
+
+function isValidAddress(address) {
+  let error = '';
+
+  // At least 5 characters
+  if (!(address.length >= 5)) {
+    error += 'Address must be at least 5 characters';
+  };
+
+  return error;
 }
 
 function isOnlyLettersAndDigits(string) {
@@ -124,4 +161,15 @@ function isNumber(c) {
   return '0' <= c && c <= '9';
 }
 
-export { validator, isValidUserName, isValidPassword, isValidBusinessName, isValidBusinessAddress };
+function checkDuplicate(data, attribute, value) {
+  let isDuplicate = false;
+  data.forEach(object => {
+    console.log(object[attribute])
+    if (object[attribute] == value) {
+      isDuplicate = true;
+    }
+  });
+  return isDuplicate;
+}
+
+export { isValidUserName, isValidPassword, isValidBusinessName, isValidBusinessAddress, isValidName, isValidAddress };

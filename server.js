@@ -9,6 +9,7 @@ const session = require('express-session');
 const passport = require('passport');
 const crypto = require('crypto');
 const MongoStore = require('connect-mongo');
+const flash = require('connect-flash');
 
 var methodOverride = require('method-override');
 
@@ -62,7 +63,7 @@ app.use(
     },
   })
 );
-
+app.use(flash());
 /**
  * -------------- PASSPORT AUTHENTICATION ----------------
  */

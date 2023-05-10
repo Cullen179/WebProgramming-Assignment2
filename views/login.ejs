@@ -1,7 +1,7 @@
 <%- include ("./partials/head.ejs") %>
 <body>
     <!-- Screen view -->
-    <main class="screen-view container-fluid vh-100 d-flex justify-content-center align-items-center">
+    <main class="container-fluid p-0 vh-100 d-flex justify-content-center align-items-center">
         <!-- Login body -->
         <section class="row mw-100 h-100">
             <!-- Image -->
@@ -10,40 +10,48 @@
             </div>
             <!-- Image -->
             <!-- Login information -->
-            <div class="login-info col-lg-6">
+            <div class="login-info bg-white col-lg-6">
                 <div class="container h-100 mw-100 mh-100 p-lg-5 p-md-4 p-3 d-flex flex-column justify-content-center">
-                    <h1 class="login-title mb-md-5"><strong>Sign in</strong></h1>
+                    <h1 class="login-title mb-4 mt-md-0 mt-sm-4"><strong>Sign in</strong></h1>
+
+                    <% if (loginError != '') {%>
+                        
+                        <div class="alert alert-danger">
+                            <%= loginError%>
+                        </div>
+                    
+                    <% } %>
                     <!-- Form -->
                     <form method="POST" action="/login">
                         <div class="username mb-md-4 mt-3">
                             <label for="username" class="form-label"><p>Username</p></label>
-                            <input type="text" class="login-input form-control" name="username" id="username" value="" placeholder="Name...">
+                            <input type="text" class="custom-form-input form-control" name="username" id="username" value="" placeholder="Name...">
                         </div>
                         <div class="password mb-md-4 mt-3">
                             <label for="password" class="form-label"><p>Password</p></label>
-                            <input type="password" class="login-input form-control" name="password" id="password" value="" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                            <input type="password" class="custom-form-input form-control" name="password" id="password" value="" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
                         </div>
                         <div class="submit mt-md-5 mt-4 d-flex justify-content-start">
-                            <button type="submit" class="login-button">Sign in</button>
+                            <button type="submit" class="custom-form-button">Sign in</button>
                         </div>
                         <div class="register mt-md-5 mt-4 mw-100 d-flex flex-md-row justify-content-lg-start align-items-md-center flex-column align-items-start">
                             <div class="other">
                                 Or register as
                             </div>
                             <div class="register-button d-flex justify-content-between">
-                                <a href="/shipper/register">
+                                <a href="/customer/register">
                                     <span class="icon material-symbols-outlined">
                                         person
                                     </span>
                                     Customer
                                 </a>
-                                <a href="/customer/register">
+                                <a href="/vendor/register">
                                     <span class="icon material-symbols-outlined">
                                         store
                                     </span>
                                     Vendor
                                 </a>
-                                <a href="/vendor/register">
+                                <a href="/shipper/register">
                                     <span class="icon material-symbols-outlined">
                                         local_shipping
                                     </span>
