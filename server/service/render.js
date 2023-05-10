@@ -12,7 +12,12 @@ class SiteService {
   // [GET] "/"
   homeRoute(req, res, next) {
     if (req.user.role === 'customer') {
-      Product.find()
+      Product.find({
+        $or: [  // find a match in the product's name or description
+          {name: {'$regex': req.query.search}},
+          {description: {'$regex': req.query.search}}
+        ]
+      })
         .then(products => {
           products.forEach(product => {
             if (product.picture) {
@@ -27,7 +32,15 @@ class SiteService {
     }
 
     if (req.user.role === 'vendor') {
-      Product.find({ ownership: req.vendor._id })
+      Product.find({
+        $and: [ // find a match in the product's name or description while belong to the vendor via _id
+          {ownership: req.vendor._id},
+          {$or: [
+            {name: {'$regex': req.query.search}},
+            {description: {'$regex': req.query.search}}
+          ]}
+        ]
+      })
         .then((products) => {
           // Attach imgSrc property to each product
           // => View get product.imgSrc to put into image tag
