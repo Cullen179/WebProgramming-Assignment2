@@ -2,11 +2,103 @@
 
 <body>
   <!-- Main content -->
-  <main class="body-container my-5">
-    <!-- Product Info -->
-    
+  <main class="indent my-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">My Account</li>
+      </ol>
+    </nav>
 
-    <!-- Product Description -->
+    <h1 class="account-title-mobile">My Account</h1>
+
+    <!-- Main Content -->
+    <div class="account-container">
+      <div class="account-img-section">
+        <img class="account-img" src="/images/customer.jpg" />
+        <button
+          type="button"
+          class="btn btn-link"
+          data-bs-toggle="modal"
+          data-bs-target="#uploadImage"
+        >
+          Change
+        </button>
+      </div>
+      <div class="account-info-section">
+        <h1 class="account-title">My Account</h1>
+
+        <fieldset disabled>
+          <div class="mb-3">
+            <label for="customerUsername" class="form-label">Username</label>
+            <input type="text" value="linh123" class="form-control" id="customerUsername" />
+          </div>
+          <div class="mb-3">
+            <label for="customerName" class="form-label">Name</label>
+            <input type="text" value="Vu Tuan Linh" class="form-control" id="customerName" />
+          </div>
+          <div class="mb-3">
+            <label for="customerAddress" class="form-label">Address</label>
+            <input
+              type="text"
+              value="New Saigon, Nha Be, Ho Chi Minh City"
+              class="form-control"
+              id="customerAddress"
+            />
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <!-- Upload Image Modal -->
+    <div
+      class="modal fade"
+      id="uploadImage"
+      tabindex="-1"
+      aria-labelledby="uploadImageLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">New Profile Image</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="account-upload-img-modal modal-body">
+            <!-- Ask User to upload img -->
+            <span
+              class="material-symbols-outlined text-primary"
+              style="font-size: 60px; width: min-content"
+            >
+              upload_file
+            </span>
+            <button class="btn btn-outline-primary" style="width: 50%">Select File</button>
+
+            <!-- User has uploaded an img -->
+            <!-- <img class="account-uploaded-img" src="/images/customer.jpg" />
+            <button
+              type="button"
+              class="btn btn-link"
+              data-bs-toggle="modal"
+              data-bs-target="#uploadImage"
+            >
+              Reselect
+            </button> -->
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <%- include ('../partials/footer.ejs') %>
 </body>

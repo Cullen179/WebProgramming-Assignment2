@@ -634,3 +634,75 @@ body {
     margin-top: 12px;
   }
 }
+
+/* My Account page */
+.account-container {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  margin-top: 50px;
+}
+
+.account-title-mobile {
+  display: none;
+}
+
+.account-img-section {
+  flex: 2;
+  text-align: center;
+}
+
+.account-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.account-img-change {
+  cursor: pointer;
+}
+
+.account-img-change:hover {
+  text-decoration: underline;
+}
+
+.account-info-section {
+  flex: 5;
+}
+
+.account-upload-img-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.account-uploaded-img {
+  width: 150px;
+  height: auto;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+
+@media screen and (max-width: 767px) {
+  .account-container {
+    flex-direction: column;
+    align-items: normal;
+    gap: 20px;
+  }
+
+  .account-title {
+    display: none;
+  }
+
+  .account-img-section {
+    text-align: left;
+  }
+
+  .account-img {
+    width: 150px;
+  }
+}
