@@ -3,8 +3,6 @@ let localStorage = window.localStorage;
 let cartElement = document.querySelector('#cart');
 let customerData = JSON.parse(customer);
 
-console.log(customerData);
-
 
 if (typeof(Storage) != 'undefined') {
     if (!localStorage[customerData._id]) {
@@ -16,12 +14,11 @@ if (typeof(Storage) != 'undefined') {
 
 let cart = JSON.parse(localStorage[customerData._id]);
 
-function addToCart(user) {
-    let productID = JSON.parse(user)._id;
+function addToCart(item) {
+    let productID = JSON.parse(item)._id;
     if (!cart.includes(productID)) cart.push(productID);
 
     localStorage[customerData._id] = JSON.stringify(cart);
-    displayCart();
 };
 
 function removeFromCart(user) {
@@ -30,7 +27,7 @@ function removeFromCart(user) {
 
     cart.includes(productID) && cart.splice(cart.indexOf(productID), cart.indexOf(productID) + 1); // Remove product from cart
     localStorage[customerData._id] = JSON.stringify(cart);
-    displayCart();
+    // displayCart();
 };
 
 function displayCart() {
@@ -44,11 +41,10 @@ function displayCart() {
                 <div class='product'>
                     <h1>${product.username}</h1>
                     <button onclick='removeFromCart(${JSON.stringify(product)})'>Remove</button>
-                </div>`
+                </div>`;
         }).join('');
     }
-
-}
+};
 
 
 
