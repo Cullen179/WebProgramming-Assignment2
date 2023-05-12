@@ -3,10 +3,6 @@ const { Schema, default: mongoose } = require("mongoose");
 const orderSchema = new Schema(
   {
     _id: mongoose.Schema.Types.ObjectId,
-    deliveryDate: {
-      type: Date,
-      require: true
-    },
     customer: {
       type: Schema.Types.ObjectId,
       ref: 'Customer',

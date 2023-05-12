@@ -21,6 +21,7 @@ route.post('/login', siteService.login);
 
 route.get('/customer/register', customerController.showRegistration);
 route.post('/customer/register', handleFileUploadMiddleware.single('picture'), customerController.createAccount);
+route.post('/', customerController.createOrder);
 
 route.get('/vendor/register', vendorController.showRegistration);
 route.post('/vendor/register', handleFileUploadMiddleware.single('picture'), vendorController.createAccount);

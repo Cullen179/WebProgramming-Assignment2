@@ -14,7 +14,8 @@ route.use((req, res, next) => {
   }
 });
 
-// Shipper routes after authentication
+// Cutomer routes after authentication
 route.get('/profile', customerController.showProfile);
+route.get('/order', customerController.showOrder);
 
 module.exports = route;

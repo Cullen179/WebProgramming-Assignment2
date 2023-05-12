@@ -24,6 +24,9 @@
                 <span class="material-symbols-outlined d-block text-white"> search </span>
               </button>
             </form>
+            <a href="/customer/order" class="nav-link">
+              <i class="bi bi-clipboard-check"></i>
+            </a>
             <a class="nav-link">
               <span
                 class="material-symbols-outlined d-block text-white navbar-profile-icon"
@@ -58,6 +61,17 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body cart-body">
+
+    <% if (orderSuccess != '') {%>
+      <div class="order-success alert alert-success" role="alert">
+        <%= orderSuccess %>
+      </div>
+    <% } %>
+    <% if (orderError != '') {%>
+      <div class="order-error alert alert-danger" role="alert">
+        <%= orderError %>
+      </div>
+    <% } %>
     <!-- Cart Items -->
     <div class="cart-items">
         Your cart is empty
@@ -72,7 +86,10 @@
           <span class="cart-total-price">10</span>
         </div>
       </div>
-      <button class="order-button btn btn-primary btn-lg">Order</button>
+      <form action="/" method="post" class="order-form">
+        <input type="hidden" name="order" id="order">
+        <button class="order-button btn btn-primary btn-lg" type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Please choose at least 1 product">Order</button>
+      </form>
     </div>
   </div>
 </div>

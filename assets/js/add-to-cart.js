@@ -1,11 +1,20 @@
 // const btn = document.querySelector('button');
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+const popoverList = [...popoverTriggerList].map(
+  (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+);
+
 let localStorage = window.localStorage;
+let offCanvas = document.querySelector('.offcanvas');
 let cartElement = document.querySelector('.cart-items');
 let cartPrice = document.querySelector('.cart-total-price');
+let order = document.querySelector('#order');
+let orderSubmit = document.querySelector('.order-button');
 let customerData = JSON.parse(customer);
 let imgData = JSON.parse(img);
 let productData = JSON.parse(products);
 
+displayMessage();
 if (typeof(Storage) != 'undefined') {
     if (!localStorage[customerData._id]) {
         localStorage[customerData._id] = JSON.stringify([]);
@@ -26,8 +35,6 @@ function addToCart(item) {
 };
 
 function removeFromCart(productID) {
-    console.log(cart.includes(productID));
-
     cart.includes(productID) && cart.splice(cart.indexOf(productID), cart.indexOf(productID) + 1); // Remove product from cart
     localStorage[customerData._id] = JSON.stringify(cart);
     console.log(localStorage[customerData._id]);
@@ -36,32 +43,31 @@ function removeFromCart(productID) {
 
 function displayCart() {
     cartPrice.innerHTML = 0;
-
     if (cart.length == 0) {
         cartElement.innerHTML = `
-            Your cart is empty
+        Your cart is empty
         `;
-
+        
     } else {
         cartElement.innerHTML = cart.map(productID => {
             let {product, productIndex} = getProduct(productID);
-            console.log(productIndex);
             cartPrice.innerHTML = Number(cartPrice.innerHTML) + product.price;
             return `
-                <div class="cart-item">
-                    <img class="cart-item-img" src="${imgData[productIndex]}" alt="product image" />
-                    <div class="cart-item-detail">
-                        <h6 class="cart-item-name">${product.name}</h6>
-                        <div class="cart-item-price-and-qty">
-                            <span class="cart-item-qty">1</span>
-                            <span>x</span>
-                            <span class="cart-item-price">${product.price}</span>
-                        </div>
-                    </div>
-                    <div class="cart-delete material-symbols-outlined" onclick="removeFromCart('${product._id}')">delete</div>
-                </div>`
+            <div class="cart-item">
+            <img class="cart-item-img" src="${imgData[productIndex]}" alt="product image" />
+            <div class="cart-item-detail">
+            <h6 class="cart-item-name">${product.name}</h6>
+            <div class="cart-item-price-and-qty">
+            <span class="cart-item-qty">1</span>
+            <span>x</span>
+            <span class="cart-item-price">${product.price}</span>
+            </div>
+            </div>
+            <div class="cart-delete material-symbols-outlined" onclick="removeFromCart('${product._id}')">delete</div>
+            </div>`
         }).join('');
     }
+    getOrder(cart, Number(cartPrice.innerHTML));
 };
 
 function getProduct(id) {
@@ -75,6 +81,36 @@ function getProduct(id) {
     return {product: product, productIndex: productIndex};
 }
 
+function getOrder(products, price) {
+    if (products.length > 0) {
+        order.value = JSON.stringify({
+            products: products,
+            price: price,
+        });
+    }
+}
 
+orderSubmit.addEventListener('click', (event) => {
+    if (isValidOrder()) {
+        console.log('true');
+        orderSubmit.setAttribute('data-bs-toggle', '');
+        orderSubmit.setAttribute('type', 'submit');
+    }
+});
+
+function isValidOrder() {
+    if (cart.length == 0) 
+        return false;
+    else {
+        return true;
+    }
+}
+
+function displayMessage() {
+    if (document.querySelector('.order-success') || document.querySelector('.order-error')) {
+        offCanvas.classList.add('show');
+        localStorage[customerData._id] = JSON.stringify([]);
+    }
+}
 
 

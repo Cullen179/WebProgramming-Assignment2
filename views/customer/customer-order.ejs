@@ -1,0 +1,16 @@
+<a href="/">Home</a>
+<% if (orders.length == 0) {%>
+    <h1>There is no order</h1>
+<% } else {%>
+    <% orders.forEach(order => { %>
+        <!-- <p>order</p> -->
+            <p><%= order.product %></p>
+
+    <% }) %>
+<% } %>    
+
+<script>
+    var orders = `<%- JSON.stringify(orders) %>`;
+</script>
+
+<script src="/js/customer-order.js"></script>

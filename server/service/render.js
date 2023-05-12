@@ -26,7 +26,7 @@ class SiteService {
               img.push(product.imgSrc);
             } else img.push('');
           });
-          res.render('customer/customer-home', { products: products, customer: req.user , img: img});
+          res.render('customer/customer-home', { products: products, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
         })
         .catch((err) => {
           next(err);

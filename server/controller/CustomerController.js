@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const User = require('../model/UserModel');
 const Customer = require('../model/CustomerModel');
+const Product = require('../model/ProductModel');
+const Order = require('../model/OrderModel');
+const Hub = require('../model/HubModel');
 const generatePassword = require('../../utils/passwordUtils').generatePassword;
 const siteService = require('../service/render');
 const {
@@ -32,6 +35,74 @@ class CustomerController {
       })
       .catch(err => console.log(err));
 
+  }
+
+  showOrder(req, res, next) {
+    Order.find({customer: req.user._id})
+      .then(orders => {
+        res.render('customer/customer-order', {orders: orders});
+        })  
+      .catch(err => next(err));
+  };
+
+  createOrder(req, res, next) {
+    async function getRandomHub() {
+      await Hub.find()
+        .then(hubs => {
+          return hubs[Math.round(Math.random() * hubs.length)]
+        })
+        .catch(err => next(err));
+      return;
+    }
+    const productOrder = JSON.parse(req.body.order).products;
+    const price = JSON.parse(req.body.order).price;
+
+    Product.find({_id: {$in: productOrder}})
+      .then(products => {
+        // Check if product is available
+        if (products.some(product => product.quantity == 0)) {
+          req.flash('orderError', 'There is/are (a) product(s) in your order that is/are out of stock. Please choose a different product.');
+          res.redirect('/');
+        } else {
+          // Create order
+          let randomHub = getRandomHub();
+
+          const order = new Order({
+            _id: new mongoose.Types.ObjectId(),
+            customer: req.user._id,
+            product: productOrder,
+            price: price,
+            hub: randomHub._id,
+            status: 'active',
+          });
+
+          // Save order
+          order.save()
+            .then(() => {
+              console.log('Order created successfully');
+              req.flash('orderSuccess', `Your order has been placed successfully at ${randomHub.name}.`);
+              res.redirect('/');
+              Product.updateMany({ _id: {$in: productOrder}}, {$inc: {quantity: -1}})
+                .then()
+                .catch(err => next(err));
+            })
+            .catch(err => next(err));
+        }
+      })
+  
+  }
+
+  updateProductQuantity(productOrder) {
+    // [PUT] product/:id/edit
+
+    Product.updateMany({ _id: {$in: productOrder}})
+      .then(() => {
+        // After update => go back home page
+        res.redirect('/');
+      })
+      .catch((err) => {
+        next(err);
+      });
   }
 
   // [POST] "/customer"
@@ -82,7 +153,7 @@ class CustomerController {
         next(err);
       });
   }
-
 }
+
 
 module.exports = new CustomerController();
