@@ -82,6 +82,7 @@ class CustomerController {
         next(err);
       });
   }
+
 }
 
 module.exports = new CustomerController();

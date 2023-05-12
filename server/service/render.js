@@ -12,15 +12,20 @@ class SiteService {
   // [GET] "/"
   homeRoute(req, res, next) {
     if (req.user.role === 'customer') {
-      let customer = null;
-      User.find()
-        .then((users) => {
-          users.forEach((user) => {
-            if (user.picture) {
-              user.imgSrc = getImgSrc(user.picture);
+      Product.find()
+        .then((products) => {
+
+          // Get only available product
+          products.filter((product) => product.quantity > 0);
+
+          // Attach imgSrc property to each product
+          products.forEach((product) => {
+            if (product.picture) {
+              product.imgSrc = getImgSrc(product.picture);
             }
           });
-          res.render('customer/customer-home', { users: users, customer: req.user });
+
+          res.render('customer/customer-home', { products: products, customer: req.user });
         })
         .catch((err) => {
           next(err);
