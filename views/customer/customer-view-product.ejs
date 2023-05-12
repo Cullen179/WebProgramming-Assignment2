@@ -2,7 +2,15 @@
 
 <body>
   <!-- Main content -->
-  <main class="body-container my-5">
+
+  <main class="indent my-5">
+    <nav class="product-detail-breadscrumb-mobile" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Product</li>
+      </ol>
+    </nav>
+
     <!-- Product Info -->
     <div class="product-detail-container">
       <div class="product-detail-img-container">
@@ -10,7 +18,7 @@
       </div>
 
       <div class="product-detail-info">
-        <nav aria-label="breadcrumb">
+        <nav class="product-detail-breadscrumb-desktop" aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Product</li>
@@ -42,4 +50,4 @@
   </main>
   <%- include ('../partials/footer.ejs') %>
 </body>
-</html>
+<!-- </html> -->

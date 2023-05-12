@@ -54,8 +54,9 @@ img {
   margin-left: -6px;
 }
 
- h2, h3 {
-  color: #141B4F !important;
+h2,
+h3 {
+  color: #141b4f !important;
   font-weight: bold;
 }
 
@@ -77,8 +78,8 @@ input:focus {
 }
 
 .screen-view {
-    padding-left: 0px !important;
-    padding-right: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 
 body {
@@ -102,13 +103,7 @@ body {
 
 @media screen and (max-width: 1023px) {
   .indent {
-    padding: 0px 10vw;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .indent {
-    padding: 0px 6vw;
+    padding: 0px 20px;
   }
 }
 
@@ -301,7 +296,7 @@ body {
 
 .product-image img {
   /* height: 300px; */
-  aspect-ratio: 1 / 1 ;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: center;
 }
@@ -365,10 +360,33 @@ body {
   display: flex;
   align-items: center;
   gap: 15px;
-} 
+}
 
 .product-detail-qty {
   width: 65px;
+}
+
+.product-detail-breadscrumb-desktop {
+  display: block;
+}
+
+.product-detail-breadscrumb-mobile {
+  display: none;
+}
+
+@media screen and (max-width: 1023px) {
+  .product-detail-container {
+    flex-direction: column;
+  }
+  .product-detail-breadscrumb-desktop {
+    display: none;
+  }
+  .product-detail-breadscrumb-mobile {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 767px) {
 }
 
 /* Shipper Home page */
@@ -489,7 +507,7 @@ body {
 }
 
 .status-update .canceled {
-  background-color: #6D757D;
+  background-color: #6d757d;
   color: white;
   font-weight: bold;
   padding: 8px 12px;
@@ -502,7 +520,8 @@ body {
   display: inline;
 }
 
-.customer-name, .customer-destination {
+.customer-name,
+.customer-destination {
   max-width: 90%;
 }
 
