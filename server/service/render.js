@@ -11,6 +11,7 @@ const { getImgSrc } = require('../../utils/imgTransformation');
 class SiteService {
   // [GET] "/"
   homeRoute(req, res, next) {
+    let img = [];
     if (req.user.role === 'customer') {
       Product.find()
         .then((products) => {
@@ -22,10 +23,10 @@ class SiteService {
           products.forEach((product) => {
             if (product.picture) {
               product.imgSrc = getImgSrc(product.picture);
-            }
+              img.push(product.imgSrc);
+            } else img.push('');
           });
-
-          res.render('customer/customer-home', { products: products, customer: req.user });
+          res.render('customer/customer-home', { products: products, customer: req.user , img: img});
         })
         .catch((err) => {
           next(err);
