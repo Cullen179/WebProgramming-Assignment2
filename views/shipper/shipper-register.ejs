@@ -23,7 +23,7 @@
         </div>
         <div class="hub mb-4">
           <label for="hub" class="form-label">Distributed Hub</label>
-          <select class="form-control" name="hub" id="hub" required>
+          <select class="form-select" name="hub" id="hub" required>
             <% hubs.forEach(hub => {%>
             <option value="<%= hub.name %>"><%= hub.name %></option>
             <% }) %>

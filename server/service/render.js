@@ -161,6 +161,11 @@ class SiteService {
       res.redirect('/login');
     });
   }
+
+  // [GET] "/about-us"
+  showAboutUs(req, res, next) {
+    res.render('about-us')
+  }
 }
 
 module.exports = new SiteService();

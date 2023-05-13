@@ -14,15 +14,15 @@ const address = document.querySelector('#address');
 const submit = document.querySelector('#submit');
 const back = document.querySelector('#back-to-login');
 
-username.addEventListener('change', () => getError(username, isValidUserName));
-password.addEventListener('change', () => {
+username.addEventListener('input', () => getError(username, isValidUserName));
+password.addEventListener('input', () => {
   getError(password, isValidPassword);
 });
 
-if (name) name.addEventListener('change', () => getError(name, isValidName));
-if (address) address.addEventListener('change', () => getError(address, isValidAddress));
-if (businessName) businessName.addEventListener('change', () => getError(businessName, isValidBusinessName));
-if (businessAddress) businessAddress.addEventListener('change', () => getError(businessAddress, isValidBusinessAddress));
+if (name) name.addEventListener('input', () => getError(name, isValidName));
+if (address) address.addEventListener('input', () => getError(address, isValidAddress));
+if (businessName) businessName.addEventListener('input', () => getError(businessName, isValidBusinessName));
+if (businessAddress) businessAddress.addEventListener('input', () => getError(businessAddress, isValidBusinessAddress));
 
 submit.addEventListener('click', (e) => {
   if (!document.querySelector('.invalid-feedback')) {

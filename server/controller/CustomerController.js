@@ -14,7 +14,42 @@ const {
 class CustomerController {
   // [GET] "/customer/profile"
   showProfile(req, res, next) {
-    res.render('customer/customer-profile');
+    let customer = null;
+    let products = null;
+    let img = [];
+
+    let getData = async () => {
+      await User.find()
+        .then(data => {
+          customer = data;
+        }
+        ).catch(err => console.log(err));
+      await Product.find()
+        .then(data => {
+          // Get only available product
+          data.filter((product) => product.quantity > 0);
+
+          // Attach imgSrc property to each product
+          data.forEach((product) => {
+            if (product.picture) {
+              product.imgSrc = getImgSrc(product.picture);
+              img.push(product.imgSrc);
+            } else img.push('');
+          });
+          products = data;
+        }
+        ).catch(err => console.log(err));
+      
+    };
+    getData()
+      .then(() => {
+        Order.find({ customer: req.user._id })
+          .then(orders => {
+            res.render('customer/customer-profile', {products: products, customer: req.user , img: img, orders: orders, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
+      })
+      .catch(err => next(err));
+      })
+      .catch(err => next(err));
   }
 
   // [GET] "/customer/register"
@@ -25,39 +60,77 @@ class CustomerController {
     let getData = async () => {
       await User.find()
         .then(data => {
-            users = data;
-          }
+          users = data;
+        }
         ).catch(err => console.log(err));
     };
     getData()
       .then(() => {
-        res.render('customer/customer-register', {users});
+        res.render('customer/customer-register', { users });
       })
       .catch(err => console.log(err));
-
   }
 
   showOrder(req, res, next) {
-    Order.find({customer: req.user._id})
-      .then(orders => {
-        res.render('customer/customer-order', {orders: orders});
-        })  
+    let customer = null;
+    let products = null;
+    let img = [];
+    let orders = null;
+
+    let getData = async () => {
+      await User.find()
+        .then(data => {
+          customer = data;
+        }
+        ).catch(err => console.log(err));
+      await Product.find()
+        .then(data => {
+          // Get only available product
+          data.filter((product) => product.quantity > 0);
+
+          // Attach imgSrc property to each product
+          data.forEach((product) => {
+            if (product.picture) {
+              product.imgSrc = getImgSrc(product.picture);
+              img.push(product.imgSrc);
+            } else img.push('');
+          });
+          products = data;
+        }
+        ).catch(err => console.log(err));
+      
+      await Order.find({ customer: req.user._id })
+        .then(data => {
+          orders = data;
+        })
+        .catch(err => next(err));
+    };
+    getData()
+      .then(() => {
+          res.render('customer/customer-order', {products: products, customer: req.user , img: img, orders: orders, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError') });
+      })
       .catch(err => next(err));
   };
 
   createOrder(req, res, next) {
+    if (req.user.role != 'customer') {
+      res.render('resource-access-unauthorized');
+      return;
+    }
+
     async function getRandomHub() {
+      let hub;
       await Hub.find()
         .then(hubs => {
-          return hubs[Math.round(Math.random() * hubs.length)]
+          hub = hubs[Math.floor(Math.random() * hubs.length)];
         })
         .catch(err => next(err));
-      return;
+      return hub;
     }
     const productOrder = JSON.parse(req.body.order).products;
     const price = JSON.parse(req.body.order).price;
 
-    Product.find({_id: {$in: productOrder}})
+    Product.find({ _id: { $in: productOrder } })
       .then(products => {
         // Check if product is available
         if (products.some(product => product.quantity == 0)) {
@@ -65,37 +138,44 @@ class CustomerController {
           res.redirect('/');
         } else {
           // Create order
-          let randomHub = getRandomHub();
-
-          const order = new Order({
-            _id: new mongoose.Types.ObjectId(),
-            customer: req.user._id,
-            product: productOrder,
-            price: price,
-            hub: randomHub._id,
-            status: 'active',
-          });
-
-          // Save order
-          order.save()
-            .then(() => {
-              console.log('Order created successfully');
-              req.flash('orderSuccess', `Your order has been placed successfully at ${randomHub.name}.`);
-              res.redirect('/');
-              Product.updateMany({ _id: {$in: productOrder}}, {$inc: {quantity: -1}})
-                .then()
-                .catch(err => next(err));
+          let randomHub;
+          getRandomHub()
+            .then(hub => {
+              randomHub = hub;
+              saveOrder();
             })
-            .catch(err => next(err));
+            .catch(err => next(err));          
+          
+          function saveOrder() {
+            const order = new Order({
+              _id: new mongoose.Types.ObjectId(),
+              customer: req.user._id,
+              product: productOrder,
+              price: price,
+              hub: randomHub._id,
+              status: 'active',
+            });
+  
+            // Save order
+            order.save()
+              .then(() => {
+                console.log('Order created successfully');
+                req.flash('orderSuccess', `Your order has been placed successfully at ${randomHub.name}.`);
+                res.redirect('/');
+                Product.updateMany({ _id: { $in: productOrder } }, { $inc: { quantity: -1 } })
+                  .then()
+                  .catch(err => next(err));
+              })
+              .catch(err => next(err));
+          }
         }
       })
-  
   }
 
   updateProductQuantity(productOrder) {
     // [PUT] product/:id/edit
 
-    Product.updateMany({ _id: {$in: productOrder}})
+    Product.updateMany({ _id: { $in: productOrder } })
       .then(() => {
         // After update => go back home page
         res.redirect('/');
@@ -154,6 +234,5 @@ class CustomerController {
       });
   }
 }
-
 
 module.exports = new CustomerController();

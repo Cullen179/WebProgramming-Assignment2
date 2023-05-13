@@ -1,16 +1,24 @@
+<%- include ("../partials/head.ejs") %> 
+<%- include ("../partials/customer-header.ejs") %>
 <a href="/">Home</a>
 <% if (orders.length == 0) {%>
     <h1>There is no order</h1>
 <% } else {%>
     <% orders.forEach(order => { %>
         <!-- <p>order</p> -->
-            <p><%= order.product %></p>
+            <p><%= order %></p>
 
     <% }) %>
 <% } %>    
-
+<!-- Footer -->
+<%- include('../partials/footer.ejs') %>
+<!-- Footer -->
+<script>
+    var products = `<%- JSON.stringify(products) %>`;
+    var customer = `<%- JSON.stringify(customer) %>`;
+    var img = `<%- JSON.stringify(img) %>`;
+</script>
 <script>
     var orders = `<%- JSON.stringify(orders) %>`;
 </script>
-
-<script src="/js/customer-order.js"></script>
+<script src="/js/add-to-cart.js"></script>

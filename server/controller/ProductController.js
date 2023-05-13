@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Vendor = require('../model/VendorModel');
+const User = require('../model/UserModel');
 const Product = require('../model/ProductModel');
+const Order = require('../model/OrderModel');
 const { getImgSrc, getPictureObject } = require('../../utils/imgTransformation');
 
 class ProductController {
@@ -15,10 +17,48 @@ class ProductController {
   // [GET] "/product/:slug"
   showProduct(req, res, next) {
     const user = req.user;
+    const productID = req.params.id;
 
     if (user.role === 'customer') {
-      res.render('customer/customer-view-product');
-      return;
+      let detail = null;
+      let customer = null;
+      let products = null;
+      let img = [];
+
+      let getData = async () => {
+        await User.find()
+          .then(data => {
+            customer = data;
+          }
+          ).catch(err => console.log(err));
+        await Product.find()
+          .then(data => {
+            // Get only available product
+            data.filter((product) => product.quantity > 0);
+
+            // Attach imgSrc property to each product
+            data.forEach((product) => {
+              if (product.picture) {
+                product.imgSrc = getImgSrc(product.picture);
+                img.push(product.imgSrc);
+              } else img.push('');
+
+              if (product._id == productID) {
+                detail = product;
+              }
+            });
+
+            products = data;
+            if (detail == null) res.render('resource-not-found');
+          }
+          ).catch(err => console.log(err));
+        
+      };
+      getData()
+        .then(() => {
+              res.render('customer/customer-view-product', {products: products, customer: req.user , img: img, detail: detail, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError') });
+        })
+        .catch(err => next(err));
     }
 
     if (user.role === 'vendor') {
