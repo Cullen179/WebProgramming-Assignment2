@@ -65,7 +65,6 @@ class SiteService {
       Product.find({
         $or: [  // find a match in the product's name or description
           {name: { $regex : new RegExp(req.query.search, 'i') }},
-          {description: { $regex : new RegExp(req.query.search, 'i') }}
         ]
       })
         .then((products) => {
@@ -80,7 +79,7 @@ class SiteService {
                 img.push(product.imgSrc);
               } else img.push('');
             });
-            res.render('customer/customer-home', { products: products, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
+            res.render('customer/customer-search', { products: products, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
           }
           else {
             // handle search result empty
