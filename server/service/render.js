@@ -73,20 +73,9 @@ class SiteService {
           if (products.length != 0) {
             // Get only available product
             products.filter((product) => product.quantity > 0);
-
-            // for debugging:
-            console.log('\n\nProducts length-1: ' + products.length + '\n\n');
   
             // Get the filtered products
             products = products.filter((product) => { return (product.price >= (req.query.minPrice ?? 0) && product.price <= (req.query.maxPrice ?? 999)) });
-
-            // for debugging:
-            console.log('\n\n' + 
-            'keyword: ' + req.query.keyword +
-            'minPrice: ' + req.query.minPrice +
-            'maxPrice: ' + req.query.maxPrice +
-            'Products length-2: ' + products.length + 
-            '\n\n');
             
             // Attach imgSrc property to each product
             products.forEach((product) => {
@@ -96,8 +85,6 @@ class SiteService {
               } else img.push('');
             });
           }
-
-          
 
           res.render('customer/customer-search', { 
             products: products,
