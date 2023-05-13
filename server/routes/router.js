@@ -64,6 +64,9 @@ route.use('/shipper', shipperRoute);
 // Product routes
 route.use('/product', productRoute);
 
+// About us routes 
+route.get('/about-us', siteService.showAboutUs)
+
 // Handle 404 not found page
 route.use((req, res, next) => {
   res.render('resource-not-found');

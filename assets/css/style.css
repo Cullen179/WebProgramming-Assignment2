@@ -263,6 +263,7 @@ body {
 }
 
 .product-container:hover .product-price {
+  color: white;
   visibility: visible;
   opacity: 1;
   transition: visibility 0s linear 0s, opacity 300ms;
@@ -277,6 +278,7 @@ body {
 }
 
 .product-price i:hover {
+  cursor: pointer;
   background-color: black !important;
   color: white !important;
   border-radius: 50%;
@@ -705,3 +707,4 @@ body {
     width: 150px;
   }
 }
+
