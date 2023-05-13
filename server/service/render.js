@@ -57,6 +57,81 @@ class SiteService {
       res.render('shipper/shipper-home');
     }
   }
+
+  // [GET] "/result?search="
+  searchResult(req, res, next) {
+    let img = [];
+    if (req.user.role === 'customer') {
+      Product.find({
+        $or: [  // find a match in the product's name or description
+          {name: { $regex : new RegExp(req.query.search, 'i') }},
+          {description: { $regex : new RegExp(req.query.search, 'i') }}
+        ]
+      })
+        .then((products) => {
+          if (products.length != 0) {
+            // Get only available product
+            products.filter((product) => product.quantity > 0);
+  
+            // Attach imgSrc property to each product
+            products.forEach((product) => {
+              if (product.picture) {
+                product.imgSrc = getImgSrc(product.picture);
+                img.push(product.imgSrc);
+              } else img.push('');
+            });
+            res.render('customer/customer-home', { products: products, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
+          }
+          else {
+            // handle search result empty
+            return res.render('resource-not-found');
+          }
+        })
+        .catch((err) => {
+          next(err);
+        });
+    }
+
+    if (req.user.role === 'vendor') {
+      const curVendor = req.vendor;
+      Product.find({
+        $and: [ // find a match in the product's name or description while belong to the vendor via _id
+          { ownership: req.vendor._id },
+          {
+            $or: [
+              {name: { $regex : new RegExp(req.query.search, 'i') }},
+              {description: { $regex : new RegExp(req.query.search, 'i') }}
+            ]
+          }
+        ]
+      })
+        .then((products) => {
+          if (products.length != 0) {
+            // Attach imgSrc property to each product
+            // => View get product.imgSrc to put into image tag
+            products.forEach((product) => {
+              const imgSrc = getImgSrc(product.picture);
+              if (imgSrc) {
+                product.imgSrc = imgSrc;
+              }
+            });
+            res.render('vendor/vendor-home', { products: products });
+          }
+          else {
+            // handle search result empty
+            res.render('resource-not-found');
+          }
+        })
+        .catch((err) => {
+          next(err);
+        });
+    }
+
+    if (req.user.role === 'shipper') {
+      res.render('shipper/shipper-home');
+    }
+  }
+
   // [POST] "/login"
   login(req, res, next) {
     passport.authenticate('local', {
@@ -81,6 +156,11 @@ class SiteService {
 
       res.redirect('/login');
     });
+  }
+
+  // [GET] "/about-us"
+  showAboutUs(req, res, next) {
+    res.render('about-us')
   }
 }
 

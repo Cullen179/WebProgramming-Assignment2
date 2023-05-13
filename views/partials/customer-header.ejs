@@ -13,10 +13,11 @@
           <!-- Logo -->
           <!-- Nav bar -->
           <div class="navbar-right d-flex justify-content-md-start justify-content-between">
-            <form class="navbar-form d-flex" role="search">
+            <form class="navbar-form d-flex" role="search" action="/result">
               <input
                 class="navbar-search form-control me-2"
                 type="search"
+                name="search"
                 placeholder="Search"
                 aria-label="Search"
               />
@@ -25,11 +26,11 @@
               </button>
             </form>
             <a href="/customer/order" class="nav-link">
-              <i class="bi bi-clipboard-check"></i>
+              <i class="bi bi-clipboard-check fs-2 d-flex align-items-center"></i>
             </a>
             <a class="nav-link">
               <span
-                class="material-symbols-outlined d-block text-white navbar-profile-icon"
+                class="material-symbols-outlined fs-1 d-block text-white navbar-profile-icon"
                 data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasRight"
                 aria-controls="offcanvasRight"
@@ -38,7 +39,7 @@
               </span>
             </a>
             <a href="#" class="nav-link">
-              <span class="material-symbols-outlined d-block text-white navbar-profile-icon">
+              <span class="material-symbols-outlined fs-1 d-block text-white navbar-profile-icon">
                 account_circle
               </span>
             </a>
