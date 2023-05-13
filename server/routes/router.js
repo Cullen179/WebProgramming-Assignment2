@@ -67,6 +67,8 @@ route.use('/product', productRoute);
 // Handle 404 not found page
 route.use((req, res, next) => {
   res.render('resource-not-found');
+  return;
 });
+
 
 module.exports = route;

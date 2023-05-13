@@ -12,10 +12,12 @@
       </ol>
     </nav>
 
+    
     <!-- Product Info -->
+    
     <div class="product-detail-container">
       <div class="product-detail-img-container">
-        <img src="/images/product.png" alt="product" class="product-detail-img" />
+        <img src="<%= detail.imgSrc %>" alt="product" class="product-detail-img" />
       </div>
 
       <div class="product-detail-info">
@@ -25,24 +27,21 @@
             <li class="breadcrumb-item active fs-5" aria-current="page">Product</li>
           </ol>
         </nav>
-        <h1 class="product-detail-name">Tempor dolores dolore et duo</h1>
-        <h4 class="product-detail-price fs-2">$150</h4>
+        <h1 class="product-detail-name"><%= detail.name %></h1>
+        <h4 class="product-detail-price fs-2">$<%= detail.price %></h4>
         <div class="product-detail-qty-and-add">
           <input
             class="form-control product-detail-qty"
             type="number"
-            min="0"
-            value="0"
+            value="1"
+            disabled
             aria-describedby="productQty"
           />
-          <button class="product-detail-add-btn btn btn-primary">Add To Cart</button>
+          <button onclick="addToCart(`<%= JSON.stringify(detail)%>`)" class="product-detail-add-btn btn btn-primary">Add To Cart</button>
         </div>
         <h5 style="margin-bottom: 10px">Product Description</h5>
         <p class="product-detail-description">
-          Dolores accusam diam sanctus ut gubergren et. Ut et sit consetetur eos labore ipsum et
-          dolor gubergren. No vero lorem gubergren et sed clita magna. Dolores accusam diam sanctus
-          ut gubergren et. Ut et sit consetetur eos labore ipsum et dolor gubergren. No vero lorem
-          gubergren et sed clita magna.
+          <%= detail.description %>
         </p>
       </div>
     </div>
@@ -50,5 +49,11 @@
     <!-- Product Description -->
   </main>
   <%- include ('../partials/footer.ejs') %>
+  <script>
+    var products = `<%- JSON.stringify(products) %>`;
+    var customer = `<%- JSON.stringify(customer) %>`;
+    var img = `<%- JSON.stringify(img) %>`;
+  </script>
+  <script src="/js/add-to-cart.js"></script>
 </body>
 <!-- </html> -->
