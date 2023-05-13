@@ -11,7 +11,7 @@ const { getImgSrc } = require('../../utils/imgTransformation');
 class SiteService {
   // [GET] "/"
   homeRoute(req, res, next) {
-    let minPrice = 0, maxPrice = 999;
+    let keyword ='', minPrice = 0, maxPrice = 999;
     let img = [];
     if (req.user.role === 'customer') {
       Product.find()
@@ -27,7 +27,7 @@ class SiteService {
               img.push(product.imgSrc);
             } else img.push('');
           });
-          res.render('customer/customer-home', { products: products, minPrice: minPrice, maxPrice: maxPrice, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
+          res.render('customer/customer-home', { products: products,keyword: keyword, minPrice: minPrice, maxPrice: maxPrice, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
         })
         .catch((err) => {
           next(err);
@@ -88,6 +88,7 @@ class SiteService {
 
           res.render('customer/customer-search', { 
             products: products,
+            keyword: req.query.keyword,
             minPrice: req.query.minPrice,
             maxPrice: req.query.maxPrice,
             customer: req.user, 
