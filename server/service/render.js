@@ -11,6 +11,7 @@ const { getImgSrc } = require('../../utils/imgTransformation');
 class SiteService {
   // [GET] "/"
   homeRoute(req, res, next) {
+    let minPrice = 0, maxPrice = 999;
     let img = [];
     if (req.user.role === 'customer') {
       Product.find()
@@ -26,7 +27,7 @@ class SiteService {
               img.push(product.imgSrc);
             } else img.push('');
           });
-          res.render('customer/customer-home', { products: products, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
+          res.render('customer/customer-home', { products: products, minPrice: minPrice, maxPrice, maxPrice, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
         })
         .catch((err) => {
           next(err);
@@ -72,6 +73,9 @@ class SiteService {
           if (products.length != 0) {
             // Get only available product
             products.filter((product) => product.quantity > 0);
+
+            // Get the filtered products
+            products = products.filter((product) => { return (product.price >= req.query.minPrice && product.price <= req.query.maxPrice) })
   
             // Attach imgSrc property to each product
             products.forEach((product) => {
@@ -80,7 +84,7 @@ class SiteService {
                 img.push(product.imgSrc);
               } else img.push('');
             });
-            res.render('customer/customer-home', { products: products, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
+            res.render('customer/customer-home', { products: products, minPrice: req.query.minPrice, maxPrice: req.query.maxPrice, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
           }
           else {
             // handle search result empty

@@ -6,11 +6,11 @@
   <main class="indent">
       <div class="body-container my-5">
         <h1 class="text-center bold">All Products</h1>
-        <form class="customer-filter-form-container">
+        <form class="customer-filter-form-container" action="/result">
         <p>Filter by Price</p>
         <div class="customer-filter-inputs-container">
-            <input type="number" class="form-control" placeholder="Min"></input>
-            <input type="number" class="form-control" placeholder="Max"></input>
+            <input type="number" class="form-control" placeholder="Min" name="minPrice" value=<%= minPrice %>></input>
+            <input type="number" class="form-control" placeholder="Max" name="maxPrice" value=<%= maxPrice %>></input>
             <button class="btn btn-primary" style="padding: 6px;" type="submit">
                 <span class="material-symbols-outlined d-block text-white">
                     arrow_forward
