@@ -27,7 +27,7 @@ class SiteService {
               img.push(product.imgSrc);
             } else img.push('');
           });
-          res.render('customer/customer-home', { products: products, minPrice: minPrice, maxPrice, maxPrice, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
+          res.render('customer/customer-home', { products: products, minPrice: minPrice, maxPrice: maxPrice, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
         })
         .catch((err) => {
           next(err);
@@ -59,24 +59,35 @@ class SiteService {
     }
   }
 
-  // [GET] "/result?search="
+  // [GET] "/search?keyword="
   searchResult(req, res, next) {
+    // console.log(req.query.keyword);
     let img = [];
     if (req.user.role === 'customer') {
       Product.find({
-        $or: [  // find a match in the product's name or description
-          {name: { $regex : new RegExp(req.query.search, 'i') }},
-          {description: { $regex : new RegExp(req.query.search, 'i') }}
-        ]
+        // $or: [  // find a match in the product's name
+        name: { $regex: new RegExp(req.query.keyword ?? '', 'i') } 
+        // ]
       })
         .then((products) => {
           if (products.length != 0) {
             // Get only available product
             products.filter((product) => product.quantity > 0);
 
-            // Get the filtered products
-            products = products.filter((product) => { return (product.price >= req.query.minPrice && product.price <= req.query.maxPrice) })
+            // for debugging:
+            console.log('\n\nProducts length-1: ' + products.length + '\n\n');
   
+            // Get the filtered products
+            products = products.filter((product) => { return (product.price >= (req.query.minPrice ?? 0) && product.price <= (req.query.maxPrice ?? 999)) });
+
+            // for debugging:
+            console.log('\n\n' + 
+            'keyword: ' + req.query.keyword +
+            'minPrice: ' + req.query.minPrice +
+            'maxPrice: ' + req.query.maxPrice +
+            'Products length-2: ' + products.length + 
+            '\n\n');
+            
             // Attach imgSrc property to each product
             products.forEach((product) => {
               if (product.picture) {
@@ -84,12 +95,19 @@ class SiteService {
                 img.push(product.imgSrc);
               } else img.push('');
             });
-            res.render('customer/customer-home', { products: products, minPrice: req.query.minPrice, maxPrice: req.query.maxPrice, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
           }
-          else {
-            // handle search result empty
-            return res.render('resource-not-found');
-          }
+
+          
+
+          res.render('customer/customer-search', { 
+            products: products,
+            minPrice: req.query.minPrice,
+            maxPrice: req.query.maxPrice,
+            customer: req.user, 
+            img: img,
+            orderSuccess: req.flash('orderSuccess'),
+            orderError: req.flash('orderError')
+          });
         })
         .catch((err) => {
           next(err);
@@ -103,8 +121,8 @@ class SiteService {
           { ownership: req.vendor._id },
           {
             $or: [
-              {name: { $regex : new RegExp(req.query.search, 'i') }},
-              {description: { $regex : new RegExp(req.query.search, 'i') }}
+              {name: { $regex : new RegExp(req.query.keyword, 'i') }},
+              // {description: { $regex : new RegExp(req.query.search, 'i') }}
             ]
           }
         ]

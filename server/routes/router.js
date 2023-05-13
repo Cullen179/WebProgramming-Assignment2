@@ -48,7 +48,7 @@ route.use((req, res, next) => {
 // Home route
 route.use(attachAttributesToCurrentUserMiddleWare);
 route.get('/', siteService.homeRoute);
-route.get('/result', siteService.searchResult);
+route.get('/search', siteService.searchResult);
 
 // Logout
 route.get('/logout', siteService.logout);
