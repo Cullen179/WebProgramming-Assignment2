@@ -5,11 +5,11 @@
   <main class="indent">
       <div class="body-container my-5">
         <h1 class="text-center bold">Search Products</h1>
-        <form class="customer-filter-form-container">
+        <form id="filter-form" class="customer-filter-form-container" action="/search">
         <p>Filter by Price</p>
         <div class="customer-filter-inputs-container">
-            <input type="number" class="form-control" placeholder="Min"></input>
-            <input type="number" class="form-control" placeholder="Max"></input>
+            <input id="minPrice-input" type="number" class="form-control" placeholder="Min" name="minPrice"></input>
+            <input id="maxPrice-input" type="number" class="form-control" placeholder="Max" name="maxPrice"></input>
             <button class="btn btn-primary" style="padding: 6px;" type="submit">
                 <span class="material-symbols-outlined d-block text-white">
                     arrow_forward
@@ -18,25 +18,30 @@
         </div>
         </form>
         <div class="product-display row w-100 mb-5 mx-0 p-0 gx-5 d-flex justify-content-md-start justify-content-center">
-        <% products.forEach(product => { %>
-            <div class="product-container col-lg-3 col-md-5 col-12 p-0 my-5 bg-white rounded-4">
-                <div class="product-image rounded mb-4 position-relative">
-                        <a href="/product/<%= product._id %>" class="img-link">
-                            <img src="<%= product.imgSrc %>" alt="">
-                        </a>
-                        <div class="position-absolute badge price rounded-3 bg-black text-white bold fs-5 border border-5 border-white pe-3">$<%= product.price %></div>
-                        <a onclick='addToCart(`<%= JSON.stringify(product) %>`)' class="product-price"><i class="bi bi-cart-fill position-absolute d-flex align-items-center p-3 fs-5"></i></a>
-                </div>
-                <div class="product-info pb-2 px-4">
-                    <div class="card-title fs-5 bold">
-                        <div href="" class="product-name"><%= product.name %></div>
+        <% if (products.length != 0) { %>
+            <% products.forEach(product => { %>
+                <div class="product-container col-lg-3 col-md-5 col-12 p-0 my-5 bg-white rounded-4">
+                    <div class="product-image rounded mb-4 position-relative">
+                            <a href="/product/<%= product._id %>" class="img-link">
+                                <img src="<%= product.imgSrc %>" alt="">
+                            </a>
+                            <div class="position-absolute badge price rounded-3 bg-black text-white bold fs-5 border border-5 border-white pe-3">$<%= product.price %></div>
+                            <a onclick='addToCart(`<%= JSON.stringify(product) %>`)' class="product-price"><i class="bi bi-cart-fill position-absolute d-flex align-items-center p-3 fs-5"></i></a>
                     </div>
-                    <div class="product-quantity mb-2 d-flex justify-content-between align-items-center">
-                        <div class="fs-6 text-muted">Quantity: <%= product.quantity %></div>
+                    <div class="product-info pb-2 px-4">
+                        <div class="card-title fs-5 bold">
+                            <div href="" class="product-name"><%= product.name %></div>
+                        </div>
+                        <div class="product-quantity mb-2 d-flex justify-content-between align-items-center">
+                            <div class="fs-6 text-muted">Quantity: <%= product.quantity %></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <% }) %>
+            <% }) %>
+        <% } else { %>
+            <!-- please edit the error message here -->
+            <h1>ERROR 404: Cannot find what you're looking for :< </h1>
+        <% } %>
         </div>   
     </div>
     </main>
@@ -49,5 +54,53 @@
         var img = `<%- JSON.stringify(img) %>`;
     </script>
     <script src="/js/add-to-cart.js"></script>
+    <script>
+        const searchForm = document.getElementById('search-form');
+        const filterForm = document.getElementById('filter-form');
+      
+        // Add an event listener to the search form to intercept form submission
+        searchForm.addEventListener('submit', (event) => {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            // Get the value from the search form input
+            const keyword = searchForm.elements['keyword'].value;
+        
+            // Get the values from the filter form inputs
+            const minPrice = filterForm.elements['minPrice'].value;
+            const maxPrice = filterForm.elements['maxPrice'].value;
+        
+            // Add the filter values to the search form action URL as query params
+            const url = new URL(searchForm.action);
+            url.searchParams.set('keyword', keyword)
+            url.searchParams.set('minPrice', minPrice);
+            url.searchParams.set('maxPrice', maxPrice);
+        
+            // Redirect to the updated URL
+            window.location.href = url.toString();
+        });
+      
+        // Add an event listener to the filter form to intercept form submission
+        filterForm.addEventListener('submit', (event) => {
+            // Prevent the default form submission
+            event.preventDefault();
+        
+            // Get the value from the search form input
+            const keyword = searchForm.elements['keyword'].value;
+        
+            // Get the values from the filter form inputs
+            const minPrice = filterForm.elements['minPrice'].value;
+            const maxPrice = filterForm.elements['maxPrice'].value;
+        
+            // Add the search and filter values to the filter form action URL as query params
+            const url = new URL(filterForm.action);
+            url.searchParams.set('keyword', keyword);
+            url.searchParams.set('minPrice', minPrice);
+            url.searchParams.set('maxPrice', maxPrice);
+        
+            // Redirect to the updated URL
+            window.location.href = url.toString();
+        });
+    </script>
 </body>
 </html>

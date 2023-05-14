@@ -48,7 +48,7 @@ route.use((req, res, next) => {
 // Home route
 route.use(attachAttributesToCurrentUserMiddleWare);
 route.get('/', siteService.homeRoute);
-route.get('/result', siteService.searchResult);
+route.get('/search', siteService.searchResult);
 
 // Logout
 route.get('/logout', siteService.logout);
@@ -67,6 +67,9 @@ route.use('/product', productRoute);
 
 // About us routes 
 route.get('/about-us', siteService.showAboutUs)
+
+// Privacy routes
+route.get('/privacy', siteService.showPrivacy)
 
 // Handle 404 not found page
 route.use((req, res, next) => {

@@ -6,11 +6,11 @@
   <main class="indent">
       <div class="body-container my-5">
         <h1 class="text-center bold">All Products</h1>
-        <form class="customer-filter-form-container">
+        <form id="filter-form" class="customer-filter-form-container" action="/search">
         <p>Filter by Price</p>
         <div class="customer-filter-inputs-container">
-            <input type="number" class="form-control" placeholder="Min"></input>
-            <input type="number" class="form-control" placeholder="Max"></input>
+            <input id="minPrice-input" type="number" class="form-control" placeholder="Min" name="minPrice" value=<%= minPrice %>></input>
+            <input id="maxPrice-input" type="number" class="form-control" placeholder="Max" name="maxPrice" value=<%= maxPrice %>></input>
             <button class="btn btn-primary" style="padding: 6px;" type="submit">
                 <span class="material-symbols-outlined d-block text-white">
                     arrow_forward
@@ -50,5 +50,54 @@
         var img = `<%- JSON.stringify(img) %>`;
     </script>
     <script src="/js/add-to-cart.js"></script>
+    <script>
+        const searchForm = document.getElementById('search-form');
+        const filterForm = document.getElementById('filter-form');
+      
+        // Add an event listener to the search form to intercept form submission
+        searchForm.addEventListener('submit', (event) => {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            // Get the value from the search form input
+            const keyword = searchForm.elements['keyword'].value;
+        
+            // Get the values from the filter form inputs
+            const minPrice = filterForm.elements['minPrice'].value;
+            const maxPrice = filterForm.elements['maxPrice'].value;
+        
+            // Add the filter values to the search form action URL as query params
+            const url = new URL(searchForm.action);
+            url.searchParams.set('keyword', keyword)
+            url.searchParams.set('minPrice', minPrice);
+            url.searchParams.set('maxPrice', maxPrice);
+        
+            // Redirect to the updated URL
+            window.location.href = url.toString();
+        });
+      
+        // Add an event listener to the filter form to intercept form submission
+        filterForm.addEventListener('submit', (event) => {
+            // Prevent the default form submission
+            event.preventDefault();
+        
+            // Get the value from the search form input
+            const keyword = searchForm.elements['keyword'].value;
+        
+            // Get the values from the filter form inputs
+            const minPrice = filterForm.elements['minPrice'].value;
+            const maxPrice = filterForm.elements['maxPrice'].value;
+        
+            // Add the search and filter values to the filter form action URL as query params
+            const url = new URL(filterForm.action);
+            url.searchParams.set('keyword', keyword);
+            url.searchParams.set('minPrice', minPrice);
+            url.searchParams.set('maxPrice', maxPrice);
+        
+            // Redirect to the updated URL
+            window.location.href = url.toString();
+        });
+    </script>
+      
 </body>
 </html>
