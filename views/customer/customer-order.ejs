@@ -1,15 +1,79 @@
 <%- include ("../partials/head.ejs") %> 
 <%- include ("../partials/customer-header.ejs") %>
-<a href="/">Home</a>
-<% if (orders.length == 0) {%>
-    <h1>There is no order</h1>
-<% } else {%>
-    <% orders.forEach(order => { %>
-        <!-- <p>order</p> -->
-            <p><%= order %></p>
 
-    <% }) %>
-<% } %>    
+<main class= "indent">
+    <section>
+        <h2 class="text-center my-5 fs-1">View Your Orders</h2>
+    </section>
+    
+    <section class="d-flex flex-column-reverse">
+    <% if (orders.length == 0) {%>
+        <div class="alert alert-primary text-center" role="alert">
+            Your haven't ordered anything yet! Explore our products at <a href="/" class="d-inline link-underline">our homepage</a> !
+        </div>
+    <% } else {%>
+        
+        <% orders.forEach(order => { %>
+            <div class="ordered-items-container container px-5 mb-5 bg-white shadow rounded rounded-4 border border-1">
+                <div class="ordered-items-header py-3 d-flex justify-content-start">
+                    <div class="title product">
+                        <h3>Order<span class="text-secondary ps-3">#<%= order._id %></span></h3>
+                    </div>
+                </div>
+
+                <div class="product-list border-top border-bottom py-3">
+                <% products.forEach(product => { %>
+                        <% if (order.product.includes(product._id)) {%>
+                            <div class="product row w-100 mx-0 py-3 d-flex justify-content-between">
+                                <div class="product-image col-md-2 col-4 py-3 px-0 border rounded rounded-4">
+                                    <img src="<%= product.imgSrc %>">
+                                </div>
+                                <div class="col-md-5 col-7 d-flex flex-column justify-content-center">
+                                    <div class="product-name fs-lg-5 fs-6 bold"><%= product.name %></div>
+                                </div>
+                                <div class="quantity col-md-1 col-2 d-flex fs-lg-5 fs-6 mt-md-0 mt-2 justify-content-start align-items-center text-secondary">
+                                    <div class="border px-3 py-1">1</div>
+                                </div>
+                                <div class="equation col-md-2 col-6 d-flex fs-lg-5 fs-6 mt-md-0 mt-2 justify-content-start align-items-center">
+                                    <div class="pe-lg-3 pe-1"><%= product.price %></div> x <div class="ps-lg-3 ps-1">1</div>
+                                </div>
+                                <div class="price col-md-1 col-2 p-0 bold d-flex fs-lg-5 fs-6 mt-md-0 mt-2 justify-content-end align-items-center">
+                                    <%= product.price %>
+                                </div>
+                            </div>
+                        <% } %>
+                        <% }) %>
+                    </div>
+                <div class="ordered-items-footer my-2">
+                    <div class="product row w-100 mx-0 py-3 d-flex justify-content-between">
+                        <div class="col-md-2 status-update-up">
+                            <div class="status-update d-flex justify-content-start">
+                                <button disabled class="btn btn-primary">Delivered</button>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-0">
+                        </div>
+                        <div class="col-md-1 col-0">
+                        </div>
+                        <div class="fee col-2 bold d-flex fs-lg-5 fs-6 justify-content-start align-items-center">
+                            Total
+                        </div>
+                        <div class="price col-md-1 col-3 bold d-flex fs-lg-5 fs-6 justify-content-end align-items-center">
+                            $<%= order.price %>
+                        </div>
+                        <div class="w-100 pt-4 status-update-down">
+                            <div class="status-update d-flex justify-content-end">
+                                <button disabled class="btn btn-primary">Delivered</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>    
+    <% } %>
+    </section>
+</main>
+
 <!-- Footer -->
 <%- include('../partials/footer.ejs') %>
 <!-- Footer -->

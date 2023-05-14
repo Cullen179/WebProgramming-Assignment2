@@ -149,8 +149,9 @@ class CustomerController {
           orderError: req.flash('orderError'),
         });
       })
-      .catch((err) => next(err));
-  }
+      .catch(err => next(err));
+    // res.render('test')
+  };
 
   createOrder(req, res, next) {
     if (req.user.role != 'customer') {
