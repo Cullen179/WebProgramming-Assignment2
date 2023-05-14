@@ -1,13 +1,13 @@
 <%- include ("../partials/head.ejs") %>
 <body>
-  <main class="min-vh-100 w-100 p-5 d-flex justify-content-center align-items-center">
-    <section class="border shadow d-flex flex-md-row col-md-10 flex-column rounded overflow-hidden">
-      <div class="banner col-md-6">
+  <main class="min-vh-100 w-100">
+    <section class="row w-100 min-vh-100 d-flex flex-lg-row flex-column shadow overflow-hidden m-0">
+      <div class="banner col-lg-6 col-12 p-0">
         <img src='/images/shipper-registration.jpg' class="w-100 h-100" alt="banner">
       </div>
-      <form action="/shipper/register" method="post" enctype="multipart/form-data" class="col-md-6 px-5">
-        <div class="form-title text-center py-4">
-          <h2>Shipper Registration</h2>
+      <form action="/shipper/register" method="post" enctype="multipart/form-data" class="col-lg-6 col-12 px-5 d-flex flex-column justify-content-center">
+        <div class="form-title py-4">
+          <h1><strong>Shipper Registration</strong></h1>
         </div>
         <div class="username mb-4">
           <label for="username" class="form-label">Username</label>
@@ -29,9 +29,9 @@
             <% }) %>
           </select>
         </div>
-        <div class="form-btn mb-4 float-end">
-          <button class="btn btn-secondary" type='button' id="back-to-login">Back to Login</button>
-          <button class="btn btn-primary" id="submit" type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Please fill in the form correctly">Register</button>
+        <div class="form-btn mt-3 mb-3 d-flex justify-content-start">
+          <button class="custom-form-button me-4" id="submit" type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Please fill in the form correctly">Register</button>
+          <button class="btn btn-primary back-to-login" type='button' id="back-to-login">Back to Login</button>
         </div>
       </form>
     </section>
