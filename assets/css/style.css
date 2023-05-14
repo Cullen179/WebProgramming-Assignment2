@@ -96,7 +96,7 @@ body {
   color: var(--primary-gray);
 }
 
-.header .nav-link:hover {
+.vendor-header .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.15);
 }
 
@@ -155,6 +155,7 @@ body {
 }
 
 .nav-link:hover {
+  cursor: pointer;
   opacity: 0.8;
 }
 
