@@ -15,7 +15,7 @@ class ShipperController {
     res.render('shipper/shipper-profile');
   }
 
-  // [GET] "/shipper/profile"
+  // [GET] "/shipper/order"
   showOrder(req, res, next) {
     res.render('shipper/shipper-view-order')
   }
