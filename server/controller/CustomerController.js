@@ -110,6 +110,7 @@ class CustomerController {
           res.render('customer/customer-order', {products: products, customer: req.user , img: img, orders: orders, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError') });
       })
       .catch(err => next(err));
+    // res.render('test')
   };
 
   createOrder(req, res, next) {
