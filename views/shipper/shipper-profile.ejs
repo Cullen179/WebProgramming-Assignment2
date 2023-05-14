@@ -1,1 +1,129 @@
-<h1>Shipper profile</h1>
+<%- include ("../partials/head.ejs") %> 
+<%- include ("../partials/header.ejs") %>
+
+<body>
+  <!-- Main content -->
+  <main class="indent my-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">My Account</li>
+      </ol>
+    </nav>
+
+    <h1 class="account-title-mobile">My Account</h1>
+
+    <!-- Main Content -->
+    <div class="account-container">
+      <div class="account-img-section">
+        <% if (shipper.imgSrc) { %>
+          <img class="account-img" src="<%= shipper.imgSrc %>" alt="<%= user.username %> avatar"/>
+        <% } else { %>
+          <img class="account-img" src="/images/avatar_default.png" alt="<%= user.username %> avatar"/>
+        <% } %>
+        <button
+          type="button"
+          class="btn btn-link"
+          data-bs-toggle="modal"
+          data-bs-target="#uploadImage"
+        >
+          Change
+        </button>
+      </div>
+      <div class="account-info-section">
+        <h1 class="account-title d-flex align-items-center">
+          My Account
+          <form action="/logout" method="GET">
+            <button id="logout-btn" type="submit" class="btn btn-primary ms-4">Logout</button>
+          </form>
+        </h1>
+
+        <form action="/shipper/profile?_method=PUT" enctype="multipart/form-data" method="POST">
+          <fieldset>
+            <div class="mb-3">
+              <label for="shipperUsername" class="form-label">Username</label>
+              <input type="text" value="<%= user.username %>" class="form-control" id="shipperUsername" disabled/>
+            </div>
+            <!-- <button id="update-profile-btn" type="submit" class="btn btn-primary mt-3 float-end" disabled>Update profile</button> -->
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <!-- Upload Image Modal -->
+    <div
+      class="modal fade"
+      id="uploadImage"
+      tabindex="-1"
+      aria-labelledby="uploadImageLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">New Profile Image</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="account-upload-img-modal modal-body">
+            <!-- Ask User to upload img -->
+            <span
+              class="material-symbols-outlined text-primary"
+              style="font-size: 60px; width: min-content"
+            >
+              upload_file
+            </span>
+            <button id="upload-btn" class="btn btn-outline-primary" style="width: 50%">Select File</button>
+            <div class="file-name"></div>
+
+            <!-- User has uploaded an img -->
+            <!-- <img class="account-uploaded-img" src="/images/customer.jpg" />
+            <button
+              type="button"
+              class="btn btn-link"
+              data-bs-toggle="modal"
+              data-bs-target="#uploadImage"
+            >
+              Reselect
+            </button> -->
+          </div>
+
+          <form action="/shipper/profile?_method=PUT" enctype="multipart/form-data" method="POST">
+            <div class="modal-footer">
+              <button id="save-btn" type="submit" class="btn btn-primary" disabled>Save</button>
+            </div>
+            <input id="image-input" type="file" name="picture" hidden accept="image/png, image/gif, image/jpeg">
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include ('../partials/footer.ejs') %>
+
+  <script>
+    // Handle upload btn click
+    const uploadBtn = document.querySelector('#upload-btn');
+    const imageInput = document.querySelector('#image-input');
+    const fileNameDOM = document.querySelector('.file-name');
+    const saveBtn = document.querySelector('#save-btn');
+    uploadBtn.addEventListener('click', () => {
+      imageInput.click();
+    })
+
+    imageInput.onchange = e => { 
+      const file = e.target.files[0];
+      fileNameDOM.innerHTML = `
+        ${file.name}
+      `;
+
+      saveBtn.removeAttribute('disabled');
+    }
+  </script>
+</body>
+</html>

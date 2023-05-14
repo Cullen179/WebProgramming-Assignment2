@@ -4,20 +4,49 @@ const Shipper = require('../model/ShipperModel');
 const Hub = require('../model/HubModel');
 const generatePassword = require('../../utils/passwordUtils').generatePassword;
 const siteService = require('../service/render');
-const {
-  getImgSrc,
-  getPictureObject,
-} = require('../../utils/imgTransformation');
+const { getImgSrc, getPictureObject } = require('../../utils/imgTransformation');
 
 class ShipperController {
   // [GET] "/shipper/profile"
   showProfile(req, res, next) {
-    res.render('shipper/shipper-profile');
+    const curUser = req.user;
+    const curShipper = req.shipper;
+
+    // Attach imgSrc property to shipper
+    if (curShipper.picture) {
+      curShipper.imgSrc = getImgSrc(curShipper.picture);
+    }
+
+    res.render('shipper/shipper-profile', {
+      user: curUser,
+      shipper: curShipper,
+    });
   }
 
-  // [GET] "/shipper/profile"
+  // [PUT] "/shipper/profile"
+  editProfile(req, res, next) {
+    const curShipper = req.shipper;
+    const pictureObject = getPictureObject(req, res, next);
+
+    console.log(curShipper._id);
+    console.log(pictureObject);
+
+
+    const shipperData = {};
+    if (pictureObject) {
+      shipperData.picture = pictureObject;
+    }
+
+    Shipper.updateOne({ _id: curShipper._id }, shipperData)
+      .then(() => {
+        res.redirect('/shipper/profile');
+      })
+      .catch((err) => next(err));
+  }
+
+  // [GET] "/shipper/order"
   showOrder(req, res, next) {
-    res.render('shipper/shipper-view-order')
+    res.render('shipper/shipper-view-order');
   }
 
   // [GET] "/shipper/register"
@@ -27,27 +56,27 @@ class ShipperController {
 
     let getData = async () => {
       await User.find()
-        .then(data => {
-            users = data;
-          }
-        ).catch(err => console.log(err));
-        
+        .then((data) => {
+          users = data;
+        })
+        .catch((err) => console.log(err));
+
       await Hub.find()
-          .then(data => {
-            hubs = data;
-          }
-          ).catch(err => console.log(err));
+        .then((data) => {
+          hubs = data;
+        })
+        .catch((err) => console.log(err));
     };
     getData()
       .then(() => {
         res.render('shipper/shipper-register', { users, hubs });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   showOrder(req, res, next) {
     res.render('shipper/shipper-view-order');
-  };
+  }
 
   // [POST] "/shipper/register"
   createAccount(req, res, next) {
@@ -78,7 +107,7 @@ class ShipperController {
           picture: picture,
           hub: hub,
         });
-        console.log(shipper)
+        console.log(shipper);
         // Save shipper
         shipper
           .save()
