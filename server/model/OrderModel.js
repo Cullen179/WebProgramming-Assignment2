@@ -13,6 +13,10 @@ const orderSchema = new Schema(
       ref: 'Product',
       require: true
     }],
+    price: {
+      type: Number,
+      require: true
+    },
     hub: {
       type: Schema.Types.ObjectId,
       ref: 'Hub',

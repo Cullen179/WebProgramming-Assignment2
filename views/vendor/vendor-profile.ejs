@@ -8,7 +8,11 @@
         <div class="col-sm-12 col-md-3 col-lg-2">
           <div class="wrapper">
             <div class="ratio-div">
-              <img src="<%= vendor.imgSrc %>" alt="<%= vendor.businessName%> avatar"/>
+              <% if (vendor.imgSrc) { %>
+                <img src="<%= vendor.imgSrc %>" alt="<%= vendor.businessName%> avatar"/>
+              <% } else { %>
+                <img src="/images/avatar_default.png" alt="<%= vendor.businessName%> avatar"/>
+              <% } %>
             </div>
           </div>
           

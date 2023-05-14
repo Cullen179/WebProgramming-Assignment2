@@ -172,6 +172,11 @@ class SiteService {
   showAboutUs(req, res, next) {
     res.render('about-us')
   }
+
+  // [GET] "/privacy"
+  showPrivacy(req, res, next) {
+    res.render('privacy')
+  }
 }
 
 module.exports = new SiteService();
