@@ -21,7 +21,7 @@ function attachAttributesToCurrentUserMiddelWare(req, res, next) {
         req.customer._id = customer._id;
         req.customer.name = customer.name;
         req.customer.picture = customer.picture;
-        req.customer.adddress = customer.address;
+        req.customer.address = customer.address;
 
         next();
       })
