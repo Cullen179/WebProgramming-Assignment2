@@ -28,10 +28,6 @@ class ShipperController {
     const curShipper = req.shipper;
     const pictureObject = getPictureObject(req, res, next);
 
-    console.log(curShipper._id);
-    console.log(pictureObject);
-
-
     const shipperData = {};
     if (pictureObject) {
       shipperData.picture = pictureObject;
