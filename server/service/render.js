@@ -27,7 +27,7 @@ class SiteService {
               img.push(product.imgSrc);
             } else img.push('');
           });
-          res.render('customer/customer-home', { products: products, minPrice: minPrice, maxPrice: maxPrice, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
+          res.render('customer/customer-home', { products: products, keyword: '', minPrice: minPrice, maxPrice: maxPrice, customer: req.user , img: img, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
         })
         .catch((err) => {
           next(err);

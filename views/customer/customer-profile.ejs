@@ -7,7 +7,7 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">My Account</li>
       </ol>
     </nav>
@@ -17,7 +17,11 @@
     <!-- Main Content -->
     <div class="account-container">
       <div class="account-img-section">
-        <img class="account-img" src="/images/customer.jpg" />
+        <% if (customer.imgSrc) { %>
+          <img class="account-img" src="<%= customer.imgSrc %>" alt="<%= customer.name%> avatar"/>
+        <% } else { %>
+          <img class="account-img" src="/images/avatar_default.png" alt="<%= customer.name%> avatar"/>
+        <% } %>
         <button
           type="button"
           class="btn btn-link"
@@ -28,27 +32,36 @@
         </button>
       </div>
       <div class="account-info-section">
-        <h1 class="account-title">My Account</h1>
+        <h1 class="account-title d-flex align-items-center">
+          My Account
+          <form action="/logout" method="GET">
+            <button id="logout-btn" type="submit" class="btn btn-primary ms-4">Logout</button>
+          </form>
+        </h1>
 
-        <fieldset disabled>
-          <div class="mb-3">
-            <label for="customerUsername" class="form-label">Username</label>
-            <input type="text" value="linh123" class="form-control" id="customerUsername" />
-          </div>
-          <div class="mb-3">
-            <label for="customerName" class="form-label">Name</label>
-            <input type="text" value="Vu Tuan Linh" class="form-control" id="customerName" />
-          </div>
-          <div class="mb-3">
-            <label for="customerAddress" class="form-label">Address</label>
-            <input
-              type="text"
-              value="New Saigon, Nha Be, Ho Chi Minh City"
-              class="form-control"
-              id="customerAddress"
-            />
-          </div>
-        </fieldset>
+        <form action="/customer/profile?_method=PUT" enctype="multipart/form-data" method="POST">
+          <fieldset>
+            <div class="mb-3">
+              <label for="customerUsername" class="form-label">Username</label>
+              <input type="text" value="<%= user.username %>" class="form-control" id="customerUsername" disabled/>
+            </div>
+            <div class="mb-3">
+              <label for="customerName" class="form-label">Name</label>
+              <input type="text" value="<%= customer.name %>" class="form-control" id="customerName" name="customername"/>
+            </div>
+            <div class="mb-3">
+              <label for="customerAddress" class="form-label">Address</label>
+              <input
+                type="text"
+                value="<%= customer.address %>"
+                class="form-control"
+                id="customerAddress"
+                name="customeraddress"
+              />
+            </div>
+            <button id="update-profile-btn" type="submit" class="btn btn-primary mt-3 float-end" disabled>Update profile</button>
+          </fieldset>
+        </form>
       </div>
     </div>
 
@@ -80,7 +93,8 @@
             >
               upload_file
             </span>
-            <button class="btn btn-outline-primary" style="width: 50%">Select File</button>
+            <button id="upload-btn" class="btn btn-outline-primary" style="width: 50%">Select File</button>
+            <div class="file-name"></div>
 
             <!-- User has uploaded an img -->
             <!-- <img class="account-uploaded-img" src="/images/customer.jpg" />
@@ -94,13 +108,48 @@
             </button> -->
           </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save</button>
-          </div>
+          <form action="/customer/profile?_method=PUT" enctype="multipart/form-data" method="POST">
+            <div class="modal-footer">
+              <button id="save-btn" type="submit" class="btn btn-primary" disabled>Save</button>
+            </div>
+            <input id="image-input" type="file" name="picture" hidden accept="image/png, image/gif, image/jpeg">
+          </form>
         </div>
       </div>
     </div>
   </main>
   <%- include ('../partials/footer.ejs') %>
+
+  <script>
+    // Handle upload btn click
+    const uploadBtn = document.querySelector('#upload-btn');
+    const imageInput = document.querySelector('#image-input');
+    const fileNameDOM = document.querySelector('.file-name');
+    const saveBtn = document.querySelector('#save-btn');
+    uploadBtn.addEventListener('click', () => {
+      imageInput.click();
+    })
+
+    imageInput.onchange = e => { 
+      const file = e.target.files[0];
+      fileNameDOM.innerHTML = `
+        ${file.name}
+      `;
+
+      saveBtn.removeAttribute('disabled');
+    }
+
+    // Handle update profile btn
+    const updateProfileBtn =  document.querySelector('#update-profile-btn');
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => {
+      input.oninput = e => {
+        updateProfileBtn.removeAttribute('disabled');
+      }
+      input.onchange = e => {
+        updateProfileBtn.removeAttribute('disabled');
+      }
+    });
+  </script>
 </body>
 </html>

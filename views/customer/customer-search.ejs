@@ -8,8 +8,8 @@
         <form id="filter-form" class="customer-filter-form-container" action="/search">
         <p>Filter by Price</p>
         <div class="customer-filter-inputs-container">
-            <input id="minPrice-input" type="number" class="form-control" placeholder="Min" name="minPrice"></input>
-            <input id="maxPrice-input" type="number" class="form-control" placeholder="Max" name="maxPrice"></input>
+            <input id="minPrice-input" type="number" class="form-control" placeholder="Min" name="minPrice" value=<%= minPrice %>></input>
+            <input id="maxPrice-input" type="number" class="form-control" placeholder="Max" name="maxPrice" value=<%= maxPrice %>></input>
             <button class="btn btn-primary" style="padding: 6px;" type="submit">
                 <span class="material-symbols-outlined d-block text-white">
                     arrow_forward
@@ -64,15 +64,15 @@
             event.preventDefault();
 
             // Get the value from the search form input
-            const keyword = searchForm.elements['keyword'].value;
+            const keyword = searchForm.elements['keyword-input'].value;
         
             // Get the values from the filter form inputs
-            const minPrice = filterForm.elements['minPrice'].value;
-            const maxPrice = filterForm.elements['maxPrice'].value;
+            const minPrice = filterForm.elements['minPrice-input'].value;
+            const maxPrice = filterForm.elements['maxPrice-input'].value;
         
             // Add the filter values to the search form action URL as query params
             const url = new URL(searchForm.action);
-            url.searchParams.set('keyword', keyword)
+            url.searchParams.set('keyword', keyword);
             url.searchParams.set('minPrice', minPrice);
             url.searchParams.set('maxPrice', maxPrice);
         
@@ -86,11 +86,11 @@
             event.preventDefault();
         
             // Get the value from the search form input
-            const keyword = searchForm.elements['keyword'].value;
+            const keyword = searchForm.elements['keyword-input'].value;
         
             // Get the values from the filter form inputs
-            const minPrice = filterForm.elements['minPrice'].value;
-            const maxPrice = filterForm.elements['maxPrice'].value;
+            const minPrice = filterForm.elements['minPrice-input'].value;
+            const maxPrice = filterForm.elements['maxPrice-input'].value;
         
             // Add the search and filter values to the filter form action URL as query params
             const url = new URL(filterForm.action);

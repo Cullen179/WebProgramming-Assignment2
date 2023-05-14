@@ -1,5 +1,6 @@
 const route = require('express').Router();
 const shipperController = require('../controller/ShipperController');
+const { handleFileUploadMiddleware } = require('../middleware/handleFileUpload');
 
 /**
  * Authenticate role
@@ -16,6 +17,7 @@ route.use((req, res, next) => {
 
 // Shipper routes after authentication
 route.get('/profile', shipperController.showProfile);
+route.put('/profile', handleFileUploadMiddleware.single('picture'), shipperController.editProfile);
 route.get('/order', shipperController.showOrder);
 
 module.exports = route;
