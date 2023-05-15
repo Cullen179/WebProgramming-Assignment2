@@ -32,12 +32,15 @@
         </button>
       </div>
       <div class="account-info-section">
-        <h1 class="account-title d-flex align-items-center">
-          My Account
+        
+        <div class="account-title d-flex align-items-center">
+          <h1>
+            My Account
+          </h1>
           <form action="/logout" method="GET">
             <button id="logout-btn" type="submit" class="btn btn-primary ms-4">Logout</button>
           </form>
-        </h1>
+        </div>
 
         <form action="/customer/profile?_method=PUT" enctype="multipart/form-data" method="POST">
           <fieldset>
@@ -70,7 +73,6 @@
       class="modal fade"
       id="uploadImage"
       tabindex="-1"
-      aria-labelledby="uploadImageLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered">
