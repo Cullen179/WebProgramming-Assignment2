@@ -1,10 +1,10 @@
 <%- include ("../partials/head.ejs") %>
-<%- include ("../partials/vendor-header.ejs") %>
 <body>
+    <%- include ("../partials/vendor-header.ejs") %>
     <div class="hero-section carousel slide">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="/images/Vendor-banner.png" class="d-block w-100" height="600px">
+            <img src="/images/Vendor-banner.png" class="d-block w-100" height="600" alt="Vendor banner">
             <div class="carousel-caption d-block">
               <h1>Vendor Home Page</h1>
               <p>Your personalized dashboard for managing and optimizing your product portfolio</p>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="product-info pb-2 px-4">
                         <div class="card-title fs-5 bold">
-                            <div href="" class="product-name"><%= products[i].name %></div>
+                            <a href="" class="product-name"><%= products[i].name %></a>
                         </div>
                         <div class="product-quantity mb-2 d-flex justify-content-between align-items-center">
                             <div class="fs-6 text-muted">Quantity: <%= products[i].quantity %></div>
