@@ -1,4 +1,48 @@
 <%- include ("../partials/head.ejs") %>
+<style>
+  main {
+    padding: 48px 0;
+  }
+
+  .wrapper {
+    max-width: 180px;
+    margin-inline: auto;
+    margin-bottom: 32px;
+  }
+
+  .ratio-div {
+    position: relative;
+    padding-top: 100%;
+  }
+
+  .ratio-div img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  .vendor-business-name {
+    font-size: 48px;
+    text-transform: capitalize;
+    margin-bottom: 24px;
+  }
+
+  .vendor-business-address {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 372px) {
+    .vendor-business-name {
+      font-size: 32px;
+      text-transform: capitalize;
+      margin-bottom: 24px;
+    }
+  }
+</style>
 <body>
   <%- include ("../partials/vendor-header.ejs") %>
   <!-- Main content -->
@@ -36,51 +80,6 @@
 
     
   </main>
-
-  <style>
-    main {
-      padding: 48px 0;
-    }
-
-    .wrapper {
-      max-width: 180px;
-      margin-inline: auto;
-      margin-bottom: 32px;
-    }
-
-    .ratio-div {
-      position: relative;
-      padding-top: 100%;
-    }
-
-    .ratio-div img {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-    }
-
-    .vendor-business-name {
-      font-size: 48px;
-      text-transform: capitalize;
-      margin-bottom: 24px;
-    }
-
-    .vendor-business-address {
-      font-size: 20px;
-      margin-bottom: 16px;
-    }
-
-    @media (max-width: 372px) {
-      .vendor-business-name {
-        font-size: 32px;
-        text-transform: capitalize;
-        margin-bottom: 24px;
-      }
-    }
-  </style>
   <!-- Footer -->
   <%- include ('../partials/footer.ejs') %>
 </body>

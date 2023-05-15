@@ -1,62 +1,11 @@
-<!-- <h1>Update product information</h1>
-<form method="POST" enctype="multipart/form-data">
-  <label for="productname">name</label>
-  <input
-    type="text"
-    name="productname"
-    id="productname"
-    value="<%=product.name%>"
-  />
-  <br />
-  <br />
-
-  <label for="productprice">price</label>
-  <input
-    type="text"
-    name="productprice"
-    id="productprice"
-    value="<%=product.price%>"
-  />
-  <br />
-  <br />
-
-  <label for="productquantity">quantity</label>
-  <input
-    type="number"
-    name="productquantity"
-    id="productquantity"
-    value="<%=product.quantity%>"
-  />
-  <br />
-  <br />
-
-  <label for="productdescription">description</label>
-  <input
-    type="text"
-    name="productdescription"
-    id="productdescription"
-    value="<%=product.description%>"
-  />
-  <br />
-  <br />
-
-  <label for="productpicture">Current picture</label>
-  <img src="<%=product.imgSrc%>" alt="Product picture" />
-  <br />
-  <br />
-
-  <label for="productpicture">Change picture</label>
-  <input type="file" id="productpicture" name="productpicture" />
-  <br />
-  <br />
-
-  <button type="submit" formaction="/product/<%=product.id%>?_method=DELETE">DELETE</button>
-  <button type="submit" formaction="/product/<%=product.id%>/edit?_method=PUT">Update</button>
-</form> -->
-
-
 <%- include ("../partials/head.ejs") %>
-
+<style>
+    .field-error {
+        color: red;
+        font-size: 12px;
+        margin-top: 6px;
+    }
+</style>
 <body>
     <%- include ("../partials/vendor-header.ejs") %>
     <!-- Main content -->
@@ -67,13 +16,13 @@
                 <span class="material-symbols-outlined">
                     home
                 </span>
-                <div class="ms-2"><strong>Dashboard</strong></div>
+                <div class="ms-2"><h6 class="mb-0"><strong>Dashboard</strong></h6></div>
             </a>
             <a class="nav-link text-black py-3 mw-100 d-flex justify-content-start" href="/">
                 <span class="material-symbols-outlined">
                     format_list_bulleted
                 </span>
-                <div class="ms-2"><strong>Products</strong></div>
+                <div class="ms-2"><h6 class="mb-0"><strong>Products</strong></h6></div>
             </a>
         </section>
         <!-- Mini vertical nav -->
@@ -82,29 +31,29 @@
             <h1><strong>Edit product detail</strong></h1>
             <form action="/product/<%= product.id %>/edit?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="product-image bg-white mb-md-4 mt-3">
-                    <label for="product-image" class="form-label" style="display: block;"><p>Product images</p></label>
+                    <label for="product-image" class="form-label" style="display: block;">Product images</label>
                     <img src="<%= product.imgSrc %>" alt="Product image" style="height: 300px; width: 300px; object-fit: contain;">
                     <div>*Upload new image (not required)</div>
                     <input class="form-control form-control-sm" name="productpicture" id="product-image" type="file" required>
                     <div class="field-error d-none">*At least 1 image of product must be selected</div>
                 </div> 
                 <div class="product-name mb-md-4 mt-3">
-                    <label for="product-name" class="form-label"><p>Product name</p></label>
+                    <label for="product-name" class="form-label">Product name</label>
                     <input type="text" class="custom-form-input form-control" name="productname" id="product-name" value="<%= product.name %>" required>
                     <div class="field-error d-none">*Product's name must greater than or equal 10 characters and less than or equal 20 characters</div>
                 </div>
                 <div class="product-price mb-md-4 mt-3">
-                    <label for="product-price" class="form-label"><p>Product price</p></label>
+                    <label for="product-price" class="form-label">Product price</label>
                     <input type="number" class="custom-form-input form-control" name="productprice" id="product-price" value="<%= product.price %>" required>
                     <div class="field-error d-none">*Product's price must be a positive number</div>
                 </div>
                 <div class="product-quantity mb-md-4 mt-3">
-                    <label for="product-quantity" class="form-label"><p>Product quantity</p></label>
+                    <label for="product-quantity" class="form-label">Product quantity</label>
                     <input type="number" class="custom-form-input form-control" name="productquantity" id="product-quantity" value="<%= product.quantity %>" required>
                     <div class="field-error d-none">*Product's quantity must be a non negative integer</div>
                 </div>
                 <div class="product-description mb-md-4 mt-3">
-                    <label for="product-description" class="form-label"><p>Product description</p></label>
+                    <label for="product-description" class="form-label">Product description</label>
                     <textarea class="form-control" name="productdescription" id="product-description" rows="6" required><%= product.description %></textarea>
                     <div class="field-error d-none">*Product's description must be at least 1 character and at most 500 characters</div>
                 </div>
@@ -197,13 +146,5 @@
             error.classList.add('d-none');
         })
     </script>
-    
-    <style>
-        .field-error {
-            color: red;
-            font-size: 12px;
-            margin-top: 6px;
-        }
-    </style>
 </body>
 </html>
