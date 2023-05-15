@@ -203,7 +203,6 @@ class CustomerController {
           order
             .save()
             .then(() => {
-              console.log('Order created successfully');
               req.flash(
                 'orderSuccess',
                 `Your order has been placed successfully at ${randomHub.name}.`

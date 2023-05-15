@@ -25,7 +25,7 @@
           <label for="hub" class="form-label">Distributed Hub</label>
           <select class="form-select" name="hub" id="hub" required>
             <% hubs.forEach(hub => {%>
-            <option value="<%= hub.name %>"><%= hub.name %></option>
+            <option value="<%= hub._id %>"><%= hub.name %> [Address: <%= hub.address %>]</option>
             <% }) %>
           </select>
         </div>

@@ -13,8 +13,9 @@ const shipperSchema = new Schema(
       contentType: String,
     },
     hub: {
-      type: String,
-      require: true,
+      type: Schema.Types.ObjectId,
+      ref: 'Hub',
+      require: true
     },
   },
   { timestamps: true }

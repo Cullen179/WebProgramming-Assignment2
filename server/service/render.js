@@ -1,6 +1,9 @@
 const User = require('../model/UserModel');
-const Product = require('../model/ProductModel');
+const Shipper = require('../model/ShipperModel');
+const Customer = require('../model/CustomerModel');
+const Product = require('../model/ProductModel')
 const Hub = require('../model/HubModel');
+const Order = require('../model/OrderModel');
 const passport = require('passport');
 const { getImgSrc } = require('../../utils/imgTransformation');
 
@@ -55,7 +58,39 @@ class SiteService {
     }
 
     if (req.user.role === 'shipper') {
-      res.render('shipper/shipper-home');
+      let shipper = null;
+      let orders = null;
+      let customers = null;
+      
+      async function getData() {
+        await Customer.find()
+          .then((data) => {
+            customers = data;
+          })
+          .catch((err) => next(err));
+
+        await Shipper.findOne({account: req.user._id})
+          .then((data) => {
+            shipper = data;
+          })
+          .catch((err) => next(err));
+        await Order.find({hub: shipper.hub, status: 'active'})
+          .then((data) => {
+            orders = data;
+            if (orders.length != 0) {
+              orders.forEach(order => {
+                order.customer = customers.find(customer => String(customer.account) == String(order.customer));
+              })
+            }
+          })
+          .catch((err) => next(err));
+      }
+
+      getData()
+        .then(() => {
+          res.render('shipper/shipper-home', {shipper: shipper, orders: orders})
+        })
+        .catch((err) => next(err));
     }
   }
 
@@ -135,10 +170,6 @@ class SiteService {
         .catch((err) => {
           next(err);
         });
-    }
-
-    if (req.user.role === 'shipper') {
-      res.render('shipper/shipper-home');
     }
   }
 

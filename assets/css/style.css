@@ -450,6 +450,12 @@ body {
   overflow: hidden;
 }
 
+.date {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .status select {
   border-radius: 25px;
 }

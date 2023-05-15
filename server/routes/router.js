@@ -14,6 +14,7 @@ const attachAttributesToCurrentUserMiddleWare = require('../middleware/attachAtt
 const {
   handleFileUploadMiddleware,
 } = require('../middleware/handleFileUpload');
+const ShipperController = require('../controller/ShipperController');
 
 // Route can access before authentication
 route.get('/login', siteService.showLogin);
@@ -49,6 +50,7 @@ route.use((req, res, next) => {
 route.use(attachAttributesToCurrentUserMiddleWare);
 route.get('/', siteService.homeRoute);
 route.get('/search', siteService.searchResult);
+route.put('/', shipperController.updateOrderStatus);
 
 // Logout
 route.get('/logout', siteService.logout);
