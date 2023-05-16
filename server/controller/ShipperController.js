@@ -20,10 +20,15 @@ class ShipperController {
       curShipper.imgSrc = getImgSrc(curShipper.picture);
     }
 
-    res.render('shipper/shipper-profile', {
-      user: curUser,
-      shipper: curShipper,
-    });
+    // Get hub
+    Hub.findById(curShipper.hub) 
+      .then( hub => {
+        res.render('shipper/shipper-profile', {
+          user: curUser,
+          shipper: curShipper,
+          hub: hub
+        });
+      })
   }
 
   // [PUT] "/shipper/profile"
@@ -45,7 +50,7 @@ class ShipperController {
 
   // [GET] "/shipper/order/:id"
   showOrder(req, res, next) {
-    let shipper = null;
+    let shipper = req.shipper;
     let order = null;
     let customers = null;
     let products = null;
@@ -60,12 +65,6 @@ class ShipperController {
       await Product.find()
         .then((data) => {
           products = data;
-        })
-        .catch((err) => next(err));
-
-      await Shipper.findOne({account: req.user._id})
-        .then((data) => {
-          shipper = data;
         })
         .catch((err) => next(err));
 
@@ -109,30 +108,27 @@ class ShipperController {
     } else {
       const orderID = req.body.orderID;
       const orderAction = req.body.orderAction;
-      let status;
 
-      if (orderAction == 'canceled') {
-        status = 'canceled';
-      } else if (orderAction == 'delivered') {
-        status = 'delivered';
-      }
+      console.log(orderAction);
 
       function updateProduct(products) {
+        
         Product.findByIdAndUpdate({_id: {$in: products}}, { $inc: { quantity: 1 } })
+          .then(data => console.log(data + ' test'))
+          .catch(err => console.log(err))
       }
 
-      Order.findById(orderID)
+      Order.findOneAndUpdate({_id: orderID}, {status: orderAction})
         .then((order) => {
-          console.log(order);
-        })
+          if (orderAction == 'canceled') {
+            console.log('update product')
 
-      Order.findOneAndUpdate({_id: orderID}, {status: req.body.orderAction})
-        .then((order) => {
-          if (status == 'canceled') {
-            updateProduct(order.product);
+            
+            Product.updateMany({_id: {$in: order.product}}, { $inc: { quantity: 1 } })
+              .then(data => console.log(data + ' test'))
+              .catch(err => console.log(err))
           }
 
-          console.log(order);
           req.flash('updateOrder', `Update order ${order._id} status to ${order.status} successfully!`);
           res.redirect('/');
         })

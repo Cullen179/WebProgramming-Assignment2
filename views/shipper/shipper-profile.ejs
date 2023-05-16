@@ -4,23 +4,14 @@
   <%- include ("../partials/shipper-header.ejs") %>
   <!-- Main content -->
   <main class="indent my-5">
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">My Account</li>
-      </ol>
-    </nav>
-
-    <h1 class="account-title-mobile">My Account</h1>
 
     <!-- Main Content -->
     <div class="account-container">
       <div class="account-img-section">
         <% if (shipper.imgSrc) { %>
-          <img class="account-img" src="<%= shipper.imgSrc %>" alt="<%= user.username %> avatar"/>
+          <img class="account-img" src="<%= shipper.imgSrc %>" alt="<%= user.username %> avatar">
         <% } else { %>
-          <img class="account-img" src="/images/avatar_default.png" alt="<%= user.username %> avatar"/>
+          <img class="account-img" src="/images/avatar_default.png" alt="<%= user.username %> avatar">
         <% } %>
         <button
           type="button"
@@ -32,18 +23,32 @@
         </button>
       </div>
       <div class="account-info-section">
-        <h1 class="account-title d-flex align-items-center">
-          My Account
+         <!-- Breadcrumb -->
+         <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">My Account</li>
+          </ol>
+        </nav>
+        <div class="account-title d-flex align-items-center mb-4">
+          <h1>
+            My Account
+          </h1>
           <form action="/logout" method="GET">
             <button id="logout-btn" type="submit" class="btn btn-primary ms-4">Logout</button>
           </form>
-        </h1>
+        </div>
 
         <form action="/shipper/profile?_method=PUT" enctype="multipart/form-data" method="POST">
           <fieldset>
             <div class="mb-3">
               <label for="shipperUsername" class="form-label">Username</label>
-              <input type="text" value="<%= user.username %>" class="form-control" id="shipperUsername" disabled/>
+              <input type="text" value="<%= user.username %>" class="form-control" id="shipperUsername" disabled>
+            </div>
+            
+            <div class="mb-3">
+              <label for="shipperHub" class="form-label">Hub</label>
+              <input type="text" value="<%= hub.name %> [Address: <%= hub.address %>]" class="form-control" id="shipperHub" disabled>
             </div>
             <!-- <button id="update-profile-btn" type="submit" class="btn btn-primary mt-3 float-end" disabled>Update profile</button> -->
           </fieldset>
@@ -56,7 +61,6 @@
       class="modal fade"
       id="uploadImage"
       tabindex="-1"
-      aria-labelledby="uploadImageLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered">

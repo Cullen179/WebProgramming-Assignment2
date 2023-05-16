@@ -88,7 +88,6 @@ class CustomerController {
   // [GET] "/customer/register"
   showRegistration(req, res, next) {
     let users = null;
-    let customers = null;
 
     let getData = async () => {
       await User.find()

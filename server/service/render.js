@@ -61,6 +61,7 @@ class SiteService {
       let shipper = null;
       let orders = null;
       let customers = null;
+      let hub = null;
       
       async function getData() {
         await Customer.find()
@@ -74,6 +75,11 @@ class SiteService {
             shipper = data;
           })
           .catch((err) => next(err));
+
+        await Hub.findById(shipper.hub)
+          .then((data) => hub = data)
+          .catch(err => next(err));
+
         await Order.find({hub: shipper.hub, status: 'active'})
           .then((data) => {
             orders = data;
@@ -88,7 +94,7 @@ class SiteService {
 
       getData()
         .then(() => {
-          res.render('shipper/shipper-home', {shipper: shipper, orders: orders})
+          res.render('shipper/shipper-home', {shipper: shipper, hub: hub, orders: orders})
         })
         .catch((err) => next(err));
     }

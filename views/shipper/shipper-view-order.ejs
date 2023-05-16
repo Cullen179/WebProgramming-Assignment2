@@ -12,9 +12,9 @@
 
             <% order.productDetails.forEach(product => { %>
                 <div class="product-list border-top border-bottom py-3">
-                    <div class="product row w-100 mx-0 py-3 d-flex justify-content-between">
+                    <div class="product row w-100 mx-0">
                         <div class="product-image col-md-2 col-4 px-0 border rounded rounded-4 overflow-hidden">
-                            <img src="<%= product.imgSrc %>">
+                            <img src="<%= product.imgSrc %>" alt="Product image">
                         </div>
                         <div class="col-md-5 col-7 d-flex flex-column justify-content-center">
                             <div class="product-name fs-lg-5 fs-6 bold"><%= product.name %></div>
@@ -25,7 +25,7 @@
                         <div class="equation col-md-2 col-6 px-0 d-flex fs-lg-5 fs-6 mt-md-0 mt-2 justify-content-start align-items-center">
                             <div class="pe-lg-3 pe-1">$<%= product.price %></div> x <div class="ps-lg-3 ps-1">1</div>
                         </div>
-                        <div class="price col-md-1 col-2 p-0 bold d-flex fs-lg-5 fs-6 mt-md-0 mt-2 justify-content-end align-items-center">
+                        <div class="price col-md-1 p-0 bold d-flex fs-lg-5 fs-6 mt-md-0 mt-2 justify-content-end align-items-center">
                             $<%= product.price %>
                         </div>
                     </div>
