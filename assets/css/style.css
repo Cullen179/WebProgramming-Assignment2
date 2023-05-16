@@ -526,24 +526,6 @@ body {
 
 /* Shipper order detail */
 
-.status-update .delivered {
-  background-color: #178754;
-  color: white;
-  font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 25px;
-  font-size: 14px;
-}
-
-.status-update .canceled {
-  background-color: #6d757d;
-  color: white;
-  font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 25px;
-  font-size: 14px;
-}
-
 .order-icon {
   width: 2%;
   display: inline;
@@ -562,19 +544,22 @@ body {
   overflow: hidden;
 }
 
-.status-update-down {
-  display: none;
+@media screen and (min-width: 1024px) {
+  .delivered,
+  .canceled {
+    padding: 8px 20px;
+    font-size: 16px;
+  }
 }
 
 @media screen and (max-width: 767px) {
-  .status-update-up {
-    display: none;
-  }
-
-  .status-update-down {
-    display: block;
+  .delivered,
+  .canceled {
+    padding: 8px 12px;
+    font-size: 11px;
   }
 }
+
 /* Customer Cart */
 
 .cart-header {
