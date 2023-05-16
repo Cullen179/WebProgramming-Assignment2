@@ -544,19 +544,15 @@ body {
   overflow: hidden;
 }
 
-@media screen and (min-width: 1024px) {
-  .delivered,
-  .canceled {
-    padding: 8px 20px;
-    font-size: 16px;
-  }
+.status-update {
+  gap: 10px;
 }
 
 @media screen and (max-width: 767px) {
   .delivered,
   .canceled {
-    padding: 8px 12px;
-    font-size: 11px;
+    padding: 8px 16px;
+    font-size: 12px;
   }
 }
 
