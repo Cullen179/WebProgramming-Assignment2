@@ -26,7 +26,7 @@
                     <% products.forEach(product => { %>
                             <% if (order.product.includes(product._id)) {%>
                                 <div class="product row w-100 mx-0 py-3 d-flex justify-content-between">
-                                    <div class="product-image col-md-2 col-4 py-3 px-0 border rounded rounded-4">
+                                    <div class="product-image col-md-2 col-4 p-0 border rounded rounded-4 overflow-hidden">
                                         <img src="<%= product.imgSrc %>">
                                     </div>
                                     <div class="col-md-5 col-7 d-flex flex-column justify-content-center">
@@ -49,7 +49,7 @@
                         <div class="ordered-items-footer my-2">
                             <div class="product w-100 mx-0 py-3 d-flex justify-content-between">
                                 <div class="col-lg-2 col-md-3 col-4 px-0 status-update">
-                                    <button class="delivered btn btn-primary border border-0 text-capitalize" disabled><%= order.status %></button>
+                                    <button class="status btn border border-0 text-capitalize" disabled><%= order.status %></button>
                                 </div>
                                 <div class="col-lg-6 col-md-5 col-0">
                                 </div>
@@ -80,4 +80,5 @@
     var products = `<%- JSON.stringify(products) %>`;
     var customer = `<%- JSON.stringify(customer) %>`;
 </script>
+<script src="/js/order-status.js"></script>
 <script src="/js/add-to-cart.js"></script>
