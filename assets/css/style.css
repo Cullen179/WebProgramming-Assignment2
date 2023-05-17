@@ -291,6 +291,13 @@ body {
   transition: visibility 0s linear 0s, opacity 300ms;
 }
 
+.product-container:hover .product-price i {
+  cursor: pointer;
+  background-color: #095ed7 !important;
+  color: white !important;
+  border-radius: 50%;
+}
+
 .product-container:hover .product-image {
   box-shadow: none !important;
 }
@@ -300,10 +307,7 @@ body {
 }
 
 .product-price i:hover {
-  cursor: pointer;
-  background-color: black !important;
-  color: white !important;
-  border-radius: 50%;
+  opacity: 0.8;
 }
 
 .price {
