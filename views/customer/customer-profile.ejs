@@ -123,6 +123,11 @@
   <%- include ('../partials/footer.ejs') %>
 
   <script>
+    var products = `<%- JSON.stringify(products) %>`;
+    var customer = `<%- JSON.stringify(user) %>`;
+  </script>
+  <script src="/js/add-to-cart.js"></script>
+  <script>
     // Handle upload btn click
     const uploadBtn = document.querySelector('#upload-btn');
     const imageInput = document.querySelector('#image-input');

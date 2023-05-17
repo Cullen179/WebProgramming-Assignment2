@@ -36,35 +36,32 @@
                                         <div class="border px-3 py-1">1</div>
                                     </div>
                                     <div class="equation col-md-2 col-6 d-flex fs-lg-5 fs-6 mt-md-0 mt-2 justify-content-start align-items-center">
-                                        <div class="pe-lg-3 pe-1"><%= product.price %></div> x <div class="ps-lg-3 ps-1">1</div>
+                                        <div class="pe-lg-3 pe-1">$<%= product.price %></div> x <div class="ps-lg-3 ps-1">1</div>
                                     </div>
                                     <div class="price col-md-1 col-2 p-0 bold d-flex fs-lg-5 fs-6 mt-md-0 mt-2 justify-content-end align-items-center">
-                                        <%= product.price %>
+                                        $<%= product.price %>
                                     </div>
                                 </div>
                             <% } %>
                             <% }) %>
                         </div>
                     <div class="ordered-items-footer my-2">
-                        <div class="product row w-100 mx-0 py-3 d-flex justify-content-between">
-                            <div class="col-md-2 status-update-up">
-                                <div class="status-update d-flex justify-content-start">
-                                    <button disabled class="btn btn-primary">Delivered</button>
+                        <div class="ordered-items-footer my-2">
+                            <div class="product w-100 mx-0 py-3 d-flex justify-content-between">
+                                <div class="col-lg-2 col-md-3 col-4 px-0 status-update">
+                                    <button class="delivered btn btn-primary border border-0 text-capitalize" disabled><%= order.status %></button>
                                 </div>
-                            </div>
-                            <div class="col-md-5 col-0">
-                            </div>
-                            <div class="col-md-1 col-0">
-                            </div>
-                            <div class="fee col-2 bold d-flex fs-lg-5 fs-6 justify-content-start align-items-center">
-                                Total
-                            </div>
-                            <div class="price col-md-1 col-3 bold d-flex fs-lg-5 fs-6 justify-content-end align-items-center">
-                                $<%= order.price %>
-                            </div>
-                            <div class="w-100 pt-4 status-update-down">
-                                <div class="status-update d-flex justify-content-end">
-                                    <button disabled class="btn btn-primary">Delivered</button>
+                                <div class="col-lg-6 col-md-5 col-0">
+                                </div>
+                                <div class="col-md-1 col-0">
+                                </div>
+                                <div class="col-3 bold px-0 fs-lg-5 fs-6 d-flex align-items-center">
+                                    <div class="fee col-8">
+                                        Total
+                                    </div>
+                                    <div class="price col-4 d-flex justify-content-end">
+                                        $<%= order.price %>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -82,9 +79,5 @@
 <script>
     var products = `<%- JSON.stringify(products) %>`;
     var customer = `<%- JSON.stringify(customer) %>`;
-    var img = `<%- JSON.stringify(img) %>`;
-</script>
-<script>
-    var orders = `<%- JSON.stringify(orders) %>`;
 </script>
 <script src="/js/add-to-cart.js"></script>

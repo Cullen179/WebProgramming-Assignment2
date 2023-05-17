@@ -7,59 +7,29 @@ const Hub = require('../model/HubModel');
 const generatePassword = require('../../utils/passwordUtils').generatePassword;
 const siteService = require('../service/render');
 const { getImgSrc, getPictureObject } = require('../../utils/imgTransformation');
+const attachProduct = require('./CartController');
 
 class CustomerController {
   // [GET] "/customer/profile"
   showProfile(req, res, next) {
-    let customer = null;
-    let products = null;
-    let img = [];
+    let productsArray = [];
+    if (req.customer.picture) {
+      req.customer.imgSrc = getImgSrc(req.customer.picture);
+    }
 
-    let getData = async () => {
-      await User.find()
-        .then((data) => {
-          customer = data;
-        })
-        .catch((err) => console.log(err));
-      await Product.find()
-        .then((data) => {
-          // Get only available product
-          data.filter((product) => product.quantity > 0);
-
-          // Attach imgSrc property to each product
-          data.forEach((product) => {
-            if (product.picture) {
-              product.imgSrc = getImgSrc(product.picture);
-              img.push(product.imgSrc);
-            } else img.push('');
+    Product.find()
+        .then(data => {
+          productsArray = attachProduct(data);
+          res.render('customer/customer-profile', {
+            products: productsArray,
+            user: req.user,
+            customer: req.customer,
+            orderSuccess: req.flash('orderSuccess'),
+            orderError: req.flash('orderError'),
           });
-          products = data;
         })
         .catch((err) => console.log(err));
     };
-    getData()
-      .then(() => {
-        Order.find({ customer: req.user._id })
-          .then((orders) => {
-            // Attach imgSrc property to customer
-            if (req.customer.picture) {
-              req.customer.imgSrc = getImgSrc(req.customer.picture);
-            }
-
-            res.render('customer/customer-profile', {
-              products: products,
-              user: req.user,
-              customer: req.customer,
-              img: img,
-              orders: orders,
-              orderSuccess: req.flash('orderSuccess'),
-              orderError: req.flash('orderError'),
-            });
-          })
-          .catch((err) => next(err));
-      })
-      .catch((err) => next(err));
-  }
 
   // [PUT] "/customer/profile"
   editProfile(req, res, next) {
@@ -67,6 +37,7 @@ class CustomerController {
     const pictureObject = getPictureObject(req, res, next);
 
     const customerData = {};
+
     if (pictureObject) {
       customerData.picture = pictureObject;
     }
@@ -104,30 +75,13 @@ class CustomerController {
   }
 
   showOrder(req, res, next) {
-    let customer = null;
-    let products = null;
-    let img = [];
     let orders = null;
+    let productsArray = [];
 
     let getData = async () => {
-      await User.find()
-        .then((data) => {
-          customer = data;
-        })
-        .catch((err) => console.log(err));
       await Product.find()
         .then((data) => {
-          // Get only available product
-          data.filter((product) => product.quantity > 0);
-
-          // Attach imgSrc property to each product
-          data.forEach((product) => {
-            if (product.picture) {
-              product.imgSrc = getImgSrc(product.picture);
-              img.push(product.imgSrc);
-            } else img.push('');
-          });
-          products = data;
+          productsArray = attachProduct(data);
         })
         .catch((err) => console.log(err));
 
@@ -140,9 +94,8 @@ class CustomerController {
     getData()
       .then(() => {
         res.render('customer/customer-order', {
-          products: products,
+          products: productsArray,
           customer: req.user,
-          img: img,
           orders: orders,
           orderSuccess: req.flash('orderSuccess'),
           orderError: req.flash('orderError'),
@@ -217,19 +170,6 @@ class CustomerController {
     });
   }
 
-  updateProductQuantity(productOrder) {
-    // [PUT] product/:id/edit
-
-    Product.updateMany({ _id: { $in: productOrder } })
-      .then(() => {
-        // After update => go back home page
-        res.redirect('/');
-      })
-      .catch((err) => {
-        next(err);
-      });
-  }
-
   // [POST] "/customer"
   createAccount(req, res, next) {
     // Generate salt + hash
@@ -266,7 +206,6 @@ class CustomerController {
           .save()
           .then(() => {
             siteService.login(req, res, next);
-            console.log('create success');
           })
           .catch((err) => {
             // next(err);
