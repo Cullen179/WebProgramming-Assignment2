@@ -9,3 +9,57 @@
 </main>
 
     <%- include('./partials/footer.ejs') %>
+
+    <script>
+        const submitBtn = document.querySelector('.submit-btn');
+        const form = document.querySelector('form');
+    
+        const inputs = document.querySelectorAll('input');
+        const nameInput = document.querySelector('#businessname');
+        const addressInput = document.querySelector('#businessaddress');
+    
+        const nameError = document.querySelector('.vendor-business-name .field-error');
+        const addressError = document.querySelector('.vendor-business-address .field-error');
+    
+        submitBtn.addEventListener('click', () => {
+          const name = nameInput.value.trim();
+          const address = addressInput.value.trim();
+    
+          let isValid = true;
+          if (name.length === 0) {
+            nameError.classList.remove('d-none');
+            isValid = false;
+          } else {
+            nameError.classList.add('d-none');
+          }
+    
+          if (address.length === 0) {
+            addressError.classList.remove('d-none');
+            isValid = false;
+          } else {
+            addressError.classList.add('d-none');
+          }
+    
+          if (isValid) {
+            form.submit();
+          }
+        })
+    
+        // Handle input on change
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                const inputId = input.id;
+                const error = document.querySelector(`#${inputId} + .field-error`);
+    
+                if (error) {
+                  error.classList.add('d-none');
+                }
+            })
+        })
+    
+        // Duplicated show/hide
+        const duplicatedError = document.querySelector('.duplicated-error');
+        if (window.location.search.includes('duplicated=true')) {
+          duplicatedError.classList.remove('d-none');
+        }
+      </script>
