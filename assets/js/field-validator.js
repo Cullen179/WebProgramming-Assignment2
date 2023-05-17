@@ -26,13 +26,10 @@ if (businessAddress) businessAddress.addEventListener('input', () => getError(bu
 
 submit.addEventListener('click', (e) => {
   if (!document.querySelector('.invalid-feedback')) {
-    console.log(document.querySelector('.invalid-feedback'));
-    submit.setAttribute('data-bs-content', '');
+    updatePopoverContent(''); // Remove popover content
     submit.setAttribute('type', 'submit');
   } else {
-    console.log('false');
-    console.log(document.querySelector('.invalid-feedback'));
-    submit.setAttribute('type', 'button');
+    updatePopoverContent('Please fill up the form correctly.')
   }
 });
 
@@ -59,10 +56,11 @@ function getError(input, validator) {
 function resetError(input) {
   const errors = input.parentElement.querySelectorAll('[error-data="true"]');
   errors.forEach((error) => input.parentElement.removeChild(error));
-  console.log(errors);
 }
 
-function checkFormValid() {
-  const invalidFeedback = document.querySelector('.invalid-feedback');
-  if (!invalidFeedback) return true;
+function updatePopoverContent(content) {
+  submit.setAttribute('data-bs-content', content);
+  var popover = new bootstrap.Popover(submit);
+  popover._getContent();
+  popover.show();
 }

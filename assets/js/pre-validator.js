@@ -164,7 +164,6 @@ function isNumber(c) {
 function checkDuplicate(data, attribute, value) {
   let isDuplicate = false;
   data.forEach(object => {
-    console.log(object[attribute])
     if (object[attribute] == value) {
       isDuplicate = true;
     }

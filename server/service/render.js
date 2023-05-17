@@ -58,7 +58,7 @@ class SiteService {
     }
 
     if (req.user.role === 'shipper') {
-      let shipper = null;
+      let shipper = req.shipper;
       let orders = null;
       let customers = null;
       let hub = null;
@@ -67,12 +67,6 @@ class SiteService {
         await Customer.find()
           .then((data) => {
             customers = data;
-          })
-          .catch((err) => next(err));
-
-        await Shipper.findOne({account: req.user._id})
-          .then((data) => {
-            shipper = data;
           })
           .catch((err) => next(err));
 

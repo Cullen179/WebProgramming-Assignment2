@@ -41,12 +41,12 @@
 
         <form action="/shipper/profile?_method=PUT" enctype="multipart/form-data" method="POST">
           <fieldset>
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="shipperUsername" class="form-label">Username</label>
               <input type="text" value="<%= user.username %>" class="form-control" id="shipperUsername" disabled>
             </div>
             
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="shipperHub" class="form-label">Hub</label>
               <input type="text" value="<%= hub.name %> [Address: <%= hub.address %>]" class="form-control" id="shipperHub" disabled>
             </div>
@@ -85,17 +85,6 @@
             </span>
             <button id="upload-btn" class="btn btn-outline-primary" style="width: 50%">Select File</button>
             <div class="file-name"></div>
-
-            <!-- User has uploaded an img -->
-            <!-- <img class="account-uploaded-img" src="/images/customer.jpg" />
-            <button
-              type="button"
-              class="btn btn-link"
-              data-bs-toggle="modal"
-              data-bs-target="#uploadImage"
-            >
-              Reselect
-            </button> -->
           </div>
 
           <form action="/shipper/profile?_method=PUT" enctype="multipart/form-data" method="POST">
@@ -110,24 +99,6 @@
   </main>
   <%- include ('../partials/footer.ejs') %>
 
-  <script>
-    // Handle upload btn click
-    const uploadBtn = document.querySelector('#upload-btn');
-    const imageInput = document.querySelector('#image-input');
-    const fileNameDOM = document.querySelector('.file-name');
-    const saveBtn = document.querySelector('#save-btn');
-    uploadBtn.addEventListener('click', () => {
-      imageInput.click();
-    })
-
-    imageInput.onchange = e => { 
-      const file = e.target.files[0];
-      fileNameDOM.innerHTML = `
-        ${file.name}
-      `;
-
-      saveBtn.removeAttribute('disabled');
-    }
-  </script>
+  <script src="/js/upload-img.js"></script>
 </body>
 </html>
