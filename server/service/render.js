@@ -328,7 +328,6 @@ class SiteService {
     }
 
     if (req.user.role === 'shipper') {
-      const curUser = req.user;
       const curShipper = req.shipper;
 
       // Attach imgSrc property to shipper
@@ -337,12 +336,11 @@ class SiteService {
       }
 
       // Get hub
-      Hub.findById(curShipper.hub)
-        .then((hub) => {
-          res.render('shipper/shipper-profile', {
-            user: curUser,
+      Hub.find()
+        .then((hubs) => {
+          res.render('shipper/shipper-edit-profile', {
             shipper: curShipper,
-            hub: hub,
+            hubs: hubs,
           });
         })
         .catch((err) => next(err));
@@ -417,22 +415,21 @@ class SiteService {
     }
 
     if (req.user.role === 'shipper') {
-      const curUser = req.user;
       const curShipper = req.shipper;
+      const pictureObject = getPictureObject(req, res, next);
 
-      // Attach imgSrc property to shipper
-      if (curShipper.picture) {
-        curShipper.imgSrc = getImgSrc(curShipper.picture);
+      let shipperData = {
+        hub: req.body.shipperHub,
       }
 
-      // Get hub
-      Hub.findById(curShipper.hub)
-        .then((hub) => {
-          res.render('shipper/shipper-profile', {
-            user: curUser,
-            shipper: curShipper,
-            hub: hub,
-          });
+      if (pictureObject) {
+        shipperData.picture = pictureObject;
+      }
+
+      // Update shipper
+      Shipper.updateOne({ _id: curShipper._id }, shipperData)
+        .then(() => {
+          res.redirect('/profile');
         })
         .catch((err) => next(err));
     }
