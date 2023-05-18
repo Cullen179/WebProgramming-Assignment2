@@ -72,6 +72,7 @@ route.use(attachAttributesToCurrentUserMiddleWare);
 route.get('/', siteService.homeRoute);
 route.get('/search', siteService.searchResult);
 route.put('/', shipperController.updateOrderStatus);
+route.get('/profile', siteService.showProfile);
 
 // Logout
 route.get('/logout', siteService.logout);
