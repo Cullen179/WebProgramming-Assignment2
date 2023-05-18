@@ -18,21 +18,17 @@
 // Google icon: https://fonts.google.com/icons
 // Pexels: https://www.pexels.com/
 // Canva: https://www.canva.com/
+const orderStatus = document.querySelectorAll('.status');
 
-// Handle upload btn click
-const uploadBtn = document.querySelector('#upload-btn');
-const imageInput = document.querySelector('#image-input');
-const fileNameDOM = document.querySelector('.file-name');
-const saveBtn = document.querySelector('#save-btn');
-uploadBtn.addEventListener('click', () => {
-  imageInput.click();
+orderStatus.forEach((item) => {
+    let status = item.innerHTML;
+    if (status == 'active') {
+        item.classList.add('btn-primary');
+    } else if (status == 'canceled') {
+        item.classList.add('btn-secondary');
+    } else if (status == 'delivered') {
+        item.classList.add('btn-success');
+    } else {
+        item.classList.add('btn-warning');
+    }
 })
-
-imageInput.onchange = e => { 
-  const file = e.target.files[0];
-  fileNameDOM.innerHTML = `
-    ${file.name}
-  `;
-
-  saveBtn.removeAttribute('disabled');
-}

@@ -21,7 +21,7 @@ Canva: https://www.canva.com/ -->
 
 <%- include ("../partials/head.ejs") %> 
 <body>
-  <%- include ("../partials/shipper-header.ejs") %>
+  <%- include ("../partials/vendor-header.ejs") %>
   <!-- Main content -->
   <main class="indent my-5">
 
@@ -29,18 +29,10 @@ Canva: https://www.canva.com/ -->
     <div class="account-container">
       <div class="account-img-section">
         <% if (vendor.imgSrc) { %>
-          <img class="account-img" src="<%= vendor.imgSrc %>" alt="<%= vendor.username %> avatar">
+          <img class="account-img" src="<%= vendor.imgSrc %>" alt="Vendor profile imager">
         <% } else { %>
-          <img class="account-img" src="/images/avatar_default.png" alt="<%= user.username %> avatar">
+          <img class="account-img" src="/images/avatar_default.png" alt="Vendor profile image">
         <% } %>
-        <!-- <button
-          type="button"
-          class="btn btn-link"
-          data-bs-toggle="modal"
-          data-bs-target="#uploadImage"
-        >
-          Change
-        </button> -->
       </div>
       <div class="account-info-section">
          <!-- Breadcrumb -->
@@ -54,9 +46,6 @@ Canva: https://www.canva.com/ -->
           <h1>
             My Account
           </h1>
-          <form action="/logout" method="GET">
-            <button id="logout-btn" type="submit" class="btn btn-primary ms-4">Logout</button>
-          </form>
         </div>
 
         <form action="/vendor/profile?_method=PUT" enctype="multipart/form-data" method="POST">
@@ -74,10 +63,9 @@ Canva: https://www.canva.com/ -->
               <input type="text" value="<%= vendor.businessAddress %>" class="form-control" id="businessAddress" disabled>
             </div>
             <div>
-              <a class="btn btn-primary" href="/vendor/profile/edit">Edit profile</a>
+              <a class="btn btn-primary" href="/profile/edit">Edit profile</a>
+              <a href="/logout" class="btn btn-secondary">Logout</a>
             </div>
-
-            <!-- <button id="update-profile-btn" type="submit" class="btn btn-primary mt-3 float-end" disabled>Update profile</button> -->
           </fieldset>
         </form>
       </div>

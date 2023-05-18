@@ -22,11 +22,12 @@
 const User = require('../model/UserModel');
 const Shipper = require('../model/ShipperModel');
 const Customer = require('../model/CustomerModel');
+const Vendor = require('../model/VendorModel');
 const Product = require('../model/ProductModel');
 const Hub = require('../model/HubModel');
 const Order = require('../model/OrderModel');
 const passport = require('passport');
-const { getImgSrc } = require('../../utils/imgTransformation');
+const { getImgSrc, getPictureObject } = require('../../utils/imgTransformation');
 const attachProduct = require('../controller/CartController');
 
 /**
@@ -84,16 +85,8 @@ class SiteService {
           products.filter((product) => product.quantity > 0);
 
           productsArray = attachProduct(products);
-
-          res.render('customer/customer-home', {
-            products: productsArray,
-            keyword: '',
-            minPrice: minPrice,
-            maxPrice: maxPrice,
-            customer: req.user,
-            orderSuccess: req.flash('orderSuccess'),
-            orderError: req.flash('orderError'),
-          });
+         
+          res.render('customer/customer-home', { products: productsArray, keyword: '', minPrice: minPrice, maxPrice: maxPrice, customer: req.user, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
         })
         .catch((err) => {
           next(err);
@@ -333,54 +326,23 @@ class SiteService {
   // [GET] "/profile"
   showProfile(req, res, next) {
     if (req.user.role === 'customer') {
-      let customer = null;
-      let products = null;
-      let img = [];
+      let productsArray = [];
+    if (req.customer.picture) {
+      req.customer.imgSrc = getImgSrc(req.customer.picture);
+    }
 
-      let getData = async () => {
-        await User.find()
-          .then((data) => {
-            customer = data;
-          })
-          .catch((err) => console.log(err));
-        await Product.find()
-          .then((data) => {
-            // Get only available product
-            data.filter((product) => product.quantity > 0);
-
-            // Attach imgSrc property to each product
-            data.forEach((product) => {
-              if (product.picture) {
-                product.imgSrc = getImgSrc(product.picture);
-                img.push(product.imgSrc);
-              } else img.push('');
-            });
-            products = data;
-          })
-          .catch((err) => console.log(err));
-      };
-      getData()
-        .then(() => {
-          Order.find({ customer: req.user._id })
-            .then((orders) => {
-              // Attach imgSrc property to customer
-              if (req.customer.picture) {
-                req.customer.imgSrc = getImgSrc(req.customer.picture);
-              }
-
-              res.render('customer/customer-profile', {
-                products: products,
-                user: req.user,
-                customer: req.customer,
-                img: img,
-                orders: orders,
-                orderSuccess: req.flash('orderSuccess'),
-                orderError: req.flash('orderError'),
-              });
-            })
-            .catch((err) => next(err));
+    Product.find()
+        .then(data => {
+          productsArray = attachProduct(data);
+          res.render('customer/customer-profile', {
+            products: productsArray,
+            user: req.user,
+            customer: req.customer,
+            orderSuccess: req.flash('orderSuccess'),
+            orderError: req.flash('orderError'),
+          });
         })
-        .catch((err) => next(err));
+        .catch((err) => console.log(err));
     }
 
     if (req.user.role === 'vendor') {
@@ -412,6 +374,152 @@ class SiteService {
             shipper: curShipper,
             hub: hub,
           });
+        })
+        .catch((err) => next(err));
+    }
+  }
+
+  // [GET] "/profile/edit"
+  showEditProfile(req, res, next) {
+    if (req.user.role === 'customer') {
+      let productsArray = [];
+    if (req.customer.picture) {
+      req.customer.imgSrc = getImgSrc(req.customer.picture);
+    }
+
+    Product.find()
+        .then(data => {
+          productsArray = attachProduct(data);
+          res.render('customer/customer-edit-profile', {
+            products: productsArray,
+            user: req.user,
+            customer: req.customer,
+            orderSuccess: req.flash('orderSuccess'),
+            orderError: req.flash('orderError'),
+          });
+        })
+        .catch((err) => next(err));
+    }
+
+    if (req.user.role === 'vendor') {
+      // Attach imgSrc property to vendor
+      // => View get product.imgSrc to put into image tag
+      const user = req.user;
+      const vendor = req.vendor;
+      if (vendor.picture) {
+        vendor.imgSrc = getImgSrc(vendor.picture);
+      }
+      res.render('vendor/vendor-edit-profile', { 
+        user: user, 
+        vendor: vendor,
+        nameError: req.flash('nameError'),
+        addressError: req.flash('addressError'), 
+      });
+    }
+
+    if (req.user.role === 'shipper') {
+      const curShipper = req.shipper;
+
+      // Attach imgSrc property to shipper
+      if (curShipper.picture) {
+        curShipper.imgSrc = getImgSrc(curShipper.picture);
+      }
+
+      // Get hub
+      Hub.find()
+        .then((hubs) => {
+          res.render('shipper/shipper-edit-profile', {
+            shipper: curShipper,
+            hubs: hubs,
+          });
+        })
+        .catch((err) => next(err));
+    }
+  }
+
+  // [PUT] "/profile/edit"
+  editProfile(req, res, next) {
+    if (req.user.role === 'customer') {
+      const pictureObject = getPictureObject(req, res, next);
+
+      const customerData = {
+        name: req.body.customerName,
+        address: req.body.customerAddress,
+      };
+      if (pictureObject) {
+        customerData.picture = pictureObject;
+      }
+
+      Customer.updateOne({ _id: req.customer._id }, customerData)
+        .then(() => {
+          res.redirect('/profile');
+        })
+        .catch((err) => next(err));
+    }
+
+    if (req.user.role === 'vendor') {
+      const curVendor = req.vendor;
+      const pictureObject = getPictureObject(req, res, next);
+
+      // Check duplicate business name first
+      Vendor.find({$or: [{businessName: req.body.businessname}, {businessAddress: req.body.businessaddress}], _id: { $ne: curVendor._id }})
+        .then((vendor) => {
+
+          // If exists vendor with the updated bussiness name => Reject updating
+          if (vendor.length > 0) {
+            
+            vendor.forEach((vendorProfile) => {
+              console.log(vendorProfile.businessName)
+              if (vendorProfile.businessName == req.body.businessname ) {
+                req.flash('nameError', `Business name ${req.body.businessname} has already been used.`);
+              }
+
+              if (vendorProfile.businessAddress == req.body.businessaddress) {
+                req.flash('addressError', `Business address ${req.body.businessaddress} has already been used.`);
+              }
+            })
+            res.redirect('/profile/edit');
+
+          } else {
+            updateVendorDetail();
+          }
+        })
+        .catch((err) => next(err));
+
+      // Update function after passing validations
+      function updateVendorDetail() {
+        const vendorData = {
+          businessName: req.body.businessname,
+          businessAddress: req.body.businessaddress,
+        };
+        if (pictureObject) {
+          vendorData.picture = pictureObject;
+        }
+
+        Vendor.updateOne({ _id: curVendor._id }, vendorData)
+          .then(() => {
+            res.redirect('/profile');
+          })
+          .catch((err) => next(err));
+      }
+    }
+
+    if (req.user.role === 'shipper') {
+      const curShipper = req.shipper;
+      const pictureObject = getPictureObject(req, res, next);
+
+      let shipperData = {
+        hub: req.body.shipperHub,
+      }
+
+      if (pictureObject) {
+        shipperData.picture = pictureObject;
+      }
+
+      // Update shipper
+      Shipper.updateOne({ _id: curShipper._id }, shipperData)
+        .then(() => {
+          res.redirect('/profile');
         })
         .catch((err) => next(err));
     }

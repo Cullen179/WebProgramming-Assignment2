@@ -22,7 +22,6 @@
 const route = require('express').Router();
 const customerRoute = require('./customer-router');
 const shipperRoute = require('./shipper-router');
-const vendorRoute = require('./vendor-router');
 const productRoute = require('./product-router');
 
 const siteService = require('../service/render');
@@ -85,15 +84,14 @@ route.use(attachAttributesToCurrentUserMiddleWare);
 route.get('/', siteService.homeRoute);
 route.put('/', shipperController.updateOrderStatus);
 route.get('/profile', siteService.showProfile);
+route.get('/profile/edit', siteService.showEditProfile);
+route.put('/profile/edit', handleFileUploadMiddleware.single('picture'), siteService.editProfile);
 
 // Logout
 route.get('/logout', siteService.logout);
 
 // Customer routes
 route.use('/customer', customerRoute);
-
-// Shipper routes
-route.use('/vendor', vendorRoute);
 
 // Vendor routes
 route.use('/shipper', shipperRoute);

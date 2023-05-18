@@ -48,22 +48,21 @@ Canva: https://www.canva.com/ -->
           </h1>
         </div>
 
-        <form action="/shipper/profile?_method=PUT" enctype="multipart/form-data" method="POST">
+        <form action="/profile/edit?_method=PUT" enctype="multipart/form-data" method="POST">
           <fieldset>
             <div class="mb-4">
-              <label for="shipperUsername" class="form-label">Username</label>
-              <input type="text" value="<%= user.username %>" class="form-control" id="shipperUsername" disabled>
+                <label for="picture" class="form-label">Profile Picture</label>
+                <input type="file" class="form-control" name="picture" id="picture">
             </div>
-            
             <div class="mb-4">
-              <label for="shipperHub" class="form-label">Hub</label>
-              <input type="text" value="<%= hub.name %> [Address: <%= hub.address %>]" class="form-control" id="shipperHub" disabled>
+                <select name="shipperHub" id="shipperHub" class="form-select">
+                    <% hubs.forEach(hub => {%>
+                        <option value="<%= hub._id %>"><%= hub.name %> [Address: <%= hub.address %>]</option>
+                     <% }) %>
+                </select>
             </div>
             <div>
-              <div>
-              <a class="btn btn-primary" href="/profile/edit">Edit profile</a>
-              <a href="/logout" class="btn btn-secondary">Logout</a>
-            </div>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
           </fieldset>
         </form>
@@ -71,5 +70,17 @@ Canva: https://www.canva.com/ -->
     </div>
   </main>
   <%- include ('../partials/footer.ejs') %>
+  <script src="/js/retrieve-img.js"></script>
+  <script src="/js/profile-validator.js"></script>
+  <script>
+    const options = document.querySelectorAll('option');
+    if (options) {
+      options.forEach(option => {
+        if (option.value === "<%= shipper.hub %>") {
+          option.selected = true;
+        }
+      })
+    }
+  </script>
 </body>
 </html>

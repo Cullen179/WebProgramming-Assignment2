@@ -31,43 +31,6 @@ const siteService = require('../service/render');
 const { getImgSrc, getPictureObject } = require('../../utils/imgTransformation');
 
 class ShipperController {
-  // [GET] "/shipper/profile"
-  showProfile(req, res, next) {
-    const curUser = req.user;
-    const curShipper = req.shipper;
-
-    // Attach imgSrc property to shipper
-    if (curShipper.picture) {
-      curShipper.imgSrc = getImgSrc(curShipper.picture);
-    }
-
-    // Get hub
-    Hub.findById(curShipper.hub) 
-      .then( hub => {
-        res.render('shipper/shipper-profile', {
-          user: curUser,
-          shipper: curShipper,
-          hub: hub
-        });
-      })
-  }
-
-  // [PUT] "/shipper/profile"
-  editProfile(req, res, next) {
-    const curShipper = req.shipper;
-    const pictureObject = getPictureObject(req, res, next);
-
-    const shipperData = {};
-    if (pictureObject) {
-      shipperData.picture = pictureObject;
-    }
-
-    Shipper.updateOne({ _id: curShipper._id }, shipperData)
-      .then(() => {
-        res.redirect('/shipper/profile');
-      })
-      .catch((err) => next(err));
-  }
 
   // [GET] "/shipper/order/:id"
   showOrder(req, res, next) {

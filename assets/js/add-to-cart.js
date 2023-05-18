@@ -32,7 +32,6 @@ let cartPrice = document.querySelector('.cart-total-price');
 let order = document.querySelector('#order');
 let orderSubmit = document.querySelector('.order-button');
 let customerData = JSON.parse(customer);
-let imgData = JSON.parse(img);
 let productData = JSON.parse(products);
 
 displayMessage();
@@ -64,6 +63,7 @@ function removeFromCart(productID) {
 
 function displayCart() {
     cartPrice.innerHTML = 0;
+
     if (cart.length == 0) {
         cartElement.innerHTML = `
         Your cart is empty
@@ -71,11 +71,11 @@ function displayCart() {
         
     } else {
         cartElement.innerHTML = cart.map(productID => {
-            let {product, productIndex} = getProduct(productID);
+            let product = getProduct(productID);
             cartPrice.innerHTML = Number(cartPrice.innerHTML) + product.price;
             return `
             <div class="cart-item">
-            <img class="cart-item-img" src="${imgData[productIndex]}" alt="product image" />
+            <img class="cart-item-img" src="${product.imgSrc}" alt="product image" />
             <div class="cart-item-detail">
             <h6 class="cart-item-name">${product.name}</h6>
             <div class="cart-item-price-and-qty">
@@ -92,14 +92,7 @@ function displayCart() {
 };
 
 function getProduct(id) {
-    let product, productIndex;
-    productData.forEach((ele, index) => {
-        if (ele._id == id) {
-            product = ele;
-            productIndex = index;
-        }
-    })
-    return {product: product, productIndex: productIndex};
+    return productData.find(product => product._id == id);
 }
 
 function getOrder(products, price) {

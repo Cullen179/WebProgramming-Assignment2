@@ -27,9 +27,14 @@ const popoverList = [...popoverTriggerList].map(
 const submit = document.querySelector('#submit');
 const businessName = document.querySelector('#businessname');
 const businessAddress = document.querySelector('#businessaddress');
+const customerName = document.querySelector('#customerName');
+const customerAddress = document.querySelector('#customerAddress');
 
 if (businessName) businessName.addEventListener('input', () => getError(businessName, isValid(businessName.value, 'Business Name')));
 if (businessAddress) businessAddress.addEventListener('input', () => getError(businessAddress, isValid(businessAddress.value, 'Business Address')));
+if (customerName) customerName.addEventListener('input', () => getError(customerName, isValid(customerName.value, 'Name')));
+if (customerAddress) customerAddress.addEventListener('input', () => getError(customerAddress, isValid(customerAddress.value, 'Address')));
+
 
 submit.addEventListener('click', (e) => {
   if (!document.querySelector('.invalid-feedback')) {
