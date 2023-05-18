@@ -22,7 +22,6 @@
 const route = require('express').Router();
 const customerRoute = require('./customer-router');
 const shipperRoute = require('./shipper-router');
-const vendorRoute = require('./vendor-router');
 const productRoute = require('./product-router');
 
 const siteService = require('../service/render');
@@ -81,9 +80,6 @@ route.get('/logout', siteService.logout);
 
 // Customer routes
 route.use('/customer', customerRoute);
-
-// Shipper routes
-route.use('/vendor', vendorRoute);
 
 // Vendor routes
 route.use('/shipper', shipperRoute);

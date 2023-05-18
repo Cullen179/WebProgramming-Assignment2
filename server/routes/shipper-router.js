@@ -37,7 +37,6 @@ route.use((req, res, next) => {
 });
 
 // Shipper routes after authentication
-route.put('/profile', handleFileUploadMiddleware.single('picture'), shipperController.editProfile);
 route.get('/order/:id', shipperController.showOrder);
 route.put('/order/:id', (req, res, next) => {
   res.render('shipper/shipper-home')

@@ -31,31 +31,6 @@ const { getImgSrc, getPictureObject } = require('../../utils/imgTransformation')
 const attachProduct = require('./CartController');
 
 class CustomerController {
-  
-  // [PUT] "/customer/profile"
-  editProfile(req, res, next) {
-    const curCustomer = req.customer;
-    const pictureObject = getPictureObject(req, res, next);
-
-    const customerData = {};
-
-    if (pictureObject) {
-      customerData.picture = pictureObject;
-    }
-    if (req.body.customername) {
-      customerData.name = req.body.customername;
-    }
-    if (req.body.customeraddress) {
-      customerData.address = req.body.customeraddress;
-    }
-
-    Customer.updateOne({ _id: curCustomer._id }, customerData)
-      .then(() => {
-        res.redirect('/customer/profile');
-        return;
-      })
-      .catch((err) => next(err));
-  }
 
   // [GET] "/customer/register"
   showRegistration(req, res, next) {

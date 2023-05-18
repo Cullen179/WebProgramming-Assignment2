@@ -32,23 +32,6 @@ const { getImgSrc, getPictureObject } = require('../../utils/imgTransformation')
 
 class ShipperController {
 
-  // [PUT] "/shipper/profile"
-  editProfile(req, res, next) {
-    const curShipper = req.shipper;
-    const pictureObject = getPictureObject(req, res, next);
-
-    const shipperData = {};
-    if (pictureObject) {
-      shipperData.picture = pictureObject;
-    }
-
-    Shipper.updateOne({ _id: curShipper._id }, shipperData)
-      .then(() => {
-        res.redirect('/shipper/profile');
-      })
-      .catch((err) => next(err));
-  }
-
   // [GET] "/shipper/order/:id"
   showOrder(req, res, next) {
     let shipper = req.shipper;
