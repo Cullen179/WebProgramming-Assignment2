@@ -84,16 +84,20 @@ Canva: https://www.canva.com/ -->
   </div>
   <div class="offcanvas-body cart-body">
 
-    <% if (orderSuccess != '') {%>
-      <div class="order-success alert alert-success" role="alert">
-        <%= orderSuccess %>
-      </div>
+    <% try { %>
+      <% if (orderSuccess && orderSuccess != '') {%>
+        <div class="order-success alert alert-success" role="alert">
+          <%= orderSuccess %>
+        </div>
+      <% } %>
+      <% if (orderError && orderError != '') {%>
+        <div class="order-error alert alert-danger" role="alert">
+          <%= orderError %>
+        </div>
+      <% } %>
+    <% } catch { %>
     <% } %>
-    <% if (orderError != '') {%>
-      <div class="order-error alert alert-danger" role="alert">
-        <%= orderError %>
-      </div>
-    <% } %>
+    
     <!-- Cart Items -->
     <div class="cart-items d-flex flex-column-reverse">
         Your cart is empty
