@@ -73,6 +73,8 @@ route.get('/', siteService.homeRoute);
 route.get('/search', siteService.searchResult);
 route.put('/', shipperController.updateOrderStatus);
 route.get('/profile', siteService.showProfile);
+route.get('/profile/edit', siteService.showEditProfile);
+route.put('/profile/edit', handleFileUploadMiddleware.single('picture'), siteService.editProfile);
 
 // Logout
 route.get('/logout', siteService.logout);

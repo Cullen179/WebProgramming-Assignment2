@@ -31,27 +31,7 @@ const { getImgSrc, getPictureObject } = require('../../utils/imgTransformation')
 const attachProduct = require('./CartController');
 
 class CustomerController {
-  // [GET] "/customer/profile"
-  showProfile(req, res, next) {
-    let productsArray = [];
-    if (req.customer.picture) {
-      req.customer.imgSrc = getImgSrc(req.customer.picture);
-    }
-
-    Product.find()
-        .then(data => {
-          productsArray = attachProduct(data);
-          res.render('customer/customer-profile', {
-            products: productsArray,
-            user: req.user,
-            customer: req.customer,
-            orderSuccess: req.flash('orderSuccess'),
-            orderError: req.flash('orderError'),
-          });
-        })
-        .catch((err) => console.log(err));
-    };
-
+  
   // [PUT] "/customer/profile"
   editProfile(req, res, next) {
     const curCustomer = req.customer;

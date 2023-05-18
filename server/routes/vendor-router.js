@@ -36,9 +36,7 @@ route.use((req, res, next) => {
   }
 });
 
-// Shipper routes after authentication
-route.get('/profile', vendorController.showProfile);
-route.get('/profile/edit', vendorController.showEditProfile);
+// Vendor routes after authentication
 route.put(
   '/profile/edit',
   handleFileUploadMiddleware.single('picture'),

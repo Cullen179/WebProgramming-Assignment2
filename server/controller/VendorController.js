@@ -100,20 +100,7 @@ class VendorController {
       });
   }
 
-  // [GET] "/vendor/profile"
-  showProfile(req, res, next) {
-    // Attach imgSrc property to vendor
-    // => View get product.imgSrc to put into image tag
-    const user = req.user;
-    const vendor = req.vendor;
-    const imgSrc = getImgSrc(vendor.picture);
-    if (imgSrc) {
-      vendor.imgSrc = imgSrc;
-    }
-    res.render('vendor/vendor-profile', { user: user, vendor: vendor });
-  }
-
-  // [GET] "/vendor/profile/edit"
+  // [GET] "/profile/edit"
   showEditProfile(req, res, next) {
     // Attach imgSrc property to vendor
     // => View get product.imgSrc to put into image tag
