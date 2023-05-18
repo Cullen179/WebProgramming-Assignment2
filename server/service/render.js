@@ -27,6 +27,7 @@ const Hub = require('../model/HubModel');
 const Order = require('../model/OrderModel');
 const passport = require('passport');
 const { getImgSrc } = require('../../utils/imgTransformation');
+const attachProduct = require('../controller/CartController');
 
 /**
  * SiteService acts like site controller, includes
@@ -43,26 +44,20 @@ class SiteService {
 
     let minPrice = 0,
       maxPrice = 999999;
-    let img = [];
+    let productsArray = [];
     Product.find()
       .then((products) => {
         // Get only available product
-        products = products.filter((product) => product.quantity > 0);
+        products.filter((product) => product.quantity > 0);
 
-        // Attach imgSrc property to each product
-        products.forEach((product) => {
-          if (product.picture) {
-            product.imgSrc = getImgSrc(product.picture);
-            img.push(product.imgSrc);
-          } else img.push('');
-        });
+        productsArray = attachProduct(products);
+
         res.render('general-home', {
-          products: products,
+          products: productsArray,
           keyword: '',
           minPrice: minPrice,
           maxPrice: maxPrice,
           customer: req.user,
-          img: img,
           orderSuccess: req.flash('orderSuccess'),
           orderError: req.flash('orderError'),
         });
@@ -81,27 +76,21 @@ class SiteService {
 
     let minPrice = 0,
       maxPrice = 999999;
-    let img = [];
+    let productsArray = [];
     if (req.user.role === 'customer') {
       Product.find()
         .then((products) => {
           // Get only available product
-          products = products.filter((product) => product.quantity > 0);
+          products.filter((product) => product.quantity > 0);
 
-          // Attach imgSrc property to each product
-          products.forEach((product) => {
-            if (product.picture) {
-              product.imgSrc = getImgSrc(product.picture);
-              img.push(product.imgSrc);
-            } else img.push('');
-          });
+          productsArray = attachProduct(products);
+
           res.render('customer/customer-home', {
-            products: products,
+            products: productsArray,
             keyword: '',
             minPrice: minPrice,
             maxPrice: maxPrice,
             customer: req.user,
-            img: img,
             orderSuccess: req.flash('orderSuccess'),
             orderError: req.flash('orderError'),
           });
