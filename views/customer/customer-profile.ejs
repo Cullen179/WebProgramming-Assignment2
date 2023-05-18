@@ -88,38 +88,7 @@ Canva: https://www.canva.com/ -->
     var customer = `<%- JSON.stringify(user) %>`;
   </script>
   <script src="/js/add-to-cart.js"></script>
-  <script>
-    // Handle upload btn click
-    const uploadBtn = document.querySelector('#upload-btn');
-    const imageInput = document.querySelector('#image-input');
-    const fileNameDOM = document.querySelector('.file-name');
-    const saveBtn = document.querySelector('#save-btn');
-    uploadBtn.addEventListener('click', () => {
-      imageInput.click();
-    })
-
-    imageInput.onchange = e => { 
-      const file = e.target.files[0];
-      fileNameDOM.innerHTML = `
-        ${file.name}
-      `;
-
-      saveBtn.removeAttribute('disabled');
-    }
-
-    // Handle update profile btn
-    const updateProfileBtn =  document.querySelector('#update-profile-btn');
-    const inputs = document.querySelectorAll('.form-control');
-    inputs.forEach(input => {
-      input.oninput = e => {
-        updateProfileBtn.removeAttribute('disabled');
-      }
-      input.onchange = e => {
-        updateProfileBtn.removeAttribute('disabled');
-      }
-    });
-  </script>
-</body>
+ </body>
 </html>
 
 

@@ -37,7 +37,6 @@ route.use((req, res, next) => {
 });
 
 // Cutomer routes after authentication
-route.put('/profile', handleFileUploadMiddleware.single('picture'), customerController.editProfile);
 route.get('/order', customerController.showOrder);
 
 module.exports = route;
