@@ -300,7 +300,7 @@ class SiteService {
     Product.find()
         .then(data => {
           productsArray = attachProduct(data);
-          res.render('customer/customer-profile', {
+          res.render('customer/customer-edit-profile', {
             products: productsArray,
             user: req.user,
             customer: req.customer,
@@ -308,7 +308,7 @@ class SiteService {
             orderError: req.flash('orderError'),
           });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => next(err));
     }
 
     if (req.user.role === 'vendor') {
@@ -352,23 +352,21 @@ class SiteService {
   // [PUT] "/profile/edit"
   editProfile(req, res, next) {
     if (req.user.role === 'customer') {
-      let productsArray = [];
-    if (req.customer.picture) {
-      req.customer.imgSrc = getImgSrc(req.customer.picture);
-    }
+      const pictureObject = getPictureObject(req, res, next);
 
-    Product.find()
-        .then(data => {
-          productsArray = attachProduct(data);
-          res.render('customer/customer-profile', {
-            products: productsArray,
-            user: req.user,
-            customer: req.customer,
-            orderSuccess: req.flash('orderSuccess'),
-            orderError: req.flash('orderError'),
-          });
+      const customerData = {
+        name: req.body.customerName,
+        address: req.body.customerAddress,
+      };
+      if (pictureObject) {
+        customerData.picture = pictureObject;
+      }
+
+      Customer.updateOne({ _id: req.customer._id }, customerData)
+        .then(() => {
+          res.redirect('/profile');
         })
-        .catch((err) => console.log(err));
+        .catch((err) => next(err));
     }
 
     if (req.user.role === 'vendor') {
@@ -402,8 +400,6 @@ class SiteService {
 
       // Update function after passing validations
       function updateVendorDetail() {
-
-        console.log(req.body.businessname + ' test');
         const vendorData = {
           businessName: req.body.businessname,
           businessAddress: req.body.businessaddress,

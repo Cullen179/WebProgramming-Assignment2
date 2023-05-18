@@ -24,55 +24,42 @@ Canva: https://www.canva.com/ -->
   <%- include ("../partials/customer-header.ejs") %>
   <!-- Main content -->
   <main class="indent my-5">
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">My Account</li>
-      </ol>
-    </nav>
-
     <h1 class="account-title-mobile">My Account</h1>
 
     <!-- Main Content -->
     <div class="account-container">
       <div class="account-img-section">
         <% if (customer.imgSrc) { %>
-          <img class="account-img" src="<%= customer.imgSrc %>" alt="<%= customer.name%> avatar"/>
+          <img class="account-img" src="<%= customer.imgSrc %>" alt="Customer profile image"/>
         <% } else { %>
-          <img class="account-img" src="/images/avatar_default.png" alt="<%= customer.name%> avatar"/>
+          <img class="account-img" src="/images/avatar_default.png" alt="Customer profile image"/>
         <% } %>
-        <button
-          type="button"
-          class="btn btn-link"
-          data-bs-toggle="modal"
-          data-bs-target="#uploadImage"
-        >
-          Change
-        </button>
       </div>
       <div class="account-info-section">
-        
-        <div class="account-title d-flex align-items-center">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">My Account</li>
+          </ol>
+        </nav>
+        <div class="account-title d-flex align-items-center mb-4">
           <h1>
             My Account
           </h1>
-          <form action="/logout" method="GET">
-            <button id="logout-btn" type="submit" class="btn btn-primary ms-4">Logout</button>
-          </form>
         </div>
 
         <form action="/customer/profile?_method=PUT" enctype="multipart/form-data" method="POST">
           <fieldset>
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="customerUsername" class="form-label">Username</label>
               <input type="text" value="<%= user.username %>" class="form-control" id="customerUsername" disabled/>
             </div>
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="customerName" class="form-label">Name</label>
-              <input type="text" value="<%= customer.name %>" class="form-control" id="customerName" name="customername"/>
+              <input type="text" value="<%= customer.name %>" class="form-control" id="customerName" name="customername" disabled/>
             </div>
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="customerAddress" class="form-label">Address</label>
               <input
                 type="text"
@@ -80,63 +67,17 @@ Canva: https://www.canva.com/ -->
                 class="form-control"
                 id="customerAddress"
                 name="customeraddress"
+                disabled
               />
             </div>
-            <button id="update-profile-btn" type="submit" class="btn btn-primary mt-3 float-end" disabled>Update profile</button>
+            <div>
+              <div>
+                <a class="btn btn-primary" href="/profile/edit">Edit profile</a>
+                <a href="/logout" class="btn btn-secondary">Logout</a>
+              </div>
+            </div>
           </fieldset>
         </form>
-      </div>
-    </div>
-
-    <!-- Upload Image Modal -->
-    <div
-      class="modal fade"
-      id="uploadImage"
-      tabindex="-1"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">New Profile Image</h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-
-          <div class="account-upload-img-modal modal-body">
-            <!-- Ask User to upload img -->
-            <span
-              class="material-symbols-outlined text-primary"
-              style="font-size: 60px; width: min-content"
-            >
-              upload_file
-            </span>
-            <button id="upload-btn" class="btn btn-outline-primary" style="width: 50%">Select File</button>
-            <div class="file-name"></div>
-
-            <!-- User has uploaded an img -->
-            <!-- <img class="account-uploaded-img" src="/images/customer.jpg" />
-            <button
-              type="button"
-              class="btn btn-link"
-              data-bs-toggle="modal"
-              data-bs-target="#uploadImage"
-            >
-              Reselect
-            </button> -->
-          </div>
-
-          <form action="/customer/profile?_method=PUT" enctype="multipart/form-data" method="POST">
-            <div class="modal-footer">
-              <button id="save-btn" type="submit" class="btn btn-primary" disabled>Save</button>
-            </div>
-            <input id="image-input" type="file" name="picture" hidden accept="image/png, image/gif, image/jpeg">
-          </form>
-        </div>
       </div>
     </div>
   </main>
@@ -180,3 +121,5 @@ Canva: https://www.canva.com/ -->
   </script>
 </body>
 </html>
+
+

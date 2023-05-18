@@ -59,7 +59,7 @@ class ProductController {
       };
       getData()
         .then(() => {
-              res.render('customer/customer-view-product', {products: productsArray, customer: req.user, detail: detail, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError') });
+              res.render('customer/customer-view-product', {products: productsArray, customer: req.user, detail: detail});
         })
         .catch(err => next(err));
     }

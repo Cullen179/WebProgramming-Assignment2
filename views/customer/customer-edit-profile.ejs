@@ -21,17 +21,17 @@ Canva: https://www.canva.com/ -->
 
 <%- include ("../partials/head.ejs") %> 
   <body>
-    <%- include ("../partials/vendor-header.ejs") %>
+    <%- include ("../partials/customer-header.ejs") %>
     <!-- Main content -->
     <main class="indent my-5">
   
       <!-- Main Content -->
       <div class="account-container">
         <div class="account-img-section">
-          <% if (vendor.imgSrc) { %>
-            <img class="account-img" src="<%= vendor.imgSrc %>" alt="Vendor profile image">
+          <% if (customer.imgSrc) { %>
+            <img class="account-img" src="<%= customer.imgSrc %>" alt="Customer profile image">
           <% } else { %>
-            <img class="account-img" src="/images/avatar_default.png" alt="Vendor profile image ">
+            <img class="account-img" src="/images/avatar_default.png" alt="Customer profile image">
           <% } %>
         </div>
         <div class="account-info-section">
@@ -52,29 +52,17 @@ Canva: https://www.canva.com/ -->
   
           <form action="/profile/edit?_method=PUT" enctype="multipart/form-data" method="POST">
             <fieldset>
-              
-              <% if (nameError != '' || addressError != '') { %>            
-                  <div class="alert alert-danger">
-                      <% if (nameError != '') { %>
-                        <p><%= nameError %></p>
-                      <% } %>
-
-                      <% if (addressError != '') {%>
-                        <p><%= addressError %></p>
-                      <% } %>
-                  </div>
-              <% } %>  
               <div class="mb-4">
                 <label for="picture" class="form-label">Profile Picture</label>
                 <input type="file" class="form-control" name="picture" id="picture">
               </div>
               <div class="mb-4">
-                <label for="businessname" class="form-label">Business Name</label>
-                <input type="text" value="<%= vendor.businessName %>" class="form-control" id="businessname" name="businessname" required>
+                <label for="customerName" class="form-label">Name</label>
+                <input type="text" value="<%= customer.name %>" class="form-control" id="customerName" name="customerName" required>
               </div>
               <div class="mb-4">
-                <label for="businessaddress" class="form-label">Business Address</label>
-                <input type="text" value="<%= vendor.businessAddress %>" class="form-control" id="businessaddress" name="businessaddress" required>
+                <label for="customerAddress" class="form-label">Address</label>
+                <input type="text" value="<%= customer.address %>" class="form-control" id="customerAddress" name="customerAddress" required>
               </div>
               <div class="d-flex justify-content-start">
                 <button id="submit" class="btn btn-primary" type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right">Update</button>
