@@ -25,6 +25,7 @@ const User = require('../model/UserModel');
 const Product = require('../model/ProductModel');
 const Order = require('../model/OrderModel');
 const { getImgSrc, getPictureObject } = require('../../utils/imgTransformation');
+const attachProduct = require('./CartController');
 
 class ProductController {
   constructor() {
@@ -42,42 +43,23 @@ class ProductController {
 
     if (user.role === 'customer') {
       let detail = null;
-      let customer = null;
-      let products = null;
-      let img = [];
+      let productsArray = [];
 
       let getData = async () => {
-        await User.find()
-          .then(data => {
-            customer = data;
-          }
-          ).catch(err => console.log(err));
         await Product.find()
           .then(data => {
-            // Get only available product
-            data.filter((product) => product.quantity > 0);
-
-            // Attach imgSrc property to each product
-            data.forEach((product) => {
-              if (product.picture) {
-                product.imgSrc = getImgSrc(product.picture);
-                img.push(product.imgSrc);
-              } else img.push('');
-
-              if (product._id == productID) {
-                detail = product;
-              }
-            });
-
-            products = data;
-            if (detail == null) res.render('resource-not-found');
+            productsArray = attachProduct(data);
+            detail = data.find(product => product._id.toString() === productID);
+            if (detail.picture) {
+              detail.imgSrc = getImgSrc(detail.picture);
+            }
           }
           ).catch(err => console.log(err));
         
       };
       getData()
         .then(() => {
-              res.render('customer/customer-view-product', {products: products, customer: req.user , img: img, detail: detail, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError') });
+              res.render('customer/customer-view-product', {products: productsArray, customer: req.user, detail: detail, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError') });
         })
         .catch(err => next(err));
     }

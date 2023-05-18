@@ -27,6 +27,7 @@ const Hub = require('../model/HubModel');
 const Order = require('../model/OrderModel');
 const passport = require('passport');
 const { getImgSrc } = require('../../utils/imgTransformation');
+const attachProduct = require('../controller/CartController');
 
 /**
  * SiteService acts like site controller, includes
@@ -35,32 +36,17 @@ const { getImgSrc } = require('../../utils/imgTransformation');
 class SiteService {
   // [GET] "/"
   homeRoute(req, res, next) {
-    let minPrice = 0,
-      maxPrice = 999999;
-    let img = [];
+    let minPrice = 0, maxPrice = 999999;
+    let productsArray = [];
     if (req.user.role === 'customer') {
       Product.find()
         .then((products) => {
           // Get only available product
           products.filter((product) => product.quantity > 0);
 
-          // Attach imgSrc property to each product
-          products.forEach((product) => {
-            if (product.picture) {
-              product.imgSrc = getImgSrc(product.picture);
-              img.push(product.imgSrc);
-            } else img.push('');
-          });
-          res.render('customer/customer-home', {
-            products: products,
-            keyword: '',
-            minPrice: minPrice,
-            maxPrice: maxPrice,
-            customer: req.user,
-            img: img,
-            orderSuccess: req.flash('orderSuccess'),
-            orderError: req.flash('orderError'),
-          });
+          productsArray = attachProduct(products);
+         
+          res.render('customer/customer-home', { products: productsArray, keyword: '', minPrice: minPrice, maxPrice: maxPrice, customer: req.user, orderSuccess: req.flash('orderSuccess'), orderError: req.flash('orderError')});
         })
         .catch((err) => {
           next(err);
