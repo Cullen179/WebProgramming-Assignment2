@@ -19,17 +19,14 @@ Google icon: https://fonts.google.com/icons
 Pexels: https://www.pexels.com/
 Canva: https://www.canva.com/ -->
 
-<%- include ("../partials/head.ejs") %> 
+<%- include ("./partials/head.ejs") %> 
 <body>
-    <% if (isAuthenticated) { %>
-        <%- include ("../partials/customer-header.ejs") %>
-    <% } else { %>
-        <%- include ("../partials/general-header.ejs") %>
-    <% } %>
-    <!-- Main content -->
+<%- include ("./partials/general-header.ejs") %>
+<%- include ("./partials/carousel.ejs") %>
+  <!-- Main content -->
   <main class="indent">
       <div class="body-container my-5">
-        <h1 class="text-center bold">Search Products</h1>
+        <h1 class="text-center bold">All Products</h1>
         <form id="filter-form" class="customer-filter-form-container" action="/search">
         <p>Filter by Price</p>
         <div class="customer-filter-inputs-container">
@@ -43,36 +40,26 @@ Canva: https://www.canva.com/ -->
         </div>
         </form>
         <div class="product-display row w-100 mb-5 mx-0 p-0 gx-5 d-flex justify-content-md-start justify-content-center">
-        <% if (products.length != 0) { %>
-            <% products.forEach(product => { %>
-                <div class="product-container col-lg-3 col-md-5 col-12 p-0 my-5 bg-white rounded-4">
-                    <div class="product-image rounded mb-4 position-relative">
-                            <a href="/product/<%= product._id %>" class="img-link">
-                                <img src="<%= product.imgSrc %>" alt="">
-                            </a>
-                            <div class="position-absolute badge price rounded-3 bg-black text-white bold fs-5 border border-5 border-white pe-3">$<%= product.price %></div>
-
-                            <% if (isAuthenticated) { %>
-                                <a onclick='addToCart(`<%= JSON.stringify(product) %>`)' class="product-price"><i class="bi bi-cart-fill position-absolute d-flex align-items-center p-3 fs-5"></i></a>
-                            <% } else { %>
-                                <a class="cart-btn product-price" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-cart-fill position-absolute d-flex align-items-center p-3 fs-5"></i></a>
-                            <% } %>
+        <% products.forEach(product => { %>
+            <div class="product-container col-lg-3 col-md-5 col-12 p-0 my-5 bg-white rounded-4">
+                <div class="product-image rounded mb-4 position-relative">
+                        <a href="/product/<%= product._id %>" class="img-link">
+                            <img src="<%= product.imgSrc %>" alt="">
+                        </a>
+                        <div class="position-absolute badge price rounded-3 bg-black text-white bold fs-5 border border-5 border-white pe-3">$<%= product.price %></div>
+                        <a class="cart-btn product-price" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-cart-fill position-absolute d-flex align-items-center p-3 fs-5"></i></a>
+                </div>
+                <div class="product-info pb-2 px-4">
+                    <div class="card-title fs-5 bold">
+                        <div href="" class="product-name"><%= product.name %></div>
                     </div>
-                    <div class="product-info pb-2 px-4">
-                        <div class="card-title fs-5 bold">
-                            <a href="" class="product-name"><%= product.name %></a>
-                        </div>
-                        <div class="product-quantity mb-2 d-flex justify-content-between align-items-center">
-                            <div class="fs-6 text-muted">Quantity: <%= product.quantity %></div>
-                        </div>
+                    <div class="product-quantity mb-2 d-flex justify-content-between align-items-center">
+                        <div class="fs-6 text-muted">Quantity: <%= product.quantity %></div>
                     </div>
                 </div>
-            <% }) %>
-        <% } else { %>
-            <!-- please edit the error message here -->
-            <h1>ERROR 404: Cannot find what you're looking for :< </h1>
-        <% } %>
-        </div>   
+            </div>
+        <% }) %>
+        </div>
     </div>
     </main>
 
@@ -96,14 +83,14 @@ Canva: https://www.canva.com/ -->
     </div>
 
     <!-- Footer -->
-    <%- include('../partials/footer.ejs') %>
+    <%- include('./partials/footer.ejs') %>
     <!-- Footer -->
     <script>
         var products = `<%- JSON.stringify(products) %>`;
         var customer = `<%- JSON.stringify(customer) %>`;
         var img = `<%- JSON.stringify(img) %>`;
     </script>
-    <script src="/js/add-to-cart.js"></script>
+    <!-- <script src="/js/add-to-cart.js"></script> -->
     <script>
         const searchForm = document.getElementById('search-form');
         const filterForm = document.getElementById('filter-form');
@@ -122,7 +109,7 @@ Canva: https://www.canva.com/ -->
         
             // Add the filter values to the search form action URL as query params
             const url = new URL(searchForm.action);
-            url.searchParams.set('keyword', keyword);
+            url.searchParams.set('keyword', keyword)
             url.searchParams.set('minPrice', minPrice);
             url.searchParams.set('maxPrice', maxPrice);
         
@@ -161,5 +148,6 @@ Canva: https://www.canva.com/ -->
 
       })
     </script>
+      
 </body>
 </html>

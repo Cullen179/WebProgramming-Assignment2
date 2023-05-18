@@ -33,8 +33,52 @@ const { getImgSrc } = require('../../utils/imgTransformation');
  * all function handling general routes
  */
 class SiteService {
+  // [GET] "/general-home"
+  showHomePageForGeneralUser(req, res, next) {
+    // If user already login => redirect to homepage of each role
+    if (req.isAuthenticated()) {
+      res.redirect('/home');
+      return;
+    }
+
+    let minPrice = 0,
+      maxPrice = 999999;
+    let img = [];
+    Product.find()
+      .then((products) => {
+        // Get only available product
+        products = products.filter((product) => product.quantity > 0);
+
+        // Attach imgSrc property to each product
+        products.forEach((product) => {
+          if (product.picture) {
+            product.imgSrc = getImgSrc(product.picture);
+            img.push(product.imgSrc);
+          } else img.push('');
+        });
+        res.render('general-home', {
+          products: products,
+          keyword: '',
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+          customer: req.user,
+          img: img,
+          orderSuccess: req.flash('orderSuccess'),
+          orderError: req.flash('orderError'),
+        });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
+
   // [GET] "/"
   homeRoute(req, res, next) {
+    if (!req.isAuthenticated()) {
+      res.redirect('/general-home');
+      return;
+    }
+
     let minPrice = 0,
       maxPrice = 999999;
     let img = [];
@@ -42,7 +86,7 @@ class SiteService {
       Product.find()
         .then((products) => {
           // Get only available product
-          products.filter((product) => product.quantity > 0);
+          products = products.filter((product) => product.quantity > 0);
 
           // Attach imgSrc property to each product
           products.forEach((product) => {
@@ -128,8 +172,58 @@ class SiteService {
 
   // [GET] "/search?keyword="
   searchResult(req, res, next) {
-    // console.log(req.query.keyword);
+    let isAuthenticated = req.isAuthenticated();
+
+    // If not authenticated => Render search for general user
     let img = [];
+    if (!isAuthenticated) {
+      Product.find({
+        // $or: [  // find a match in the product's name
+        name: { $regex: new RegExp(req.query.keyword ?? '', 'i') },
+        // ]
+      })
+        .then((products) => {
+          if (products.length != 0) {
+            // Get only available product
+            products = products.filter((product) => product.quantity > 0);
+
+            // Get the filtered products
+            products = products.filter((product) => {
+              return (
+                product.price >= (req.query.minPrice ?? 0) &&
+                product.price <= (req.query.maxPrice ?? 999)
+              );
+            });
+
+            // Attach imgSrc property to each product
+            products.forEach((product) => {
+              if (product.picture) {
+                product.imgSrc = getImgSrc(product.picture);
+                img.push(product.imgSrc);
+              } else img.push('');
+            });
+          }
+
+          res.render('customer/customer-search', {
+            products: products,
+            keyword: req.query.keyword,
+            minPrice: req.query.minPrice,
+            maxPrice: req.query.maxPrice,
+            customer: req.user,
+            img: img,
+            orderSuccess: req.flash('orderSuccess'),
+            orderError: req.flash('orderError'),
+            isAuthenticated: isAuthenticated,
+          });
+        })
+        .catch((err) => {
+          next(err);
+        });
+
+      return;
+    }
+
+    // console.log(req.query.keyword);
     if (req.user.role === 'customer') {
       Product.find({
         // $or: [  // find a match in the product's name
@@ -167,6 +261,7 @@ class SiteService {
             img: img,
             orderSuccess: req.flash('orderSuccess'),
             orderError: req.flash('orderError'),
+            isAuthenticated: isAuthenticated,
           });
         })
         .catch((err) => {
@@ -232,7 +327,7 @@ class SiteService {
         return next(err);
       }
 
-      res.redirect('/login');
+      res.redirect('/general-home');
     });
   }
 
