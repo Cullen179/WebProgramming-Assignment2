@@ -76,7 +76,6 @@ class CustomerController {
         });
       })
       .catch(err => next(err));
-    // res.render('test')
   };
 
   createOrder(req, res, next) {

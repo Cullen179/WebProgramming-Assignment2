@@ -230,79 +230,61 @@ class SiteService {
 
     // console.log(req.query.keyword);
     if (req.user.role === 'customer') {
-      Product.find({
-        // $or: [  // find a match in the product's name
-        name: { $regex: new RegExp(req.query.keyword ?? '', 'i') },
-        // ]
-      })
-        .then((products) => {
-          if (products.length != 0) {
-            // Get only available product
-            products.filter((product) => product.quantity > 0);
+      let productsArray = [];
+      let searchProduct = null;
 
-            // Get the filtered products
-            products = products.filter((product) => {
-              return (
-                product.price >= (req.query.minPrice ?? 0) &&
-                product.price <= (req.query.maxPrice ?? 999)
-              );
-            });
+      async function getData() {
+        await Product.find()
+          .then(data => {
+            productsArray = attachProduct(data);
+          })
+          .catch(err => next(err));
 
-            // Attach imgSrc property to each product
-            products.forEach((product) => {
-              if (product.picture) {
-                product.imgSrc = getImgSrc(product.picture);
-              };
-            });
-          }
+        await Product.find({
+          // $or: [  // find a match in the product's name
+          name: { $regex: new RegExp(req.query.keyword ?? '', 'i') },
+          // ]
+        })
+          .then((products) => {
+            if (products.length != 0) {
+              // Get only available product
+              products.filter((product) => product.quantity > 0);
+  
+              // Get the filtered products
+              products = products.filter((product) => {
+                return (
+                  product.price >= (req.query.minPrice ?? 0) &&
+                  product.price <= (req.query.maxPrice ?? 999)
+                );
+              });
+  
+              // Attach imgSrc property to each product
+              products.forEach((product) => {
+                if (product.picture) {
+                  product.imgSrc = getImgSrc(product.picture);
+                };
+              });
 
+              searchProduct = products;
+              console.log(searchProduct + 'test');
+            } else {
+              searchProduct = [];
+            }
+          })
+          .catch((err) => next(err));
+      }
+      getData()
+        .then(() => {
           res.render('customer/customer-search', {
-            products: products,
+            products: productsArray,
+            searchProduct: searchProduct,
             keyword: req.query.keyword,
             minPrice: req.query.minPrice,
             maxPrice: req.query.maxPrice,
             customer: req.user,
-            isAuthenticated: isAuthenticated,
           });
         })
-        .catch((err) => {
-          next(err);
-        });
-    }
-
-    if (req.user.role === 'vendor') {
-      const curVendor = req.vendor;
-      Product.find({
-        $and: [
-          // find a match in the product's name or description while belong to the vendor via _id
-          { ownership: req.vendor._id },
-          {
-            $or: [
-              { name: { $regex: new RegExp(req.query.keyword, 'i') } },
-              // {description: { $regex : new RegExp(req.query.search, 'i') }}
-            ],
-          },
-        ],
-      })
-        .then((products) => {
-          if (products.length != 0) {
-            // Attach imgSrc property to each product
-            // => View get product.imgSrc to put into image tag
-            products.forEach((product) => {
-              const imgSrc = getImgSrc(product.picture);
-              if (imgSrc) {
-                product.imgSrc = imgSrc;
-              }
-            });
-            res.render('vendor/vendor-home', { products: products });
-          } else {
-            // handle search result empty
-            res.render('resource-not-found');
-          }
-        })
-        .catch((err) => {
-          next(err);
-        });
+        .catch((err) => next(err));
     }
   }
 
