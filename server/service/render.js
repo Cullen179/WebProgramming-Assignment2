@@ -59,8 +59,6 @@ class SiteService {
           minPrice: minPrice,
           maxPrice: maxPrice,
           customer: req.user,
-          orderSuccess: req.flash('orderSuccess'),
-          orderError: req.flash('orderError'),
         });
       })
       .catch((err) => {
@@ -68,13 +66,17 @@ class SiteService {
       });
   }
 
-  // [GET] "/"
-  homeRoute(req, res, next) {
+  // [GET] "/" ofr general user
+  homeRouteForGeneralUser(req, res, next) {
     if (!req.isAuthenticated()) {
       res.redirect('/general-home');
       return;
     }
+  }
 
+  // [GET] "/"
+  homeRoute(req, res, next) {
+  
     let minPrice = 0,
       maxPrice = 999999;
     let productsArray = [];
@@ -152,12 +154,37 @@ class SiteService {
     }
   }
 
+  // Show Product for unauthenticated user
+  showProduct(req, res, next) {
+    const productID = req.params.id;
+    let detail = null;
+
+    if (!req.isAuthenticated()) {
+
+      let getData = async () => {
+        await Product.find()
+          .then(data => {
+            detail = data.find(product => product._id.toString() === productID);
+            if (detail.picture) {
+              detail.imgSrc = getImgSrc(detail.picture);
+            }
+          }
+          ).catch(err => console.log(err));
+        
+      };
+      getData()
+        .then(() => {
+              res.render('general-view-product', {detail: detail});
+        })
+        .catch(err => next(err));
+    }
+  }
+
   // [GET] "/search?keyword="
   searchResult(req, res, next) {
     let isAuthenticated = req.isAuthenticated();
 
     // If not authenticated => Render search for general user
-    let img = [];
     if (!isAuthenticated) {
       Product.find({
         // $or: [  // find a match in the product's name
@@ -181,8 +208,7 @@ class SiteService {
             products.forEach((product) => {
               if (product.picture) {
                 product.imgSrc = getImgSrc(product.picture);
-                img.push(product.imgSrc);
-              } else img.push('');
+              };
             });
           }
 
@@ -192,9 +218,6 @@ class SiteService {
             minPrice: req.query.minPrice,
             maxPrice: req.query.maxPrice,
             customer: req.user,
-            img: img,
-            orderSuccess: req.flash('orderSuccess'),
-            orderError: req.flash('orderError'),
             isAuthenticated: isAuthenticated,
           });
         })
@@ -229,8 +252,7 @@ class SiteService {
             products.forEach((product) => {
               if (product.picture) {
                 product.imgSrc = getImgSrc(product.picture);
-                img.push(product.imgSrc);
-              } else img.push('');
+              };
             });
           }
 
@@ -240,9 +262,6 @@ class SiteService {
             minPrice: req.query.minPrice,
             maxPrice: req.query.maxPrice,
             customer: req.user,
-            img: img,
-            orderSuccess: req.flash('orderSuccess'),
-            orderError: req.flash('orderError'),
             isAuthenticated: isAuthenticated,
           });
         })
@@ -338,8 +357,6 @@ class SiteService {
             products: productsArray,
             user: req.user,
             customer: req.customer,
-            orderSuccess: req.flash('orderSuccess'),
-            orderError: req.flash('orderError'),
           });
         })
         .catch((err) => console.log(err));
@@ -394,8 +411,6 @@ class SiteService {
             products: productsArray,
             user: req.user,
             customer: req.customer,
-            orderSuccess: req.flash('orderSuccess'),
-            orderError: req.flash('orderError'),
           });
         })
         .catch((err) => next(err));

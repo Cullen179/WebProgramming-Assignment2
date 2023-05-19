@@ -106,9 +106,11 @@ function getOrder(products, price) {
 
 orderSubmit.addEventListener('click', (event) => {
     if (isValidOrder()) {
-        console.log('true');
-        orderSubmit.setAttribute('data-bs-toggle', '');
+        updatePopoverContent('');
         orderSubmit.setAttribute('type', 'submit');
+    } else {
+        orderSubmit.setAttribute('type', 'button');
+        updatePopoverContent('Please choose at least 1 product');
     }
 });
 
@@ -127,4 +129,10 @@ function displayMessage() {
     }
 }
 
+function updatePopoverContent(content) {
+    orderSubmit.setAttribute('data-bs-content', content);
+    var popover = new bootstrap.Popover(orderSubmit);
+    popover._getContent();
+    popover.show();
+  }
 

@@ -36,7 +36,17 @@ const ShipperController = require('../controller/ShipperController');
 
 // Route can access before authentication
 route.get('/general-home', siteService.showHomePageForGeneralUser);
+route.get('/product/:id', siteService.showProduct);
 route.get('/search', siteService.searchResult);
+
+// Product routes
+route.use('/product', productRoute);
+
+// About us routes
+route.get('/about-us', siteService.showAboutUs);
+
+// Privacy routes
+route.get('/privacy', siteService.showPrivacy);
 
 route.get('/login', siteService.showLogin);
 route.post('/login', siteService.login);
@@ -63,19 +73,12 @@ route.post(
   shipperController.createAccount
 );
 
-route.get('/hub/:_id', HubController.getHub);
-route.get('/hub/hub-listing', HubController.getHubListing);
-route.post('/hub/hub-listing', HubController.creatHub);
-
-/**
- * ---------------- Authentication before access all other routes ----------------
- * */
+// Unauthorized route for unauthenticated user
 route.use((req, res, next) => {
   if (!req.isAuthenticated()) {
-    res.redirect('/general-home');
+    res.redirect('/login');
     return;
   }
-
   next();
 });
 
@@ -95,15 +98,6 @@ route.use('/customer', customerRoute);
 
 // Vendor routes
 route.use('/shipper', shipperRoute);
-
-// Product routes
-route.use('/product', productRoute);
-
-// About us routes
-route.get('/about-us', siteService.showAboutUs);
-
-// Privacy routes
-route.get('/privacy', siteService.showPrivacy);
 
 // Handle 404 not found page
 route.use((req, res, next) => {

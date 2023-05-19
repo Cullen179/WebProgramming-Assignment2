@@ -1,0 +1,92 @@
+<!-- RMIT University Vietnam
+Course: COSC2430 Web Programming
+Semester: 2023A
+Assessment: Assignment 2
+Author: Do Tung Lam 
+        Hoang Nguyen Nhat Minh
+        Loi Gia Long 
+        Ngo Ngoc Thinh
+        Vu Tuan Linh
+ID:     Do Tung Lam (s3963286)
+        Hoang Nguyen Nhat Minh (s3977856)
+        Loi Gia Long (s3758273)
+        Ngo Ngoc Thinh (s3879364)
+        Vu Tuan Linh (s3927502)
+Acknowledgement: 
+Bootstrap documentation: https://getbootstrap.com/ 
+Bootstrap icon: https://icons.getbootstrap.com/
+Google icon: https://fonts.google.com/icons
+Pexels: https://www.pexels.com/
+Canva: https://www.canva.com/ -->
+
+<%- include ("./partials/head.ejs") %> 
+<body>
+  <%- include ("./partials/general-header.ejs") %>
+  <!-- Main content -->
+
+  <main class="indent my-5">
+    <nav class="product-detail-breadscrumb-mobile" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/general-home">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Product</li>
+      </ol>
+    </nav>
+
+    
+    <!-- Product Info -->
+    
+    <div class="product-detail-container">
+      <div class="product-detail-img-container">
+        <img src="<%= detail.imgSrc %>" alt="product" class="product-detail-img" />
+      </div>
+
+      <div class="product-detail-info">
+        <nav class="product-detail-breadscrumb-desktop" aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item fs-5"><a href="/general-home">Home</a></li>
+            <li class="breadcrumb-item active fs-5" aria-current="page">Product</li>
+          </ol>
+        </nav>
+        <h1 class="product-detail-name"><%= detail.name %></h1>
+        <h4 class="product-detail-price fs-2">$<%= detail.price %></h4>
+        <div class="product-detail-qty-and-add">
+          <input
+            class="form-control product-detail-qty"
+            type="number"
+            value="1"
+            disabled
+            aria-describedby="productQty"
+          />
+          <button class="product-detail-add-btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add To Cart</button>
+        </div>
+        <h5 style="margin-bottom: 10px">Product Description</h5>
+        <p class="product-detail-description">
+          <%= detail.description %>
+        </p>
+      </div>
+    </div>
+
+    <!-- Product Description -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Alert</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Please login or register to start placing new order
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <a href="/login" class="btn btn-primary">Login or Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include ('./partials/footer.ejs') %>
+</body>
+<!-- </html> -->

@@ -33,16 +33,16 @@ Canva: https://www.canva.com/ -->
           <!-- Logo -->
           <!-- Nav bar -->
           <div class="navbar-right d-flex justify-content-md-start justify-content-between">
-            <form id="search-form" class="navbar-form d-flex" role="search" action="/search">
+            <form id="search-form" class="navbar-form d-flex input-group" role="search" action="/search">
               <input
                 id="keyword-input"
-                class="navbar-search form-control me-2"
+                class="navbar-search form-control"
                 type="search"
                 name="keyword"
                 placeholder="Search"
                 aria-label="Search"  
               >
-              <button class="btn btn-primary" style="padding: 6px" type="submit">
+              <button class="btn btn-primary input-group-append" style="padding: 6px" type="submit">
                 <span class="material-symbols-outlined d-block text-white"> search </span>
               </button>
             </form>
@@ -83,24 +83,26 @@ Canva: https://www.canva.com/ -->
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body cart-body">
-
-    <% try { %>
-      <% if (orderSuccess && orderSuccess != '') {%>
-        <div class="order-success alert alert-success" role="alert">
-          <%= orderSuccess %>
-        </div>
-      <% } %>
-      <% if (orderError && orderError != '') {%>
-        <div class="order-error alert alert-danger" role="alert">
-          <%= orderError %>
-        </div>
-      <% } %>
-    <% } catch { %>
-    <% } %>
     
-    <!-- Cart Items -->
-    <div class="cart-items d-flex flex-column-reverse">
-        Your cart is empty
+    <div>
+      <% try { %>
+        <% if (orderSuccess && orderSuccess != '') {%>
+          <div class="order-success alert alert-success" role="alert">
+            <%= orderSuccess %>
+          </div>
+        <% } %>
+        <% if (orderError && orderError != '') {%>
+          <div class="order-error alert alert-danger" role="alert">
+            <%= orderError %>
+          </div>
+        <% } %>
+      <% } catch { %>
+      <% } %>
+      
+      <!-- Cart Items -->
+      <div class="cart-items d-flex flex-column-reverse">
+          Your cart is empty
+      </div>
     </div>
 
     <!-- Cart Bottom -->
@@ -114,7 +116,7 @@ Canva: https://www.canva.com/ -->
       </div>
       <form action="/" method="post" class="order-form">
         <input type="hidden" name="order" id="order">
-        <button class="order-button btn btn-primary btn-lg" type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Please choose at least 1 product">Order</button>
+        <button class="order-button btn btn-primary btn-lg" type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top">Order</button>
       </form>
     </div>
   </div>

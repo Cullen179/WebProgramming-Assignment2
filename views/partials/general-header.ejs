@@ -2,7 +2,7 @@
   <div class="header px-0 text-white">
       <div class="indent d-flex flex-wrap align-items-center justify-content-md-between justify-content-center justify-content-lg-start">
           <!-- Logo -->
-          <a href="/" class="nav-element col-md-auto col-12 d-flex justify-content-md-start justify-content-center align-items-center my-lg-3 my-md-2 my-0 my-lg-0 me-lg-auto py-md-0 py-2 text-white text-decoration-none">
+          <a href="/general-home" class="nav-element col-md-auto col-12 d-flex justify-content-md-start justify-content-center align-items-center my-lg-3 my-md-2 my-0 my-lg-0 me-lg-auto py-md-0 py-2 text-white text-decoration-none">
               <div class="logo fs-3">
                   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-paypal" viewBox="0 0 16 16">
                       <path d="M14.06 3.713c.12-1.071-.093-1.832-.702-2.526C12.628.356 11.312 0 9.626 0H4.734a.7.7 0 0 0-.691.59L2.005 13.509a.42.42 0 0 0 .415.486h2.756l-.202 1.28a.628.628 0 0 0 .62.726H8.14c.429 0 .793-.31.862-.731l.025-.13.48-3.043.03-.164.001-.007a.351.351 0 0 1 .348-.297h.38c1.266 0 2.425-.256 3.345-.91.379-.27.712-.603.993-1.005a4.942 4.942 0 0 0 .88-2.195c.242-1.246.13-2.356-.57-3.154a2.687 2.687 0 0 0-.76-.59l-.094-.061ZM6.543 8.82a.695.695 0 0 1 .321-.079H8.3c2.82 0 5.027-1.144 5.672-4.456l.003-.016c.217.124.4.27.548.438.546.623.679 1.535.45 2.71-.272 1.397-.866 2.307-1.663 2.874-.802.57-1.842.815-3.043.815h-.38a.873.873 0 0 0-.863.734l-.03.164-.48 3.043-.024.13-.001.004a.352.352 0 0 1-.348.296H5.595a.106.106 0 0 1-.105-.123l.208-1.32.845-5.214Z"/>
@@ -13,21 +13,20 @@
           <!-- Logo -->
           <!-- Nav bar -->
           <div class="navbar-right d-flex justify-content-md-start justify-content-between">
-            <form id="search-form" class="navbar-form d-flex" role="search" action="/search">
+            <form id="search-form" class="navbar-form input-group" role="search" action="/search">
               <input
                 id="keyword-input"
-                class="navbar-search form-control me-2"
+                class="navbar-search form-control"
                 type="search"
                 name="keyword"
                 placeholder="Search"
                 aria-label="Search"
-                
               />
-              <button class="btn btn-primary" style="padding: 6px" type="submit">
+              <button class="btn btn-primary input-group-append" type="submit">
                 <span class="material-symbols-outlined d-block text-white"> search </span>
               </button>
             </form>
-            <a href="/login" class="btn btn-primary" style="padding: 6px">
+            <a href="/login" class="btn btn-primary">
               Login
             </a>
           </div>
@@ -35,49 +34,3 @@
       </div>
   </div>
 </header>
-
-
-
-<div
-  class="offcanvas offcanvas-end"
-  tabindex="-1"
-  id="offcanvasRight"
-  aria-labelledby="offcanvasRightLabel"
->
-  <div class="offcanvas-header cart-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">Shopping Cart</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body cart-body">
-
-    <% if (orderSuccess != '') {%>
-      <div class="order-success alert alert-success" role="alert">
-        <%= orderSuccess %>
-      </div>
-    <% } %>
-    <% if (orderError != '') {%>
-      <div class="order-error alert alert-danger" role="alert">
-        <%= orderError %>
-      </div>
-    <% } %>
-    <!-- Cart Items -->
-    <div class="cart-items">
-        Your cart is empty
-    </div>
-
-    <!-- Cart Bottom -->
-    <div class="cart-bottom">
-      <div class="cart-total">
-        <h5>Total:</h5>
-        <div class="cart-price">
-          <span>$</span>
-          <span class="cart-total-price">0</span>
-        </div>
-      </div>
-      <form action="/" method="post" class="order-form">
-        <input type="hidden" name="order" id="order">
-        <button class="order-button btn btn-primary btn-lg" type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Please choose at least 1 product">Order</button>
-      </form>
-    </div>
-  </div>
-</div>

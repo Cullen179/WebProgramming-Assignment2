@@ -38,10 +38,9 @@ class ProductController {
 
   // [GET] "/product/:slug"
   showProduct(req, res, next) {
-    const user = req.user;
     const productID = req.params.id;
 
-    if (user.role === 'customer') {
+    if (req.user.role === 'customer') {
       let detail = null;
       let productsArray = [];
 
@@ -64,12 +63,12 @@ class ProductController {
         .catch(err => next(err));
     }
 
-    if (user.role === 'vendor') {
+    if (req.user.role === 'vendor') {
       res.render('vendor/vendor-view-product');
       return;
     }
 
-    if (user.role === 'shipper') {
+    if (req.user.role === 'shipper') {
       res.render('shipper/shipper-view-product');
       return;
     }

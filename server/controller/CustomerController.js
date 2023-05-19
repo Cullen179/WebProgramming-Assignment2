@@ -73,8 +73,6 @@ class CustomerController {
           products: productsArray,
           customer: req.user,
           orders: orders,
-          orderSuccess: req.flash('orderSuccess'),
-          orderError: req.flash('orderError'),
         });
       })
       .catch(err => next(err));

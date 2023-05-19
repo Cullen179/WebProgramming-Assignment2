@@ -50,6 +50,7 @@ submit.addEventListener('click', (e) => {
     updatePopoverContent(''); // Remove popover content
     submit.setAttribute('type', 'submit');
   } else {
+    submit.setAttribute('type', 'button');
     updatePopoverContent('Please fill up the form correctly.')
   }
 });
