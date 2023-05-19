@@ -23,6 +23,7 @@ const route = require('express').Router();
 const customerRoute = require('./customer-router');
 const shipperRoute = require('./shipper-router');
 const productRoute = require('./product-router');
+const profileRoute = require('./profile-router');
 
 const siteService = require('../service/render');
 const shipperController = require('../controller/ShipperController');
@@ -76,7 +77,7 @@ route.post(
 // Unauthorized route for unauthenticated user
 route.use((req, res, next) => {
   if (!req.isAuthenticated()) {
-    res.redirect('/login');
+    res.redirect('/general-home');
     return;
   }
   next();
@@ -86,9 +87,6 @@ route.use((req, res, next) => {
 route.use(attachAttributesToCurrentUserMiddleWare);
 route.get('/', siteService.homeRoute);
 route.put('/', shipperController.updateOrderStatus);
-route.get('/profile', siteService.showProfile);
-route.get('/profile/edit', siteService.showEditProfile);
-route.put('/profile/edit', handleFileUploadMiddleware.single('picture'), siteService.editProfile);
 
 // Logout
 route.get('/logout', siteService.logout);
@@ -96,8 +94,11 @@ route.get('/logout', siteService.logout);
 // Customer routes
 route.use('/customer', customerRoute);
 
-// Vendor routes
+// Shipper routes
 route.use('/shipper', shipperRoute);
+
+// Profile route
+route.use('/profile', profileRoute);
 
 // Handle 404 not found page
 route.use((req, res, next) => {
