@@ -50,7 +50,7 @@ Existing account:
         -------
 
 How to run/ start the website:
-    npm install
-    npm start
-    node
+    Running the website using terminal
+    Step 1. npm install
+    Step 2. node index.js
     
