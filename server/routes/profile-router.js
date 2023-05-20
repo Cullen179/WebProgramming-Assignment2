@@ -23,6 +23,15 @@ const route = require('express').Router();
 const { handleFileUploadMiddleware } = require('../middleware/handleFileUpload');
 const siteService = require('../service/render');
 
+// Route can access after authentication
+route.use((req, res, next) => {
+    if (!req.isAuthenticated()) {
+        res.redirect('/login');
+    } else {
+        next();
+    }
+});
+
 route.get('/', siteService.showProfile);
 route.get('/edit', siteService.showEditProfile);
 route.put('/edit', handleFileUploadMiddleware.single('picture'), siteService.editProfile);

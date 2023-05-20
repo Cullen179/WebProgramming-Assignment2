@@ -33,6 +33,11 @@ const Vendor = require('../model/VendorModel.js');
  * @param {*} next
  */
 function attachAttributesToCurrentUserMiddelWare(req, res, next) {
+
+  if (!req.isAuthenticated()) {
+    return next();
+  }
+
   const user = req.user;
 
   if (user.role === 'customer') {
@@ -51,7 +56,7 @@ function attachAttributesToCurrentUserMiddelWare(req, res, next) {
       });
   }
 
-  if (user.role === 'vendor') {
+  else if (user.role === 'vendor') {
     Vendor.findOne({ account: user._id })
       .then((vendor) => {
         req.vendor = {};
@@ -66,7 +71,7 @@ function attachAttributesToCurrentUserMiddelWare(req, res, next) {
       });
   }
 
-  if (user.role === 'shipper') {
+  else if (user.role === 'shipper') {
     Shipper.findOne({ account: user._id })
       .then((shipper) => {
         req.shipper = {};

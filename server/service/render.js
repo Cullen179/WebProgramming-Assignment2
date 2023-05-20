@@ -35,44 +35,6 @@ const attachProduct = require('../controller/CartController');
  * all function handling general routes
  */
 class SiteService {
-  // [GET] "/general-home"
-  showHomePageForGeneralUser(req, res, next) {
-    // If user already login => redirect to homepage of each role
-    if (req.isAuthenticated()) {
-      res.redirect('/home');
-      return;
-    }
-
-    let minPrice = 0,
-      maxPrice = 999999;
-    let productsArray = [];
-    Product.find()
-      .then((products) => {
-        // Get only available product
-        products.filter((product) => product.quantity > 0);
-
-        productsArray = attachProduct(products);
-
-        res.render('general-home', {
-          products: productsArray,
-          keyword: '',
-          minPrice: minPrice,
-          maxPrice: maxPrice,
-          customer: req.user,
-        });
-      })
-      .catch((err) => {
-        next(err);
-      });
-  }
-
-  // [GET] "/" ofr general user
-  homeRouteForGeneralUser(req, res, next) {
-    if (!req.isAuthenticated()) {
-      res.redirect('/general-home');
-      return;
-    }
-  }
 
   // [GET] "/"
   homeRoute(req, res, next) {
@@ -80,11 +42,26 @@ class SiteService {
     let minPrice = 0,
       maxPrice = 999999;
     let productsArray = [];
-    if (req.user.role === 'customer') {
+
+    if (!req.isAuthenticated()) {
       Product.find()
         .then((products) => {
           // Get only available product
-          products.filter((product) => product.quantity > 0);
+          products = products.filter(product => product.quantity >= 1);
+
+          productsArray = attachProduct(products);
+          res.render('general-home', { products: productsArray, keyword: '', minPrice: minPrice, maxPrice: maxPrice });
+        })
+        .catch((err) => {
+          next(err);
+        });
+    }
+
+    else if (req.user.role === 'customer') {
+      Product.find()
+        .then((products) => {
+          // Get only available product
+          products = products.filter((product) => product.quantity > 0);
 
           productsArray = attachProduct(products);
          
@@ -95,7 +72,7 @@ class SiteService {
         });
     }
 
-    if (req.user.role === 'vendor') {
+    else if (req.user.role === 'vendor') {
       const curVendor = req.vendor;
       Product.find({ ownership: curVendor._id })
         .then((products) => {
@@ -115,7 +92,7 @@ class SiteService {
         });
     }
 
-    if (req.user.role === 'shipper') {
+    else if (req.user.role === 'shipper') {
       let shipper = req.shipper;
       let orders = null;
       let customers = null;
@@ -154,32 +131,6 @@ class SiteService {
     }
   }
 
-  // Show Product for unauthenticated user
-  showProduct(req, res, next) {
-    const productID = req.params.id;
-    let detail = null;
-
-    if (!req.isAuthenticated()) {
-
-      let getData = async () => {
-        await Product.find()
-          .then(data => {
-            detail = data.find(product => product._id.toString() === productID);
-            if (detail.picture) {
-              detail.imgSrc = getImgSrc(detail.picture);
-            }
-          }
-          ).catch(err => console.log(err));
-        
-      };
-      getData()
-        .then(() => {
-              res.render('general-view-product', {detail: detail});
-        })
-        .catch(err => next(err));
-    }
-  }
-
   // [GET] "/search?keyword="
   searchResult(req, res, next) {
     let isAuthenticated = req.isAuthenticated();
@@ -212,7 +163,7 @@ class SiteService {
             });
           }
 
-          res.render('customer/customer-search', {
+          res.render('general-search', {
             products: products,
             keyword: req.query.keyword,
             minPrice: req.query.minPrice,
@@ -229,7 +180,7 @@ class SiteService {
     }
 
     // console.log(req.query.keyword);
-    if (req.user.role === 'customer') {
+    else if (req.user.role === 'customer') {
       let productsArray = [];
       let searchProduct = null;
 
@@ -248,7 +199,7 @@ class SiteService {
           .then((products) => {
             if (products.length != 0) {
               // Get only available product
-              products.filter((product) => product.quantity > 0);
+              products = products.filter((product) => product.quantity > 0);
   
               // Get the filtered products
               products = products.filter((product) => {
@@ -266,7 +217,6 @@ class SiteService {
               });
 
               searchProduct = products;
-              console.log(searchProduct + 'test');
             } else {
               searchProduct = [];
             }
@@ -310,7 +260,7 @@ class SiteService {
         return next(err);
       }
 
-      res.redirect('/general-home');
+      res.redirect('/');
     });
   }
 
@@ -344,7 +294,7 @@ class SiteService {
         .catch((err) => console.log(err));
     }
 
-    if (req.user.role === 'vendor') {
+    else if (req.user.role === 'vendor') {
       // Attach imgSrc property to vendor
       // => View get product.imgSrc to put into image tag
       const user = req.user;
@@ -356,7 +306,7 @@ class SiteService {
       res.render('vendor/vendor-profile', { user: user, vendor: vendor });
     }
 
-    if (req.user.role === 'shipper') {
+    else if (req.user.role === 'shipper') {
       const curUser = req.user;
       const curShipper = req.shipper;
 
@@ -398,7 +348,7 @@ class SiteService {
         .catch((err) => next(err));
     }
 
-    if (req.user.role === 'vendor') {
+    else if (req.user.role === 'vendor') {
       // Attach imgSrc property to vendor
       // => View get product.imgSrc to put into image tag
       const user = req.user;
@@ -414,7 +364,7 @@ class SiteService {
       });
     }
 
-    if (req.user.role === 'shipper') {
+    else if (req.user.role === 'shipper') {
       const curShipper = req.shipper;
 
       // Attach imgSrc property to shipper
@@ -454,7 +404,7 @@ class SiteService {
         .catch((err) => next(err));
     }
 
-    if (req.user.role === 'vendor') {
+    else if (req.user.role === 'vendor') {
       const curVendor = req.vendor;
       const pictureObject = getPictureObject(req, res, next);
 
@@ -501,7 +451,7 @@ class SiteService {
       }
     }
 
-    if (req.user.role === 'shipper') {
+    else if (req.user.role === 'shipper') {
       const curShipper = req.shipper;
       const pictureObject = getPictureObject(req, res, next);
 

@@ -39,9 +39,28 @@ class ProductController {
   // [GET] "/product/:slug"
   showProduct(req, res, next) {
     const productID = req.params.id;
+    let detail = null;
 
-    if (req.user.role === 'customer') {
-      let detail = null;
+    if (!req.isAuthenticated()) {
+      let getData = async () => {
+        await Product.find()
+          .then(data => {
+            detail = data.find(product => product._id.toString() === productID);
+            if (detail.picture) {
+              detail.imgSrc = getImgSrc(detail.picture);
+            }
+          }
+          ).catch(err => console.log(err));
+      };
+      getData()
+        .then(() => {
+              res.render('general-view-product', {detail: detail});
+        })
+        .catch(err => next(err));
+        return;
+    }
+
+    else if (req.user.role === 'customer') {
       let productsArray = [];
 
       let getData = async () => {
@@ -63,12 +82,12 @@ class ProductController {
         .catch(err => next(err));
     }
 
-    if (req.user.role === 'vendor') {
+    else if (req.user.role === 'vendor') {
       res.render('vendor/vendor-view-product');
       return;
     }
 
-    if (req.user.role === 'shipper') {
+    else if (req.user.role === 'shipper') {
       res.render('shipper/shipper-view-product');
       return;
     }

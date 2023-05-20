@@ -36,12 +36,9 @@ const { handleFileUploadMiddleware } = require('../middleware/handleFileUpload')
 const ShipperController = require('../controller/ShipperController');
 
 // Route can access before authentication
-route.get('/general-home', siteService.showHomePageForGeneralUser);
-route.get('/product/:id', siteService.showProduct);
 route.get('/search', siteService.searchResult);
 
-// Product routes
-route.use('/product', productRoute);
+
 
 // About us routes
 route.get('/about-us', siteService.showAboutUs);
@@ -74,18 +71,11 @@ route.post(
   shipperController.createAccount
 );
 
-// Unauthorized route for unauthenticated user
-route.use((req, res, next) => {
-  if (!req.isAuthenticated()) {
-    res.redirect('/general-home');
-    return;
-  }
-  next();
-});
-
 // Home route
 route.use(attachAttributesToCurrentUserMiddleWare);
+// Product routes
 route.get('/', siteService.homeRoute);
+route.use('/product', productRoute);
 route.put('/', shipperController.updateOrderStatus);
 
 // Logout

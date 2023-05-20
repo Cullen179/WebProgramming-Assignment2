@@ -19,9 +19,9 @@ Google icon: https://fonts.google.com/icons
 Pexels: https://www.pexels.com/
 Canva: https://www.canva.com/ -->
 
-<%- include ("../partials/head.ejs") %> 
+<%- include ("./partials/head.ejs") %> 
 <body>    
-    <%- include ("../partials/general-header.ejs") %>
+    <%- include ("./partials/general-header.ejs") %>
 
     <!-- Main content -->
   <main class="indent">
@@ -61,8 +61,9 @@ Canva: https://www.canva.com/ -->
                 </div>
             <% }) %>
         <% } else { %>
-            <!-- please edit the error message here -->
-            <h1>ERROR 404: Cannot find what you're looking for :< </h1>
+            <div class="alert alert-secondary mt-4 text-center" role="alert">
+                There is no result for available product with <% if (keyword) {%> keyword "<%= keyword %>" <% } %> <% if (minPrice && maxPrice) {%>  price between <%= minPrice %> and <%= maxPrice %> <% } %>
+            </div>
         <% } %>
         </div>   
     </div>
@@ -88,7 +89,7 @@ Canva: https://www.canva.com/ -->
     </div>
 
     <!-- Footer -->
-    <%- include('../partials/footer.ejs') %>
+    <%- include('./partials/footer.ejs') %>
     <!-- Footer -->
     <script>
         const searchForm = document.getElementById('search-form');

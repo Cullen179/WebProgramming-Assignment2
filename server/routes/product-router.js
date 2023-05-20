@@ -23,7 +23,19 @@ const route = require('express').Router();
 const productController = require('../controller/ProductController');
 const { handleFileUploadMiddleware } = require('../middleware/handleFileUpload');
 
+// Route can access after authentication
 // Product routes
+route.get('/:id', productController.showProduct);
+
+route.use((req, res, next) => {
+  if (!req.isAuthenticated()) {
+      res.redirect('/login');
+  } else {
+      next();
+  }
+});
+
+// Route can access after authentication
 route.get('/add', productController.showAddNewProduct);
 route.post(
   '/add',
@@ -38,6 +50,5 @@ route.put(
 );
 route.delete('/:id', productController.deleteProduct);
 
-route.get('/:id', productController.showProduct);
 
 module.exports = route;

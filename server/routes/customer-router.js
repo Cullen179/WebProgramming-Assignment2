@@ -27,6 +27,16 @@ const { handleFileUploadMiddleware } = require('../middleware/handleFileUpload')
  * Authenticate role
  * Only user.role="customer" can access all the routes in this module
  */
+
+// Route can access after authentication
+route.use((req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.render('resource-access-unauthorized');
+  } else {
+      next();
+  }
+});
+
 route.use((req, res, next) => {
   if (req.user.role !== 'customer') {
     res.render('resource-access-unauthorized');
