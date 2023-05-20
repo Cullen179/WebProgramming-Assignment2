@@ -54,19 +54,17 @@ class ProductController {
       };
       getData()
         .then(() => {
-              res.render('general-view-product', {detail: detail});
+            res.render('general-view-product', {detail: detail});
         })
         .catch(err => next(err));
         return;
     }
 
     else if (req.user.role === 'customer') {
-      let productsArray = [];
 
       let getData = async () => {
         await Product.find()
           .then(data => {
-            productsArray = attachProduct(data);
             detail = data.find(product => product._id.toString() === productID);
             if (detail.picture) {
               detail.imgSrc = getImgSrc(detail.picture);
@@ -77,19 +75,13 @@ class ProductController {
       };
       getData()
         .then(() => {
-              res.render('customer/customer-view-product', {products: productsArray, customer: req.user, detail: detail});
+            if (!detail) {
+              res.render('resource-not-found');
+              return;
+            }
+            res.render('customer/customer-view-product', {products: productsArray, customer: req.user, detail: detail});
         })
         .catch(err => next(err));
-    }
-
-    else if (req.user.role === 'vendor') {
-      res.render('vendor/vendor-view-product');
-      return;
-    }
-
-    else if (req.user.role === 'shipper') {
-      res.render('shipper/shipper-view-product');
-      return;
     }
   }
 
@@ -156,6 +148,12 @@ class ProductController {
 
     Product.findOne({ _id: productId })
       .then((product) => {
+
+        // If product not found => render 404
+        if (!product) {
+          res.render('resource-not-found');
+          return;
+        }
         // Attach imgSrc property to product
         // => View get product.imgSrc to put into image tag
         const imgSrc = getImgSrc(product.picture);
@@ -212,6 +210,7 @@ class ProductController {
 
     Product.deleteOne({ _id: req.params.id })
       .then(() => {
+        Product.deleteOne({ _id: req.params.id })
         // After delete redirect to home
         res.redirect('/');
       })

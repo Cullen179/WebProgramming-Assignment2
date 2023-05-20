@@ -72,7 +72,7 @@ function displayCart() {
     } else {
         cartElement.innerHTML = cart.map(productID => {
             let product = getProduct(productID);
-            cartPrice.innerHTML = Number(cartPrice.innerHTML) + product.price;
+            cartPrice.innerHTML = Math.round(Number(cartPrice.innerHTML) + product.price * 100) / 100;
             return `
             <div class="cart-item">
             <img class="cart-item-img" src="${product.imgSrc}" alt="product image" />

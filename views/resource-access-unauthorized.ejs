@@ -19,5 +19,17 @@ Google icon: https://fonts.google.com/icons
 Pexels: https://www.pexels.com/
 Canva: https://www.canva.com/ -->
 
-<h1>You do not have access to this resource!</h1>
-<a href="/">Go back home</a>
+
+<%- include('./partials/head.ejs') %>
+
+<body>
+        <main class="vw-100 vh-100 d-flex justify-content-center align-items-center flex-column">
+                <h1 class="fs-1 fw-bold text-decoration-underline text-danger mb-4">401</h1>
+                <h2 class="mb-2">
+                        Unauthorized: Access is denied due to invalid credentials.
+                </h2>
+                <a href="/">Go back to homepage</a>
+        </main>
+</body>
+</html>
+

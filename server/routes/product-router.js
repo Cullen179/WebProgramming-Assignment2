@@ -25,7 +25,7 @@ const { handleFileUploadMiddleware } = require('../middleware/handleFileUpload')
 
 // Route can access after authentication
 // Product routes
-route.get('/:id', productController.showProduct);
+route.get('/id/:id', productController.showProduct);
 
 route.use((req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -42,13 +42,13 @@ route.post(
   handleFileUploadMiddleware.single('productpicture'),
   productController.addNewProduct
 );
-route.get('/:id/edit', productController.showEditProduct);
+route.get('/id/:id/edit', productController.showEditProduct);
 route.put(
-  '/:id/edit',
+  '/id/:id/edit',
   handleFileUploadMiddleware.single('productpicture'),
   productController.editProduct
 );
-route.delete('/:id', productController.deleteProduct);
+route.delete('/id/:id/edit', productController.deleteProduct);
 
 
 module.exports = route;

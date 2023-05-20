@@ -43,7 +43,7 @@ Canva: https://www.canva.com/ -->
             <% searchProduct.forEach(product => { %>
                 <div class="product-container col-lg-3 col-md-5 col-12 p-0 my-5 bg-white rounded-4">
                     <div class="product-image rounded mb-4 position-relative">
-                            <a href="/product/<%= product._id %>" class="img-link">
+                            <a href="/product/id/<%= product._id %>" class="img-link">
                                 <img src="<%= product.imgSrc %>" alt="">
                             </a>
                             <div class="position-absolute badge price rounded-3 bg-black text-white bold fs-5 border border-5 border-white pe-3">$<%= product.price %></div>

@@ -43,7 +43,7 @@ Canva: https://www.canva.com/ -->
         <!-- Add product form -->
         <section class="add-product-form col-lg-9 col-md-12 bg-white mb-5 p-lg-4 p-md-4 p-3 d-flex flex-column justify-content-center rounded-4 shadow">
             <h1><strong>Edit product detail</strong></h1>
-            <form action="/product/<%= product.id %>/edit?_method=PUT" method="POST" enctype="multipart/form-data">
+            <form action="/product/id/<%= product.id %>/edit?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="product-image bg-white mb-md-4 mt-3">
                     <label for="product-image" class="form-label" style="display: block;">Product images</label>
                     <img src="<%= product.imgSrc %>" alt="Product image" style="height: 300px; width: 300px; object-fit: contain;">
@@ -72,7 +72,13 @@ Canva: https://www.canva.com/ -->
                     <div class="field-error d-none">*Product's description must be at least 1 character and at most 500 characters</div>
                 </div>
             </form>
-            <button id="submit-btn" type="button" class="custom-form-button mt-md-0 mt-3 align-self-end">Save</button>
+            <div class="mt-md-0 mt-3 d-flex align-self-end">
+                <button id="submit-btn" type="button" class="btn btn-primary">Save</button>
+                <form action="/product/<%= product.id %>/edit" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-secondary ms-2">Delete</button>
+                </form>
+            </div>
         </section>
         <!-- Add product form -->
     </main>
