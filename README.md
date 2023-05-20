@@ -27,11 +27,21 @@ Video demonstration:
 
 Existing account:
     Vendor account:
-        username:
-        password:
+        username: gearclub
+        password: Gearclub123456@
+
+        -------
+
+        username: phongcachxanh
+        password: Phongcachxanh123456@
     Customer account:
-        username:
-        password:
+        username:customeruser1  
+        password:Password@123
+
+        -------
+
+        username:customeruser2
+        password:Password@123
     Shipper account:
         username:
         password:

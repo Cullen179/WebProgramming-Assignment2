@@ -54,7 +54,11 @@ class ProductController {
       };
       getData()
         .then(() => {
-            res.render('general-view-product', {detail: detail});
+          if (!detail) {
+            res.render('resource-not-found');
+            return;
+          }
+          res.render('general-view-product', {detail: detail});
         })
         .catch(err => next(err));
         return;
@@ -62,9 +66,14 @@ class ProductController {
 
     else if (req.user.role === 'customer') {
 
+      let productsArray = null;
+
       let getData = async () => {
         await Product.find()
           .then(data => {
+
+            productsArray = attachProduct(data);
+
             detail = data.find(product => product._id.toString() === productID);
             if (detail.picture) {
               detail.imgSrc = getImgSrc(detail.picture);
