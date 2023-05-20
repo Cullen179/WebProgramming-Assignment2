@@ -179,7 +179,6 @@ class SiteService {
       return;
     }
 
-    // console.log(req.query.keyword);
     else if (req.user.role === 'customer') {
       let productsArray = [];
       let searchProduct = null;
@@ -291,7 +290,7 @@ class SiteService {
             customer: req.customer,
           });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => next(err));
     }
 
     else if (req.user.role === 'vendor') {
@@ -416,7 +415,6 @@ class SiteService {
           if (vendor.length > 0) {
             
             vendor.forEach((vendorProfile) => {
-              console.log(vendorProfile.businessName)
               if (vendorProfile.businessName == req.body.businessname ) {
                 req.flash('nameError', `Business name ${req.body.businessname} has already been used.`);
               }

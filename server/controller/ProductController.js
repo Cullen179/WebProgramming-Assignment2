@@ -50,7 +50,7 @@ class ProductController {
               detail.imgSrc = getImgSrc(detail.picture);
             }
           }
-          ).catch(err => console.log(err));
+          ).catch(err => next(err));
       };
       getData()
         .then(() => {
@@ -79,7 +79,7 @@ class ProductController {
               detail.imgSrc = getImgSrc(detail.picture);
             }
           }
-          ).catch(err => console.log(err));
+          ).catch(err => next(err));
         
       };
       getData()

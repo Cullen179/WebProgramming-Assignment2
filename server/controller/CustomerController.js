@@ -41,13 +41,13 @@ class CustomerController {
         .then((data) => {
           users = data;
         })
-        .catch((err) => console.log(err));
+        .catch((err) => next(err));
     };
     getData()
       .then(() => {
         res.render('customer/customer-register', { users });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => next(err));
   }
 
   showOrder(req, res, next) {
@@ -59,7 +59,7 @@ class CustomerController {
         .then((data) => {
           productsArray = attachProduct(data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => next(err));
 
       await Order.find({ customer: req.user._id })
         .then((data) => {
@@ -182,7 +182,7 @@ class CustomerController {
           })
           .catch((err) => {
             // next(err);
-            console.log(err);
+            next(err);
           });
       })
       .catch((err) => {

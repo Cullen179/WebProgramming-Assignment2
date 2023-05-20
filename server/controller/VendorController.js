@@ -38,19 +38,19 @@ class VendorController {
         .then((data) => {
           users = data;
         })
-        .catch((err) => console.log(err));
+        .catch((err) => next(err));
 
       await Vendor.find()
         .then((data) => {
           vendors = data;
         })
-        .catch((err) => console.log(err));
+        .catch((err) => next(err));
     };
     getData()
       .then(() => {
         res.render('vendor/vendor-register', { users, vendors });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => next(err));
   }
 
   // [POST] "/vendor/register"

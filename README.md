@@ -23,30 +23,34 @@ Canva: https://www.canva.com/
 
 GitHub Repo link: https://github.com/Cullen179/WebProgramming-Assignment2
 
-Video demonstration: 
+Video demonstration: https://www.youtube.com/watch?v=-a8IxQk_ju8&fbclid=IwAR0dVao6bafti9NJ2nUqXCRvf6cJenCgm9dMy4Bd2paZGnrQBTptMPfLQfA
 
 Existing account:
     Vendor account:
         username: gearclub
         password: Gearclub123456@
-
         -------
-
         username: phongcachxanh
         password: Phongcachxanh123456@
     Customer account:
         username:customeruser1  
         password:Password@123
-
         -------
-
         username:customeruser2
         password:Password@123
     Shipper account:
-        username:
-        password:
+        username:shipperuser1
+        password:Password@123
+        -------
+        username:shipperuser2
+        password:Password@123
+        -------
+        username:shipperuser3
+        password:Password@123
+        -------
 
 How to run/ start the website:
     npm install
     npm start
+    node
     
