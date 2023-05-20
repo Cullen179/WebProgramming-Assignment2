@@ -93,24 +93,18 @@ class ShipperController {
       const orderID = req.body.orderID;
       const orderAction = req.body.orderAction;
 
-      console.log(orderAction);
-
       function updateProduct(products) {
         
         Product.findByIdAndUpdate({_id: {$in: products}}, { $inc: { quantity: 1 } })
-          .then(data => console.log(data + ' test'))
-          .catch(err => console.log(err))
+          .catch(err => next(err))
       }
 
       Order.findOneAndUpdate({_id: orderID}, {status: orderAction})
         .then((order) => {
           if (orderAction == 'canceled') {
-            console.log('update product')
-
             
             Product.updateMany({_id: {$in: order.product}}, { $inc: { quantity: 1 } })
-              .then(data => console.log(data + ' test'))
-              .catch(err => console.log(err))
+              .catch(err => next(err))
           }
 
           req.flash('updateOrder', `Update order ${order._id} status to ${order.status} successfully!`);
@@ -132,19 +126,19 @@ class ShipperController {
         .then((data) => {
           users = data;
         })
-        .catch((err) => console.log(err));
+        .catch((err) => next(err));
 
       await Hub.find()
         .then((data) => {
           hubs = data;
         })
-        .catch((err) => console.log(err));
+        .catch((err) => next(err));
     };
     getData()
       .then(() => {
         res.render('shipper/shipper-register', { users, hubs });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => next(err));
   }
 
   // [POST] "/shipper/register"
@@ -175,7 +169,6 @@ class ShipperController {
           picture: picture,
           hub: hub,
         });
-        console.log(shipper);
         // Save shipper
         shipper
           .save()

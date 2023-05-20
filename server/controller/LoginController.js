@@ -33,7 +33,6 @@ exports.login = (req, res, next) => {
     .then((accountData) => {
       if (accountData) {
         console.log('log in success');
-        console.log(getUserPage(accountData));
         // res.redirect(getUserPage(accountData));
       } else {
         console.log('log in fail');

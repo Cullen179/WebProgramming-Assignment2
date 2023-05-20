@@ -19,10 +19,13 @@
 // Pexels: https://www.pexels.com/
 // Canva: https://www.canva.com/
 
-const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
-const popoverList = [...popoverTriggerList].map(
-  (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
-);
+// Check if popover has already been initialized
+try {
+  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+  const popoverList = [...popoverTriggerList].map(
+    (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+  );
+} catch(err) {};
 
 const submit = document.querySelector('#submit');
 const businessName = document.querySelector('#businessname');

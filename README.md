@@ -27,16 +27,30 @@ Video demonstration: https://www.youtube.com/watch?v=-a8IxQk_ju8
 
 Existing account:
     Vendor account:
-        username:
-        password:
+        username: gearclub
+        password: Gearclub123456@
+        -------
+        username: phongcachxanh
+        password: Phongcachxanh123456@
     Customer account:
-        username:
-        password:
+        username:customeruser1  
+        password:Password@123
+        -------
+        username:customeruser2
+        password:Password@123
     Shipper account:
-        username:
-        password:
+        username:shipperuser1
+        password:Password@123
+        -------
+        username:shipperuser2
+        password:Password@123
+        -------
+        username:shipperuser3
+        password:Password@123
+        -------
 
 How to run/ start the website:
-    npm install
-    npm start
+    Running the website using terminal
+    Step 1. npm install
+    Step 2. node index.js
     

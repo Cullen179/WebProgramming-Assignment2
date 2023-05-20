@@ -57,7 +57,6 @@ function addToCart(item) {
 function removeFromCart(productID) {
     cart.includes(productID) && cart.splice(cart.indexOf(productID), cart.indexOf(productID) + 1); // Remove product from cart
     localStorage[customerData._id] = JSON.stringify(cart);
-    console.log(localStorage[customerData._id]);
     displayCart();
 };
 

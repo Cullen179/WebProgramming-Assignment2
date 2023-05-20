@@ -113,17 +113,6 @@ app.use((req, res, next) => {
 // Render views
 app.use('/', route);
 
-/**
- * -------------- ERROR HANDLING ----------------
- * Can be separated to another file
- */
-// app.use((err, req, res, next) => {
-//   if (err) {
-//     console.log(err);
-//     res.send(err);
-//   }
-// });
-
 app.listen(3000, () => {
-  console.log(`Server is running ${PORT}`);
+  console.log(`Server is running at localhost:${PORT}`);
 });
