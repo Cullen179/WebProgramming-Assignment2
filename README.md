@@ -23,7 +23,7 @@ Canva: https://www.canva.com/
 
 GitHub Repo link: https://github.com/Cullen179/WebProgramming-Assignment2
 
-Video demonstration: 
+Video demonstration: https://www.youtube.com/watch?v=-a8IxQk_ju8
 
 Existing account:
     Vendor account:
